@@ -9,7 +9,7 @@
 Download this example:
 
 ```
-curl https://codeload.github.com/ecpark-danbi/danbi-developers-ojt/tar.gz/latest | tar -xz --strip=2 danbi-developers-ojt/javascript-class
+curl https://codeload.github.com/ecpark-danbi/danbi-developers-ojt/tar.gz/latest | tar -xz --strip=1 danbi-developers-ojt-latest/javascript-class
 ```
 
 Install npm dependencies:
