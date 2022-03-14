@@ -9,13 +9,13 @@
 Download this example:
 
 ```
-curl https://codeload.github.com/ecpark-danbi/danbi-developers-ojt/tar.gz/latest | tar -xz --strip=1 danbi-developers-ojt-latest/javascript-class
+curl https://codeload.github.com/ecpark-danbi/danbi-developers-ojt/tar.gz/latest | tar -xz --strip=1 danbi-developers-ojt-latest/01-javascript-class
 ```
 
-Install npm dependencies:
+Install dependencies:
 
 ```
-cd javascript-class
+cd 01-javascript-class
 yarn
 ```
 
@@ -27,10 +27,10 @@ Clone this repository:
 git clone git@github.com:ecpark-danbi/danbi-developers-ojt.git --depth=1
 ```
 
-Install npm dependencies:
+Install dependencies:
 
 ```
-cd danbi-developers-ojt/javascript-class
+cd danbi-developers-ojt/01-javascript-class
 yarn
 ```
 

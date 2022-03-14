@@ -1,0 +1,5 @@
+{
+  "module": "es6",
+  "main": "index.js",
+  "type": "module"
+}
