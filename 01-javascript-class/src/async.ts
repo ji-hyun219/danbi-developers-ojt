@@ -1,5 +1,15 @@
-async function hello() { 
-  return "Hello" 
+function hello() {
+  return new Promise((resolve, reject) => {
+    setTimeout(async () => {
+      resolve("world")
+    }, 1000)
+  })
 };
 
-console.log(hello());
+
+async function myFunc() {
+  const result = await hello();
+  console.log(result);
+}
+
+myFunc();

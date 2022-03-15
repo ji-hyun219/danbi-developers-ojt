@@ -5,7 +5,8 @@
 
  // type Role = "Operator" | "Supporter" | "Developer";
  enum Role { operator = "Operator", supporter = "Supporter", developer = "Developer" }
- 
+
+
  class DanbiBase {
    name: string = "";
    role: Role = Role.developer;
@@ -26,8 +27,8 @@
  const eunchurn = new DanbiBase("eunchurn", 40, Role.developer);
  console.log(eunchurn)
  
- /**
-  * Class 상속, 오버라이딩
-  */
+//  /**
+//   * Class 상속, 오버라이딩
+//   */
  
  class DanbiDeveloper extends DanbiBase {}

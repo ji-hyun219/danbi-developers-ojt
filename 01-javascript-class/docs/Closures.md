@@ -152,13 +152,18 @@ for (var i = 0; i < 3; i++) {
   - 실제로 코드가 끌어올려지는 건 아니며, 자바스크립트 Parser 내부적으로 끌어올려서 처리하는 것이다.
   - 실제 메모리에서는 변화가 없다.
 - `var` 변수 vs `let/const` 변수
+- `function` 키워드 => hoist
+
+
 ```javascript
 console.log("기준점");
 var foo = "danbi1";
 let foo2 = "danbi2";
 const foo3 = "danbi3";
 ```
+
 - 호이스팅 결과: 결과에는 문제 없음.
+- 
 ```javascript
 /** --- JS Parser -- */
 var foo;

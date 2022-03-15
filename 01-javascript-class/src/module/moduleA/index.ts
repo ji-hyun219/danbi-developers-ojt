@@ -1,5 +1,1 @@
-export const variableA = "index.ts";
-
-export function hello() {
-  return variableA;
-}
+export const moduleA = "moduleA";

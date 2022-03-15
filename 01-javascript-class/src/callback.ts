@@ -1,16 +1,16 @@
 type Callback = {
-  (result: number): void;
+  (error: Error | null, result: number): void;
 }
 
 export function lazyAdd(a: number, b: number, callback: Callback) {
   setTimeout(() => {
-    callback(a + b)
+    callback(null, a + b)
   }, 1000)
 }
 
-lazyAdd(1, 2, (result) => {
-  console.log(result)
+lazyAdd(1, 2, function c(error: Error | null, result: any) {
+  console.log(result);
 })
 // or
 
-lazyAdd(1, 2, console.log)
+// lazyAdd(1, 2, console.log)
