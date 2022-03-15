@@ -1,46 +1,78 @@
-import { graphql, buildSchema } from "graphql";
+import { graphql, buildSchema, GraphQLFieldResolver } from "graphql";
 
 const schema = buildSchema(`
   type Query {
-    hello: String
     post: Post
+  }
+  type User {
+    id: Int
+    name: String
+    posts: [Post]
   }
   type Post {
     title: String
-    content: Content
-  }
-  type Content {
-    imgUrl: String
-    text: String
+    content: String
+    author: User
   }
 `);
 
-const rootResolver = {
-  hello: () => "Hello",
-  post: () => {
-    return { title: "World", ...fieldResolver };
+const resolvers = {
+  Query: {
+    post(root: any, args: any) {
+      return {
+        title: "Hello",
+        content: "This is sample content",
+        author: {
+          id: 1,
+          name: "ecpark",
+          posts: [
+            {
+              title: "World",
+              content: "This is world content",
+            },
+          ],
+        },
+      };
+    },
   },
-};
-
-const fieldResolver = {
-  content: (obj: any) => {
-    console.log(obj);
-    return { imgUrl: "imgUrl", text: "Text " };
+  User: {
+    id(root: any, args: any) {
+      return root.id;
+    },
+    name(root: any, args: any) {
+      return root.name;
+    },
+    posts(root: any, args: any) {
+      return root.posts;
+    },
+  },
+  Post: {
+    title(root: any, args: any) {
+      return root.title;
+    },
+    content(root: any, args: any) {
+      return root.content;
+    },
+    author(root: any, args: any) {
+      root.author;
+    },
   },
 };
 
 const source = `
 query {
-  hello
   post {
     title
-    content {
-      imgUrl
-    }
+    content
   }
 }
 `;
 
-graphql({ schema, source, rootValue: rootResolver })
-  .then(JSON.stringify)
+graphql({
+  schema,
+  source,
+  rootValue: resolvers.Query,
+  // typeResolver: resolvers.Post,
+})
+  // .then(JSON.stringify)
   .then(console.log);
