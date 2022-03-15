@@ -9,7 +9,7 @@
 Download this example:
 
 ```
-curl https://codeload.github.com/ecpark-danbi/danbi-developers-ojt/tar.gz/latest | tar -xz --strip=1 danbi-developers-ojt-latest/04-graphql-class
+curl https://codeload.github.com/ecpark-danbi/danbi-developers-ojt/tar.gz/latest | tar -xz --strip=1 danbi-developers-ojt-latest/05-graphql-server-class
 ```
 
 Install dependencies:
@@ -30,7 +30,7 @@ git clone git@github.com:ecpark-danbi/danbi-developers-ojt.git --depth=1
 Install dependencies:
 
 ```
-cd danbi-developers-ojt/04-graphql-class
+cd danbi-developers-ojt/05-graphql-server-class
 yarn
 ```
 
