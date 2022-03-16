@@ -1,7 +1,8 @@
 import express from "express";
 import { graphqlHTTP } from "express-graphql";
 import { buildSchema } from "graphql";
-import { makeExecutableSchema } from "graphql-tools";
+import { makeExecutableSchema } from "@graphql-tools/schema";
+// import playground from "graphql-playground-middleware-express";
 
 const app = express();
 app.use(express.json());
@@ -85,15 +86,18 @@ const resolvers = {
 
 const executeableSchema = makeExecutableSchema({ typeDefs: schema, resolvers });
 
+// app.get("/playground", playground({ endpoint: "/" }));
+
 app.use(
   "/",
-  graphqlHTTP((request, response, graphQLParams) => {
-    return {
-      schema: executeableSchema,
-      graphiql: true,
-      context: { request, response },
-    };
-  }),
+  graphqlHTTP({ schema: executeableSchema, graphiql: true }),
+  // graphqlHTTP((request, response, graphQLParams) => {
+  //   return {
+  //     schema: executeableSchema,
+  //     graphiql: true,
+  //     context: { request, response },
+  //   };
+  // }),
 );
 
 app.listen(5005, () => {
