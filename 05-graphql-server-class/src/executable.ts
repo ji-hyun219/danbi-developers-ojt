@@ -2,39 +2,44 @@ import express from "express";
 import { graphqlHTTP } from "express-graphql";
 import { buildSchema } from "graphql";
 import { makeExecutableSchema } from "@graphql-tools/schema";
+import fs from "fs";
+import path from "path";
+
+const schemaString = fs.readFileSync(path.resolve(__dirname, "schema.graphql"));
 // import playground from "graphql-playground-middleware-express";
 
 const app = express();
 app.use(express.json());
 
-const schema = buildSchema(`
-type Query {
-  posts: [Post]
-  post(id: Int): Post
-  user(id: Int): User
-}
+const typeDefs = buildSchema(schemaString.toString());
+// const typeDefs = buildSchema(`
+// type Query {
+//   posts: [Post]
+//   post(id: Int): Post
+//   user(id: Int): User
+// }
 
-type User {
-  id: Int
-  name: String
-  posts: [Post]
-}
-type Post {
-  id: Int
-  title: String
-  content: String
-  comments: [Comment]
-  authorId: Int
-  author: User
-}
-type Comment {
-  id: Int
-  content: String
-  userId: Int
-  postId: Int
-  user: User
-}
-`);
+// type User {
+//   id: Int!
+//   name: String
+//   posts: [Post]
+// }
+// type Post {
+//   id: Int!
+//   title: String
+//   content: String
+//   comments: [Comment]
+//   authorId: Int
+//   author: User
+// }
+// type Comment {
+//   id: Int!
+//   content: String
+//   userId: Int
+//   postId: Int
+//   user: User
+// }
+// `);
 
 // fake data
 const posts = [
@@ -84,18 +89,19 @@ const resolvers = {
   },
 };
 
-const executeableSchema = makeExecutableSchema({ typeDefs: schema, resolvers });
+const schema = makeExecutableSchema({ typeDefs, resolvers });
 
 // app.get("/playground", playground({ endpoint: "/" }));
 
 app.use(
+  /* It's a middleware. */
   "/",
-  graphqlHTTP({ schema: executeableSchema, graphiql: true }),
+  graphqlHTTP({ schema, graphiql: true }),
   // graphqlHTTP((request, response, graphQLParams) => {
   //   return {
   //     schema: executeableSchema,
   //     graphiql: true,
-  //     context: { request, response },
+  //     context: { request, response,  },
   //   };
   // }),
 );
