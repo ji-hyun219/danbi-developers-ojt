@@ -1,0 +1,4213 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator nexusPrisma {
+  provider = "nexus-prisma"
+}
+
+model ADFiConfig {
+  id               Int      @id @default(autoincrement())
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime
+  statIncludeToday Boolean  @default(false)
+  userId           Int?     @unique
+  User             User?    @relation(fields: [userId], references: [id])
+}
+
+model AcceptLanguage {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  code      String?
+  script    String?
+  region    String?
+  quality   Float?
+  rawUserId Int?
+  RawUser   RawUser? @relation(fields: [rawUserId], references: [id])
+
+  @@index([rawUserId], map: "rawUserId")
+}
+
+model AccessHistory {
+  id                                                              Int                      @id @default(autoincrement())
+  createdAt                                                       DateTime                 @default(now())
+  updatedAt                                                       DateTime
+  accessType                                                      AccessHistory_accessType @default(CONNECT)
+  connectUserMac                                                  String?
+  exposureUserMac                                                 String?
+  clickUserMac                                                    String?
+  playUserMac                                                     String?
+  skipUserMac                                                     String?
+  visitUserMac                                                    String?
+  luckyConnectUserMac                                             String?
+  luckyRouletteUserMac                                            String?
+  luckyDrawUserMac                                                String?
+  cashConnectUserMac                                              String?
+  storeId                                                         Int?
+  brandId                                                         Int?
+  brandGroupId                                                    Int?
+  salesmanId                                                      Int?
+  agencyId                                                        Int?
+  agencyGroupId                                                   Int?
+  advertisementId                                                 Int?
+  Advertisement                                                   Advertisement?           @relation(fields: [advertisementId], references: [id])
+  AgencyGroup                                                     AgencyGroup?             @relation(fields: [agencyGroupId], references: [id])
+  Agency                                                          Agency?                  @relation(fields: [agencyId], references: [id])
+  BrandGroup                                                      BrandGroup?              @relation(fields: [brandGroupId], references: [id])
+  Brand                                                           Brand?                   @relation(fields: [brandId], references: [id])
+  UniqueRawUser_AccessHistory_cashConnectUserMacToUniqueRawUser   UniqueRawUser?           @relation("AccessHistory_cashConnectUserMacToUniqueRawUser", fields: [cashConnectUserMac], references: [userMac])
+  UniqueRawUser_AccessHistory_clickUserMacToUniqueRawUser         UniqueRawUser?           @relation("AccessHistory_clickUserMacToUniqueRawUser", fields: [clickUserMac], references: [userMac])
+  UniqueRawUser_AccessHistory_connectUserMacToUniqueRawUser       UniqueRawUser?           @relation("AccessHistory_connectUserMacToUniqueRawUser", fields: [connectUserMac], references: [userMac])
+  UniqueRawUser_AccessHistory_exposureUserMacToUniqueRawUser      UniqueRawUser?           @relation("AccessHistory_exposureUserMacToUniqueRawUser", fields: [exposureUserMac], references: [userMac])
+  UniqueRawUser_AccessHistory_luckyConnectUserMacToUniqueRawUser  UniqueRawUser?           @relation("AccessHistory_luckyConnectUserMacToUniqueRawUser", fields: [luckyConnectUserMac], references: [userMac])
+  UniqueRawUser_AccessHistory_luckyDrawUserMacToUniqueRawUser     UniqueRawUser?           @relation("AccessHistory_luckyDrawUserMacToUniqueRawUser", fields: [luckyDrawUserMac], references: [userMac])
+  UniqueRawUser_AccessHistory_luckyRouletteUserMacToUniqueRawUser UniqueRawUser?           @relation("AccessHistory_luckyRouletteUserMacToUniqueRawUser", fields: [luckyRouletteUserMac], references: [userMac])
+  UniqueRawUser_AccessHistory_playUserMacToUniqueRawUser          UniqueRawUser?           @relation("AccessHistory_playUserMacToUniqueRawUser", fields: [playUserMac], references: [userMac])
+  Salesman                                                        Salesman?                @relation(fields: [salesmanId], references: [id])
+  UniqueRawUser_AccessHistory_skipUserMacToUniqueRawUser          UniqueRawUser?           @relation("AccessHistory_skipUserMacToUniqueRawUser", fields: [skipUserMac], references: [userMac])
+  Store                                                           Store?                   @relation(fields: [storeId], references: [id])
+  UniqueRawUser_AccessHistory_visitUserMacToUniqueRawUser         UniqueRawUser?           @relation("AccessHistory_visitUserMacToUniqueRawUser", fields: [visitUserMac], references: [userMac])
+
+  @@index([advertisementId], map: "AccessHistory_advertisementId_fkey")
+  @@index([agencyGroupId], map: "AccessHistory_agencyGroupId_fkey")
+  @@index([agencyId], map: "AccessHistory_agencyId_fkey")
+  @@index([brandGroupId], map: "AccessHistory_brandGroupId_fkey")
+  @@index([brandId], map: "AccessHistory_brandId_fkey")
+  @@index([cashConnectUserMac], map: "AccessHistory_cashConnectUserMac_fkey")
+  @@index([clickUserMac], map: "AccessHistory_clickUserMac_fkey")
+  @@index([connectUserMac], map: "AccessHistory_connectUserMac_fkey")
+  @@index([exposureUserMac], map: "AccessHistory_exposureUserMac_fkey")
+  @@index([luckyConnectUserMac], map: "AccessHistory_luckyConnectUserMac_fkey")
+  @@index([luckyDrawUserMac], map: "AccessHistory_luckyDrawUserMac_fkey")
+  @@index([luckyRouletteUserMac], map: "AccessHistory_luckyRouletteUserMac_fkey")
+  @@index([playUserMac], map: "AccessHistory_playUserMac_fkey")
+  @@index([salesmanId], map: "AccessHistory_salesmanId_fkey")
+  @@index([skipUserMac], map: "AccessHistory_skipUserMac_fkey")
+  @@index([storeId], map: "AccessHistory_storeId_fkey")
+  @@index([visitUserMac], map: "AccessHistory_visitUserMac_fkey")
+}
+
+model AccessLogs {
+  id        Int       @id @default(autoincrement())
+  userId    Int?
+  createdAt DateTime? @default(now()) @db.Timestamp(0)
+
+  @@index([userId], map: "AccessLogs_fk")
+}
+
+model AdCategory {
+  id                Int              @id @default(autoincrement())
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime
+  type              AdCategory_type  @default(AD_GENERAL)
+  advertisementId   Int?             @unique
+  subCategoryId     Int
+  adChangeHistoryId Int?             @unique
+  AdChangeHistory   AdChangeHistory? @relation(fields: [adChangeHistoryId], references: [id])
+  Advertisement     Advertisement?   @relation(fields: [advertisementId], references: [id])
+  SubCategory       SubCategory      @relation(fields: [subCategoryId], references: [id])
+
+  @@index([subCategoryId], map: "subCategoryId")
+}
+
+model AdCategoryList {
+  id           Int            @id @default(autoincrement())
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime
+  MainCategory MainCategory[]
+}
+
+model AdChangeHistory {
+  id                   Int                              @id @default(autoincrement())
+  createdAt            DateTime                         @default(now())
+  updatedAt            DateTime
+  type                 AdChangeHistory_type             @default(AD_IMAGE)
+  state                AdChangeHistory_state            @default(AD_STATE_ACTIVE)
+  approvedState        AdChangeHistory_approvedState    @default(AD_UNAPPROVED)
+  danbiAdState         AdChangeHistory_danbiAdState     @default(DANBI_AD)
+  managerName          String
+  managerPhoneNo       String                           @default("")
+  adName               String
+  isContinuous         AdChangeHistory_isContinuous     @default(N)
+  startDate            DateTime
+  endDate              DateTime?
+  purpose              AdChangeHistory_purpose          @default(AD_CONNECTING_WEBSITE)
+  amountPerClick       Int                              @default(0)
+  ratioPerSkip         Float                            @default(0)
+  amountPerDay         Int
+  executedAmount       Int                              @default(0)
+  cardId               Int
+  androidLandingOptSec Int?
+  advertisementId      Int
+  aspectRatioType      AdChangeHistory_aspectRatioType?
+  paymentEmail         String                           @default("")
+  Advertisement        Advertisement                    @relation(fields: [advertisementId], references: [id])
+  Card                 Card                             @relation(fields: [cardId], references: [id])
+  AdCategory           AdCategory?
+  AdContent            AdContent[]
+  AdRegistrationData   AdRegistrationData[]
+  AdRejectedStatement  AdRejectedStatement?
+  AdTarget             AdTarget?
+  Locale               Locale[]
+
+  @@index([advertisementId], map: "AdChangeHistory_advertisementId_fkey")
+  @@index([cardId], map: "AdChangeHistory_cardId_fkey")
+}
+
+model AdContent {
+  id                    Int                  @id @default(autoincrement())
+  createdAt             DateTime             @default(now())
+  updatedAt             DateTime
+  localeId              Int?
+  userAgent             AdContent_userAgent
+  title                 String?
+  logoUrl               String?
+  logoName              String?
+  advertisementId       Int?
+  normalAdvertisementId Int?
+  fileSize              Float                @default(0)
+  adChangeHistoryId     Int?
+  logoFileSize          Float?
+  AdChangeHistory       AdChangeHistory?     @relation(fields: [adChangeHistoryId], references: [id])
+  Advertisement         Advertisement?       @relation(fields: [advertisementId], references: [id])
+  Locale                Locale?              @relation(fields: [localeId], references: [id])
+  NormalAdvertisement   NormalAdvertisement? @relation(fields: [normalAdvertisementId], references: [id])
+  ContentUrl            ContentUrl?
+  ThumbnailContent      ThumbnailContent?
+
+  @@index([adChangeHistoryId], map: "AdContent_adChangeHistoryId_fkey")
+  @@index([advertisementId], map: "advertisementId")
+  @@index([localeId], map: "localeId")
+  @@index([normalAdvertisementId], map: "normalAdvertisementId")
+}
+
+model AdDailyStat {
+  id                                                    Int                      @id @default(autoincrement())
+  createdAt                                             DateTime                 @default(now())
+  updatedAt                                             DateTime
+  scheduledAt                                           DateTime
+  adStatisticById                                       Int?                     @unique
+  adMainCategoryStatisticById                           Int?                     @unique
+  AdMainCategoryStatistic                               AdMainCategoryStatistic? @relation(fields: [adMainCategoryStatisticById], references: [id])
+  AdStatistic                                           AdStatistic?             @relation(fields: [adStatisticById], references: [id])
+  AdStatData_AdDailyStatToAdStatData_adDailyAvgStatById AdStatData?              @relation("AdDailyStatToAdStatData_adDailyAvgStatById")
+  AdStatData_AdDailyStatToAdStatData_adDailyStatById    AdStatData?              @relation("AdDailyStatToAdStatData_adDailyStatById")
+}
+
+model AdHourStat {
+  id                                                  Int                      @id @default(autoincrement())
+  createdAt                                           DateTime                 @default(now())
+  updatedAt                                           DateTime
+  scheduledAt                                         DateTime
+  adStatisticById                                     Int?                     @unique
+  adMainCategoryStatisticById                         Int?                     @unique
+  AdMainCategoryStatistic                             AdMainCategoryStatistic? @relation(fields: [adMainCategoryStatisticById], references: [id])
+  AdStatistic                                         AdStatistic?             @relation(fields: [adStatisticById], references: [id])
+  AdStatData_AdHourStatToAdStatData_adHourAvgStatById AdStatData?              @relation("AdHourStatToAdStatData_adHourAvgStatById")
+  AdStatData_AdHourStatToAdStatData_adHourStatById    AdStatData?              @relation("AdHourStatToAdStatData_adHourStatById")
+}
+
+model AdLifeTimeStat {
+  id                                                          Int                      @id @default(autoincrement())
+  createdAt                                                   DateTime                 @default(now())
+  updatedAt                                                   DateTime
+  scheduledAt                                                 DateTime
+  adStatisticById                                             Int?                     @unique
+  adMainCategoryStatisticById                                 Int?                     @unique
+  AdMainCategoryStatistic                                     AdMainCategoryStatistic? @relation(fields: [adMainCategoryStatisticById], references: [id])
+  AdStatistic                                                 AdStatistic?             @relation(fields: [adStatisticById], references: [id])
+  AdStatData_AdLifeTimeStatToAdStatData_adLifeTimeAvgStatById AdStatData?              @relation("AdLifeTimeStatToAdStatData_adLifeTimeAvgStatById")
+  AdStatData_AdLifeTimeStatToAdStatData_adLifeTimeStatById    AdStatData?              @relation("AdLifeTimeStatToAdStatData_adLifeTimeStatById")
+}
+
+model AdMainCategoryStatistic {
+  id                Int             @id @default(autoincrement())
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime
+  advertisementById Int?
+  Advertisement     Advertisement?  @relation(fields: [advertisementById], references: [id])
+  AdDailyStat       AdDailyStat?
+  AdHourStat        AdHourStat?
+  AdLifeTimeStat    AdLifeTimeStat?
+  AdMonthlyStat     AdMonthlyStat?
+  AdWeeklyStat      AdWeeklyStat?
+  AdYearlyStat      AdYearlyStat?
+
+  @@index([advertisementById], map: "advertisementById")
+}
+
+model AdMonthlyStat {
+  id                                                        Int                      @id @default(autoincrement())
+  createdAt                                                 DateTime                 @default(now())
+  updatedAt                                                 DateTime
+  scheduledAt                                               DateTime
+  calculationId                                             Int?
+  adStatisticById                                           Int?                     @unique
+  adMainCategoryStatisticById                               Int?                     @unique
+  AdMainCategoryStatistic                                   AdMainCategoryStatistic? @relation(fields: [adMainCategoryStatisticById], references: [id])
+  AdStatistic                                               AdStatistic?             @relation(fields: [adStatisticById], references: [id])
+  Calculation                                               Calculation?             @relation(fields: [calculationId], references: [id])
+  AdStatData_AdMonthlyStatToAdStatData_adMonthlyAvgStatById AdStatData?              @relation("AdMonthlyStatToAdStatData_adMonthlyAvgStatById")
+  AdStatData_AdMonthlyStatToAdStatData_adMonthlyStatById    AdStatData?              @relation("AdMonthlyStatToAdStatData_adMonthlyStatById")
+
+  @@index([calculationId], map: "calculationId")
+}
+
+model AdRawUser {
+  id                    Int           @id @default(autoincrement())
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime
+  charge                Int?
+  storeCommission       Float         @default(0)
+  brandCommission       Float         @default(0)
+  brandGroupCommission  Float         @default(0)
+  danbiCommission       Float         @default(1)
+  salesmanCommission    Float         @default(0)
+  agencyCommission      Float         @default(0)
+  agencyGroupCommission Float         @default(0)
+  danbiCharge           Float         @default(0)
+  brandGroupCharge      Float         @default(0)
+  brandCharge           Float         @default(0)
+  storeCharge           Float         @default(0)
+  salesmanCharge        Float         @default(0)
+  agencyCharge          Float         @default(0)
+  agencyGroupCharge     Float         @default(0)
+  uniqueUserById        String?
+  rawUserById           Int           @unique
+  storeId               Int?
+  advertisementId       Int
+  brandGroupId          Int?
+  brandId               Int?
+  agencyGroupId         Int?
+  agencyId              Int?
+  salesmanId            Int?
+  Advertisement         Advertisement @relation(fields: [advertisementId], references: [id])
+  AgencyGroup           AgencyGroup?  @relation(fields: [agencyGroupId], references: [id])
+  Agency                Agency?       @relation(fields: [agencyId], references: [id])
+  BrandGroup            BrandGroup?   @relation(fields: [brandGroupId], references: [id])
+  Brand                 Brand?        @relation(fields: [brandId], references: [id])
+  RawUser               RawUser       @relation(fields: [rawUserById], references: [id])
+  Salesman              Salesman?     @relation(fields: [salesmanId], references: [id])
+  Store                 Store?        @relation(fields: [storeId], references: [id])
+  AdUser                AdUser?       @relation(fields: [uniqueUserById], references: [id])
+
+  @@index([agencyGroupId], map: "AdRawUser_agencyGroupId_fkey")
+  @@index([agencyId], map: "AdRawUser_agencyId_fkey")
+  @@index([salesmanId], map: "AdRawUser_salesmanId_fkey")
+  @@index([advertisementId], map: "advertisementId")
+  @@index([brandGroupId], map: "brandGroupId")
+  @@index([brandId], map: "brandId")
+  @@index([storeId], map: "storeId")
+  @@index([uniqueUserById], map: "uniqueUserById")
+}
+
+model AdRegistrationData {
+  id                Int                          @id @default(autoincrement())
+  createdAt         DateTime                     @default(now())
+  updatedAt         DateTime
+  userAgent         AdRegistrationData_userAgent @default(AGENT_PC)
+  landingUrl        String
+  advertisementId   Int?
+  adChangeHistoryId Int?
+  AdChangeHistory   AdChangeHistory?             @relation(fields: [adChangeHistoryId], references: [id])
+  Advertisement     Advertisement?               @relation(fields: [advertisementId], references: [id])
+
+  @@index([adChangeHistoryId], map: "AdRegistrationData_adChangeHistoryId_fkey")
+  @@index([advertisementId], map: "advertisementId")
+}
+
+model AdRejectedContents {
+  id                    Int                  @id @default(autoincrement())
+  createdAt             DateTime             @default(now())
+  updatedAt             DateTime
+  step                  Int
+  contents              String               @db.VarChar(8000)
+  adRejectedStatementId Int?
+  AdRejectedStatement   AdRejectedStatement? @relation(fields: [adRejectedStatementId], references: [id])
+
+  @@index([adRejectedStatementId], map: "adRejectedStatementId")
+}
+
+model AdRejectedStatement {
+  id                 Int                                @id @default(autoincrement())
+  createdAt          DateTime                           @default(now())
+  updatedAt          DateTime
+  adUpdatedAt        DateTime                           @default(now())
+  adUpdatedState     AdRejectedStatement_adUpdatedState @default(N)
+  state              AdRejectedStatement_state          @default(N)
+  advertisementId    Int?
+  adChangeHistoryId  Int?                               @unique
+  AdChangeHistory    AdChangeHistory?                   @relation(fields: [adChangeHistoryId], references: [id])
+  Advertisement      Advertisement?                     @relation(fields: [advertisementId], references: [id])
+  AdRejectedContents AdRejectedContents[]
+
+  @@index([advertisementId], map: "advertisementId")
+}
+
+model AdStatData {
+  id                                                              Int             @id @default(autoincrement())
+  createdAt                                                       DateTime        @default(now())
+  updatedAt                                                       DateTime
+  scheduledAt                                                     DateTime?       @default(now())
+  connectCount                                                    Int             @default(0)
+  videoPlayCount                                                  Int             @default(0)
+  clickCount                                                      Int             @default(0)
+  exposureCount                                                   Int             @default(0)
+  skipCount                                                       Int             @default(0)
+  visitCount                                                      Int             @default(0)
+  charge                                                          Float           @default(0)
+  storeCharge                                                     Float           @default(0)
+  brandCharge                                                     Float           @default(0)
+  brandGroupCharge                                                Float           @default(0)
+  danbiCharge                                                     Float           @default(0)
+  revenue                                                         Float           @default(0)
+  pureRevenue                                                     Float           @default(0)
+  executedAmount                                                  Int             @default(0)
+  pureConnectCount                                                Int             @default(0)
+  pureExposureCount                                               Int             @default(0)
+  pureClickCount                                                  Int             @default(0)
+  pureVideoPlayCount                                              Int             @default(0)
+  reConnectUserCount                                              Int             @default(0)
+  reVisitUserCount                                                Int             @default(0)
+  adHourStatById                                                  Int?            @unique
+  adHourAvgStatById                                               Int?            @unique
+  adDailyStatById                                                 Int?            @unique
+  adDailyAvgStatById                                              Int?            @unique
+  adWeeklyStatById                                                Int?            @unique
+  adWeeklyAvgStatById                                             Int?            @unique
+  adMonthlyStatById                                               Int?            @unique
+  adMonthlyAvgStatById                                            Int?            @unique
+  adYearlyStatById                                                Int?            @unique
+  adYearlyAvgStatById                                             Int?            @unique
+  adLifeTimeStatById                                              Int?            @unique
+  adLifeTimeAvgStatById                                           Int?            @unique
+  AdDailyStat_AdDailyStatToAdStatData_adDailyAvgStatById          AdDailyStat?    @relation("AdDailyStatToAdStatData_adDailyAvgStatById", fields: [adDailyAvgStatById], references: [id])
+  AdDailyStat_AdDailyStatToAdStatData_adDailyStatById             AdDailyStat?    @relation("AdDailyStatToAdStatData_adDailyStatById", fields: [adDailyStatById], references: [id])
+  AdHourStat_AdHourStatToAdStatData_adHourAvgStatById             AdHourStat?     @relation("AdHourStatToAdStatData_adHourAvgStatById", fields: [adHourAvgStatById], references: [id])
+  AdHourStat_AdHourStatToAdStatData_adHourStatById                AdHourStat?     @relation("AdHourStatToAdStatData_adHourStatById", fields: [adHourStatById], references: [id])
+  AdLifeTimeStat_AdLifeTimeStatToAdStatData_adLifeTimeAvgStatById AdLifeTimeStat? @relation("AdLifeTimeStatToAdStatData_adLifeTimeAvgStatById", fields: [adLifeTimeAvgStatById], references: [id])
+  AdLifeTimeStat_AdLifeTimeStatToAdStatData_adLifeTimeStatById    AdLifeTimeStat? @relation("AdLifeTimeStatToAdStatData_adLifeTimeStatById", fields: [adLifeTimeStatById], references: [id])
+  AdMonthlyStat_AdMonthlyStatToAdStatData_adMonthlyAvgStatById    AdMonthlyStat?  @relation("AdMonthlyStatToAdStatData_adMonthlyAvgStatById", fields: [adMonthlyAvgStatById], references: [id])
+  AdMonthlyStat_AdMonthlyStatToAdStatData_adMonthlyStatById       AdMonthlyStat?  @relation("AdMonthlyStatToAdStatData_adMonthlyStatById", fields: [adMonthlyStatById], references: [id])
+  AdWeeklyStat_AdStatData_adWeeklyAvgStatByIdToAdWeeklyStat       AdWeeklyStat?   @relation("AdStatData_adWeeklyAvgStatByIdToAdWeeklyStat", fields: [adWeeklyAvgStatById], references: [id])
+  AdWeeklyStat_AdStatData_adWeeklyStatByIdToAdWeeklyStat          AdWeeklyStat?   @relation("AdStatData_adWeeklyStatByIdToAdWeeklyStat", fields: [adWeeklyStatById], references: [id])
+  AdYearlyStat_AdStatData_adYearlyAvgStatByIdToAdYearlyStat       AdYearlyStat?   @relation("AdStatData_adYearlyAvgStatByIdToAdYearlyStat", fields: [adYearlyAvgStatById], references: [id])
+  AdYearlyStat_AdStatData_adYearlyStatByIdToAdYearlyStat          AdYearlyStat?   @relation("AdStatData_adYearlyStatByIdToAdYearlyStat", fields: [adYearlyStatById], references: [id])
+  AgeCount                                                        AgeCount[]
+  GenderCount                                                     GenderCount?
+  LangCount                                                       LangCount?
+  OsCount                                                         OsCount?
+}
+
+model AdStatistic {
+  id              Int             @id @default(autoincrement())
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime
+  storeById       Int?
+  brandById       Int?
+  brandGroupById  Int?
+  advertisementId Int?
+  Advertisement   Advertisement?  @relation(fields: [advertisementId], references: [id])
+  Brand           Brand?          @relation(fields: [brandById], references: [id])
+  BrandGroup      BrandGroup?     @relation(fields: [brandGroupById], references: [id])
+  Store           Store?          @relation(fields: [storeById], references: [id])
+  AdDailyStat     AdDailyStat?
+  AdHourStat      AdHourStat?
+  AdLifeTimeStat  AdLifeTimeStat?
+  AdMonthlyStat   AdMonthlyStat?
+  AdWeeklyStat    AdWeeklyStat?
+  AdYearlyStat    AdYearlyStat?
+
+  @@index([advertisementId], map: "advertisementId")
+  @@index([brandById], map: "brandById")
+  @@index([brandGroupById], map: "brandGroupById")
+  @@index([storeById], map: "storeById")
+}
+
+model AdStoreImg {
+  id         Int                  @id @default(autoincrement())
+  createdAt  DateTime             @default(now())
+  updatedAt  DateTime
+  userAgent  AdStoreImg_userAgent
+  storeId    Int?
+  localeId   Int                  @default(1)
+  Locale     Locale               @relation(fields: [localeId], references: [id])
+  Store      Store?               @relation(fields: [storeId], references: [id])
+  ContentUrl ContentUrl?
+
+  @@index([localeId], map: "localeId")
+  @@index([storeId], map: "storeId")
+}
+
+model AdTarget {
+  id                Int                     @id @default(autoincrement())
+  createdAt         DateTime                @default(now())
+  updatedAt         DateTime
+  advertisementById Int?                    @unique
+  everytime         AdTarget_everytime      @default(Y)
+  everywhere        AdTarget_everywhere     @default(Y)
+  except            Boolean                 @default(true)
+  everyCategory     AdTarget_everyCategory  @default(Y)
+  franchiseState    AdTarget_franchiseState @default(N)
+  everyFranchise    AdTarget_everyFranchise @default(Y)
+  adChangeHistoryId Int?                    @unique
+  AdChangeHistory   AdChangeHistory?        @relation(fields: [adChangeHistoryId], references: [id])
+  Advertisement     Advertisement?          @relation(fields: [advertisementById], references: [id])
+  AdTargetCategory  AdTargetCategory[]
+  AdTargetRegion    AdTargetRegion[]
+  AdTargetTime      AdTargetTime[]
+  AgeGroup          AgeGroup[]
+  Brand             Brand[]
+  Gender            Gender[]
+}
+
+model AdTargetCategory {
+  id             Int                    @id @default(autoincrement())
+  createdAt      DateTime               @default(now())
+  updatedAt      DateTime
+  every          AdTargetCategory_every
+  adTargetId     Int?
+  mainCategoryId Int
+  AdTarget       AdTarget?              @relation(fields: [adTargetId], references: [id])
+  MainCategory   MainCategory           @relation(fields: [mainCategoryId], references: [id])
+  SubCategory    SubCategory[]
+
+  @@index([adTargetId], map: "adTargetId")
+  @@index([mainCategoryId], map: "mainCategoryId")
+}
+
+model AdTargetRegion {
+  id         Int                  @id @default(autoincrement())
+  createdAt  DateTime             @default(now())
+  updatedAt  DateTime
+  every      AdTargetRegion_every
+  sidoId     Int
+  adTargetId Int
+  AdTarget   AdTarget             @relation(fields: [adTargetId], references: [id])
+  Sido       Sido                 @relation(fields: [sidoId], references: [id])
+  Sigungu    Sigungu[]
+
+  @@index([adTargetId], map: "adTargetId")
+  @@index([sidoId], map: "sidoId")
+}
+
+model AdTargetTime {
+  id         Int                @id @default(autoincrement())
+  createdAt  DateTime           @default(now())
+  updatedAt  DateTime
+  weekDayId  Int
+  every      AdTargetTime_every
+  adTargetId Int?
+  AdTarget   AdTarget?          @relation(fields: [adTargetId], references: [id])
+  WeekDay    WeekDay            @relation(fields: [weekDayId], references: [id])
+  TargetTime TargetTime[]
+
+  @@index([adTargetId], map: "adTargetId")
+  @@index([weekDayId], map: "weekDayId")
+}
+
+model AdUser {
+  id             String      @id
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime
+  disconnectedAt DateTime?
+  name           String
+  phone          String
+  email          String
+  password       String
+  os             String
+  birthDate      DateTime
+  lang           String
+  facebookToken  String?
+  storeById      Int
+  Store          Store       @relation(fields: [storeById], references: [id])
+  AdRawUser      AdRawUser[]
+  Gender         Gender?
+
+  @@index([storeById], map: "storeById")
+}
+
+model AdWeeklyStat {
+  id                                                      Int                      @id @default(autoincrement())
+  createdAt                                               DateTime                 @default(now())
+  updatedAt                                               DateTime
+  scheduledAt                                             DateTime
+  adStatisticById                                         Int?                     @unique
+  adMainCategoryStatisticById                             Int?                     @unique
+  AdMainCategoryStatistic                                 AdMainCategoryStatistic? @relation(fields: [adMainCategoryStatisticById], references: [id])
+  AdStatistic                                             AdStatistic?             @relation(fields: [adStatisticById], references: [id])
+  AdStatData_AdStatData_adWeeklyAvgStatByIdToAdWeeklyStat AdStatData?              @relation("AdStatData_adWeeklyAvgStatByIdToAdWeeklyStat")
+  AdStatData_AdStatData_adWeeklyStatByIdToAdWeeklyStat    AdStatData?              @relation("AdStatData_adWeeklyStatByIdToAdWeeklyStat")
+}
+
+model AdYearlyStat {
+  id                                                      Int                      @id @default(autoincrement())
+  createdAt                                               DateTime                 @default(now())
+  updatedAt                                               DateTime
+  scheduledAt                                             DateTime
+  adStatisticById                                         Int?                     @unique
+  adMainCategoryStatisticById                             Int?                     @unique
+  AdMainCategoryStatistic                                 AdMainCategoryStatistic? @relation(fields: [adMainCategoryStatisticById], references: [id])
+  AdStatistic                                             AdStatistic?             @relation(fields: [adStatisticById], references: [id])
+  AdStatData_AdStatData_adYearlyAvgStatByIdToAdYearlyStat AdStatData?              @relation("AdStatData_adYearlyAvgStatByIdToAdYearlyStat")
+  AdStatData_AdStatData_adYearlyStatByIdToAdYearlyStat    AdStatData?              @relation("AdStatData_adYearlyStatByIdToAdYearlyStat")
+}
+
+model Address {
+  id                                                           Int                @id @default(autoincrement())
+  createdAt                                                    DateTime           @default(now())
+  updatedAt                                                    DateTime
+  roadAddr                                                     String
+  roadAddrPart1                                                String
+  roadAddrPart2                                                String
+  jibunAddr                                                    String
+  engAddr                                                      String
+  zipNo                                                        String
+  admCd                                                        String
+  rnMgtSn                                                      String
+  bdMgtSn                                                      String
+  detBdNmList                                                  String             @default("") @db.VarChar(2000)
+  bdNm                                                         String
+  bdKdcd                                                       String
+  siNm                                                         String
+  sggNm                                                        String
+  emdNm                                                        String
+  liNm                                                         String
+  rn                                                           String
+  udrtYn                                                       String
+  buldMnnm                                                     String
+  buldSlno                                                     String
+  mtYn                                                         String
+  lnbrMnnm                                                     String
+  lnbrSlno                                                     String
+  emdNo                                                        String
+  Advertiser                                                   Advertiser?
+  Agency                                                       Agency[]
+  AgencyGroup                                                  AgencyGroup[]
+  Brand                                                        Brand?
+  CovidSignedStore_AddressToCovidSignedStore_addressId         CovidSignedStore[] @relation("AddressToCovidSignedStore_addressId")
+  CovidSignedStore_AddressToCovidSignedStore_deliveryAddressId CovidSignedStore[] @relation("AddressToCovidSignedStore_deliveryAddressId")
+  LuckyUser                                                    LuckyUser[]
+  Store                                                        Store?
+}
+
+model Admin {
+  id           Int            @id @default(autoincrement())
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime
+  type         Admin_type
+  Notification Notification[]
+  Popup        Popup[]
+}
+
+model AdminNotifications {
+  id        Int                      @id @default(autoincrement())
+  type      AdminNotifications_type?
+  contents  String?                  @db.VarChar(200)
+  read      Boolean?                 @default(false)
+  createdAt DateTime?                @default(now()) @db.Timestamp(0)
+}
+
+model Administrators {
+  id                Int                 @id @default(autoincrement())
+  username          String              @unique @db.VarChar(20)
+  enabled           Boolean             @default(true)
+  password          String              @db.VarChar(100)
+  salt              String              @db.VarChar(100)
+  phone             String?             @db.VarChar(20)
+  email             String?             @db.VarChar(30)
+  role              Administrators_role
+  createdAt         DateTime            @default(now()) @db.Timestamp(0)
+  updatedAt         DateTime            @default(now()) @db.Timestamp(0)
+  CashAdvertisement CashAdvertisement[]
+  FaqsTypes         FaqsTypes[]
+  Gifticons         Gifticons[]
+  Points            Points[]
+  Products          Products[]
+  Store             Store[]
+  StoresLogs        StoresLogs[]
+}
+
+model Advertisement {
+  id                      Int                            @id @default(autoincrement())
+  createdAt               DateTime                       @default(now())
+  updatedAt               DateTime
+  type                    Advertisement_type             @default(AD_IMAGE)
+  state                   Advertisement_state            @default(AD_STATE_ACTIVE)
+  approvedState           Advertisement_approvedState    @default(AD_UNAPPROVED)
+  danbiAdState            Advertisement_danbiAdState     @default(DANBI_AD)
+  managerName             String
+  managerPhoneNo          String                         @default("")
+  adName                  String
+  isContinuous            Advertisement_isContinuous     @default(N)
+  startDate               DateTime
+  endDate                 DateTime?
+  purpose                 Advertisement_purpose          @default(AD_CONNECTING_WEBSITE)
+  amountPerClick          Int                            @default(0)
+  ratioPerSkip            Float                          @default(0)
+  amountPerDay            Int
+  executedAmount          Int                            @default(0)
+  cardId                  Int
+  advertiserId            Int
+  androidLandingOptSec    Int?                           @default(30)
+  aspectRatioType         Advertisement_aspectRatioType?
+  paymentEmail            String                         @default("")
+  cashPoint               Int                            @default(5)
+  Advertiser              Advertiser                     @relation(fields: [advertiserId], references: [id])
+  Card                    Card                           @relation(fields: [cardId], references: [id])
+  AccessHistory           AccessHistory[]
+  AdCategory              AdCategory?
+  AdChangeHistory         AdChangeHistory[]
+  AdContent               AdContent[]
+  AdMainCategoryStatistic AdMainCategoryStatistic[]
+  AdRawUser               AdRawUser[]
+  AdRegistrationData      AdRegistrationData[]
+  AdRejectedStatement     AdRejectedStatement[]
+  AdStatistic             AdStatistic[]
+  AdTarget                AdTarget?
+  Alarm                   Alarm[]
+  DailyStat               DailyStat[]
+  Memo                    Memo[]
+  RawUser                 RawUser[]
+  TodayStat               TodayStat?
+  TransactionList         TransactionList[]
+  Locale                  Locale[]
+  Store                   Store[]
+
+  @@index([advertiserId], map: "advertiserId")
+  @@index([cardId], map: "cardId")
+}
+
+model AdvertisementCPCConfig {
+  id                 Int      @id @default(autoincrement())
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime
+  imageTarget        Int      @default(40)
+  videoTarget        Int      @default(60)
+  genderTarget       Int      @default(20)
+  ageTarget          Int      @default(20)
+  timeTarget         Int      @default(20)
+  sidoTarget         Int      @default(20)
+  sigunguTarget      Int      @default(30)
+  brandTarget        Int      @default(20)
+  mainCategoryTarget Int      @default(20)
+  subCateogryTarget  Int      @default(30)
+  expiryTime         Int      @default(10)
+}
+
+model Advertiser {
+  id                                                           Int               @id @default(autoincrement())
+  createdAt                                                    DateTime          @default(now())
+  updatedAt                                                    DateTime
+  name                                                         String
+  ceoName                                                      String
+  phoneNo                                                      String
+  accountNo                                                    String?
+  accountNoImgId                                               Int?
+  companyRegistrationNo                                        String?
+  companyRegistrationNoImgId                                   Int?
+  addressId                                                    Int?              @unique
+  primaryCardId                                                Int
+  customerUid                                                  String            @unique
+  localeId                                                     Int               @default(1)
+  ContentUrl_Advertiser_accountNoImgIdToContentUrl             ContentUrl?       @relation("Advertiser_accountNoImgIdToContentUrl", fields: [accountNoImgId], references: [id])
+  Address                                                      Address?          @relation(fields: [addressId], references: [id])
+  ContentUrl_Advertiser_companyRegistrationNoImgIdToContentUrl ContentUrl?       @relation("Advertiser_companyRegistrationNoImgIdToContentUrl", fields: [companyRegistrationNoImgId], references: [id])
+  Locale                                                       Locale            @relation(fields: [localeId], references: [id])
+  Advertisement                                                Advertisement[]
+  Card                                                         Card[]
+  TransactionList                                              TransactionList[]
+  User                                                         User[]
+
+  @@index([accountNoImgId], map: "accountNoImgId")
+  @@index([companyRegistrationNoImgId], map: "companyRegistrationNoImgId")
+  @@index([localeId], map: "localeId")
+}
+
+model AgeCount {
+  id             Int        @id @default(autoincrement())
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime
+  adStatDataById Int
+  AdStatData     AdStatData @relation(fields: [adStatDataById], references: [id])
+  AgeGroup       AgeGroup[]
+  Gender         Gender?
+
+  @@index([adStatDataById], map: "adStatDataById")
+}
+
+model AgeGroup {
+  id         Int        @id @default(autoincrement())
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime
+  ageRange   String
+  count      Int?
+  ageCountId Int?
+  AgeCount   AgeCount?  @relation(fields: [ageCountId], references: [id])
+  AdTarget   AdTarget[]
+
+  @@index([ageCountId], map: "ageCountId")
+}
+
+model Agency {
+  id                                                       Int                   @id @default(autoincrement())
+  createdAt                                                DateTime              @default(now())
+  updatedAt                                                DateTime
+  name                                                     String
+  companyRegistrationNo                                    String
+  companyRegistrationNoImgId                               Int
+  accountNo                                                String
+  accountNoImgId                                           Int
+  bankId                                                   Int?
+  addressId                                                Int
+  detailAddress                                            String                @default("")
+  agencyGroupId                                            Int?
+  localeId                                                 Int                   @default(1)
+  phone                                                    String                @default("")
+  state                                                    Agency_state          @default(SERVICEON)
+  commissionUpdatedAt                                      DateTime              @default(now())
+  ContentUrl_Agency_accountNoImgIdToContentUrl             ContentUrl            @relation("Agency_accountNoImgIdToContentUrl", fields: [accountNoImgId], references: [id])
+  Address                                                  Address               @relation(fields: [addressId], references: [id])
+  AgencyGroup                                              AgencyGroup?          @relation(fields: [agencyGroupId], references: [id])
+  Bank                                                     Bank?                 @relation(fields: [bankId], references: [id])
+  ContentUrl_Agency_companyRegistrationNoImgIdToContentUrl ContentUrl            @relation("Agency_companyRegistrationNoImgIdToContentUrl", fields: [companyRegistrationNoImgId], references: [id])
+  Locale                                                   Locale                @relation(fields: [localeId], references: [id])
+  AccessHistory                                            AccessHistory[]
+  AdRawUser                                                AdRawUser[]
+  Commission_AgencyToCommission_agencyByAgencyGroupId      Commission[]          @relation("AgencyToCommission_agencyByAgencyGroupId")
+  Commission_AgencyToCommission_agencyGroupByAgencyId      Commission[]          @relation("AgencyToCommission_agencyGroupByAgencyId")
+  DailyStat                                                DailyStat[]
+  RawQueryCalculation                                      RawQueryCalculation[]
+  RawUser                                                  RawUser[]
+  Salesman                                                 Salesman[]
+  TodayStat                                                TodayStat?
+  User                                                     User[]
+
+  @@index([accountNoImgId], map: "Agency_accountNoImgId_fkey")
+  @@index([addressId], map: "Agency_addressId_fkey")
+  @@index([agencyGroupId], map: "Agency_agencyGroupId_fkey")
+  @@index([bankId], map: "Agency_bankId_fkey")
+  @@index([companyRegistrationNoImgId], map: "Agency_companyRegistrationNoImgId_fkey")
+  @@index([localeId], map: "Agency_localeId_fkey")
+}
+
+model AgencyGroup {
+  id                                                            Int                   @id @default(autoincrement())
+  createdAt                                                     DateTime              @default(now())
+  updatedAt                                                     DateTime
+  name                                                          String
+  companyRegistrationNo                                         String
+  companyRegistrationNoImgId                                    Int
+  accountNo                                                     String
+  accountNoImgId                                                Int
+  managerName                                                   String                @default("")
+  managerPhoneNo                                                String                @default("")
+  bankId                                                        Int?
+  addressId                                                     Int
+  detailAddress                                                 String                @default("")
+  localeId                                                      Int                   @default(1)
+  commissionUpdatedAt                                           DateTime              @default(now())
+  ContentUrl_AgencyGroup_accountNoImgIdToContentUrl             ContentUrl            @relation("AgencyGroup_accountNoImgIdToContentUrl", fields: [accountNoImgId], references: [id])
+  Address                                                       Address               @relation(fields: [addressId], references: [id])
+  Bank                                                          Bank?                 @relation(fields: [bankId], references: [id])
+  ContentUrl_AgencyGroup_companyRegistrationNoImgIdToContentUrl ContentUrl            @relation("AgencyGroup_companyRegistrationNoImgIdToContentUrl", fields: [companyRegistrationNoImgId], references: [id])
+  Locale                                                        Locale                @relation(fields: [localeId], references: [id])
+  AccessHistory                                                 AccessHistory[]
+  AdRawUser                                                     AdRawUser[]
+  Agency                                                        Agency[]
+  Commission_AgencyGroupToCommission_agencyGroupByDanbiId       Commission[]          @relation("AgencyGroupToCommission_agencyGroupByDanbiId")
+  Commission_AgencyGroupToCommission_danbiByAgencyGroupId       Commission[]          @relation("AgencyGroupToCommission_danbiByAgencyGroupId")
+  DailyStat                                                     DailyStat[]
+  RawQueryCalculation                                           RawQueryCalculation[]
+  RawUser                                                       RawUser[]
+  TodayStat                                                     TodayStat?
+  User                                                          User[]
+
+  @@index([accountNoImgId], map: "AgencyGroup_accountNoImgId_fkey")
+  @@index([addressId], map: "AgencyGroup_addressId_fkey")
+  @@index([bankId], map: "AgencyGroup_bankId_fkey")
+  @@index([companyRegistrationNoImgId], map: "AgencyGroup_companyRegistrationNoImgId_fkey")
+  @@index([localeId], map: "AgencyGroup_localeId_fkey")
+}
+
+model Alarm {
+  id                Int             @id @default(autoincrement())
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime
+  title             String
+  contents          String
+  important         Boolean         @default(false)
+  read              Boolean
+  alarmType         Alarm_alarmType @default(ADVERTISEMENT)
+  advertisementById Int?
+  notificationById  Int?
+  userById          Int?
+  Advertisement     Advertisement?  @relation(fields: [advertisementById], references: [id])
+  Notification      Notification?   @relation(fields: [notificationById], references: [id])
+  User              User?           @relation(fields: [userById], references: [id])
+
+  @@index([advertisementById], map: "advertisementById")
+  @@index([notificationById], map: "notificationById")
+  @@index([userById], map: "userById")
+}
+
+model Bank {
+  id          Int           @id @default(autoincrement())
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime
+  code        String?
+  name        String
+  Agency      Agency[]
+  AgencyGroup AgencyGroup[]
+  Brand       Brand[]
+  Salesman    Salesman[]
+  Store       Store[]
+}
+
+model BestBrandGroupStatBoard {
+  id                                                             Int         @id @default(autoincrement())
+  createdAt                                                      DateTime    @default(now())
+  updatedAt                                                      DateTime
+  brandGroupById                                                 Int?        @unique
+  BrandGroup                                                     BrandGroup? @relation(fields: [brandGroupById], references: [id])
+  Brand_BestBrandGroupStatBoardToBrand_mostClickedRankedById     Brand?      @relation("BestBrandGroupStatBoardToBrand_mostClickedRankedById")
+  Brand_BestBrandGroupStatBoardToBrand_mostVideoPlayedRankedById Brand?      @relation("BestBrandGroupStatBoardToBrand_mostVideoPlayedRankedById")
+}
+
+model BestBrandStatBoard {
+  id                                                         Int      @id @default(autoincrement())
+  createdAt                                                  DateTime @default(now())
+  updatedAt                                                  DateTime
+  brandById                                                  Int?     @unique
+  Brand                                                      Brand?   @relation(fields: [brandById], references: [id])
+  Store_BestBrandStatBoardToStore_leastClickedRankedById     Store?   @relation("BestBrandStatBoardToStore_leastClickedRankedById")
+  Store_BestBrandStatBoardToStore_leastVideoPlayedRankedById Store?   @relation("BestBrandStatBoardToStore_leastVideoPlayedRankedById")
+  Store_BestBrandStatBoardToStore_mostClickedRankedById      Store?   @relation("BestBrandStatBoardToStore_mostClickedRankedById")
+  Store_BestBrandStatBoardToStore_mostVideoPlayedRankedById  Store?   @relation("BestBrandStatBoardToStore_mostVideoPlayedRankedById")
+}
+
+model Brand {
+  id                                                                               Int                      @id @default(autoincrement())
+  createdAt                                                                        DateTime                 @default(now())
+  updatedAt                                                                        DateTime
+  name                                                                             String
+  managerName                                                                      String                   @default("")
+  managerPhoneNo                                                                   String                   @default("")
+  companyRegistrationNo                                                            String
+  companyRegistrationNoImgId                                                       Int
+  bankId                                                                           Int?
+  accountNo                                                                        String
+  accountNoImgId                                                                   Int
+  categoryById                                                                     Int
+  addressId                                                                        Int                      @unique
+  detailAddress                                                                    String                   @default("")
+  brandGroupId                                                                     Int?
+  mostClickedRankedById                                                            Int?                     @unique
+  mostVideoPlayedRankedById                                                        Int?                     @unique
+  sigunguById                                                                      Int                      @default(1)
+  sidoId                                                                           Int?
+  localeId                                                                         Int                      @default(1)
+  useBrandAd                                                                       Brand_useBrandAd         @default(N)
+  addressCashFi                                                                    Json?
+  businessFile                                                                     String?                  @db.VarChar(200)
+  businessNumber                                                                   String?                  @db.VarChar(20)
+  categoryId                                                                       Int?
+  deletedAt                                                                        DateTime?                @db.Timestamp(0)
+  description                                                                      String?                  @db.VarChar(1000)
+  fullAddress                                                                      Json?
+  holiday                                                                          Json?
+  images                                                                           Json?
+  manager                                                                          String?                  @db.VarChar(100)
+  managerPhone                                                                     String?                  @db.VarChar(20)
+  operationTime                                                                    Json?
+  readyTime                                                                        Json?
+  status                                                                           Brand_status             @default(general)
+  terminationReason                                                                String?                  @db.VarChar(50)
+  isCashFiBrand                                                                    Boolean                  @default(true)
+  enableCashPoint                                                                  Brand_enableCashPoint    @default(N)
+  ContentUrl_Brand_accountNoImgIdToContentUrl                                      ContentUrl               @relation("Brand_accountNoImgIdToContentUrl", fields: [accountNoImgId], references: [id])
+  Address                                                                          Address                  @relation(fields: [addressId], references: [id])
+  Bank                                                                             Bank?                    @relation(fields: [bankId], references: [id])
+  BrandGroup                                                                       BrandGroup?              @relation(fields: [brandGroupId], references: [id])
+  SubCategory                                                                      SubCategory              @relation(fields: [categoryById], references: [id])
+  CategoriesStores                                                                 CategoriesStores?        @relation(fields: [categoryId], references: [id])
+  ContentUrl_Brand_companyRegistrationNoImgIdToContentUrl                          ContentUrl               @relation("Brand_companyRegistrationNoImgIdToContentUrl", fields: [companyRegistrationNoImgId], references: [id])
+  Locale                                                                           Locale                   @relation(fields: [localeId], references: [id])
+  BestBrandGroupStatBoard_BestBrandGroupStatBoardToBrand_mostClickedRankedById     BestBrandGroupStatBoard? @relation("BestBrandGroupStatBoardToBrand_mostClickedRankedById", fields: [mostClickedRankedById], references: [id])
+  BestBrandGroupStatBoard_BestBrandGroupStatBoardToBrand_mostVideoPlayedRankedById BestBrandGroupStatBoard? @relation("BestBrandGroupStatBoardToBrand_mostVideoPlayedRankedById", fields: [mostVideoPlayedRankedById], references: [id])
+  Sido                                                                             Sido?                    @relation(fields: [sidoId], references: [id])
+  Sigungu                                                                          Sigungu                  @relation(fields: [sigunguById], references: [id])
+  AccessHistory                                                                    AccessHistory[]
+  AdRawUser                                                                        AdRawUser[]
+  AdStatistic                                                                      AdStatistic[]
+  BestBrandStatBoard                                                               BestBrandStatBoard?
+  BrandMenus                                                                       BrandMenus[]
+  BrandsMissions                                                                   BrandsMissions[]
+  BrandsUsers                                                                      BrandsUsers[]
+  CategoriesBrandMenus                                                             CategoriesBrandMenus[]
+  Commission_BrandToCommission_brandGroupVSBrandId                                 Commission[]             @relation("BrandToCommission_brandGroupVSBrandId")
+  Commission_BrandToCommission_brandVSBrandGroupId                                 Commission[]             @relation("BrandToCommission_brandVSBrandGroupId")
+  DailyStat                                                                        DailyStat[]
+  NormalAdvertisement                                                              NormalAdvertisement?
+  RawQueryCalculation                                                              RawQueryCalculation[]
+  RawUser                                                                          RawUser[]
+  Store                                                                            Store[]
+  TodayStat                                                                        TodayStat?
+  AdTarget                                                                         AdTarget[]
+  User                                                                             User[]
+
+  @@index([categoryId], map: "Brands_CategoriesStores_id_fk")
+  @@index([accountNoImgId], map: "accountNoImgId")
+  @@index([bankId], map: "bankId")
+  @@index([brandGroupId], map: "brandGroupId")
+  @@index([categoryById], map: "categoryById")
+  @@index([companyRegistrationNoImgId], map: "companyRegistrationNoImgId")
+  @@index([localeId], map: "localeId")
+  @@index([sidoId], map: "sidoId")
+  @@index([sigunguById], map: "sigunguById")
+}
+
+model BrandCategoryList {
+  id           Int            @id @default(autoincrement())
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime
+  MainCategory MainCategory[]
+}
+
+model BrandGroup {
+  id                                                    Int                      @id @default(autoincrement())
+  createdAt                                             DateTime                 @default(now())
+  updatedAt                                             DateTime
+  name                                                  String
+  AccessHistory                                         AccessHistory[]
+  AdRawUser                                             AdRawUser[]
+  AdStatistic                                           AdStatistic[]
+  BestBrandGroupStatBoard                               BestBrandGroupStatBoard?
+  Brand                                                 Brand[]
+  Commission_BrandGroupToCommission_brandGroupVSDanbiId Commission[]             @relation("BrandGroupToCommission_brandGroupVSDanbiId")
+  Commission_BrandGroupToCommission_danbiVSBrandGroupId Commission[]             @relation("BrandGroupToCommission_danbiVSBrandGroupId")
+  DailyStat                                             DailyStat[]
+  RawUser                                               RawUser[]
+  TodayStat                                             TodayStat?
+  User                                                  User[]
+
+  @@index([name])
+}
+
+model BrandMenus {
+  id                   Int                   @id @default(autoincrement())
+  name                 String                @db.VarChar(100)
+  categoryId           Int?
+  price                Int
+  images               Json?
+  brandId              Int
+  status               Boolean               @default(true)
+  description          String?               @db.VarChar(200)
+  order                Int?
+  updatedAt            DateTime?             @db.Timestamp(0)
+  createdAt            DateTime?             @default(now()) @db.Timestamp(0)
+  Brand                Brand                 @relation(fields: [brandId], references: [id])
+  CategoriesBrandMenus CategoriesBrandMenus? @relation(fields: [categoryId], references: [id])
+
+  @@index([brandId], map: "BrandMenus_Brands_fk")
+  @@index([categoryId], map: "BrandMenus_Categories_id_fk")
+}
+
+model BrandSurvey {
+  id        Int      @id @default(autoincrement()) @db.UnsignedInt
+  brandId   Int      @db.UnsignedInt
+  survey    Json?
+  status    Boolean
+  createdAt DateTime @default(now()) @db.Timestamp(0)
+}
+
+model BrandsMissions {
+  id          Int                         @id @default(autoincrement())
+  name        String                      @db.VarChar(100)
+  missionType BrandsMissions_missionType? @default(default)
+  brandId     Int?
+  limit       Int?                        @default(0)
+  type        BrandsMissions_type
+  point       Int
+  status      Boolean                     @default(false)
+  createdAt   DateTime                    @default(now()) @db.Timestamp(0)
+  Brand       Brand?                      @relation(fields: [brandId], references: [id])
+
+  @@unique([type, brandId])
+  @@index([brandId], map: "BrandsMissions_Brands_fk")
+}
+
+model BrandsMissionsSettings {
+  id      Int                         @id @default(autoincrement())
+  brandId Int
+  hour    Int                         @db.TinyInt
+  type    BrandsMissionsSettings_type
+}
+
+model BrandsUsers {
+  id          Int              @id @default(autoincrement())
+  brandId     Int
+  email       String           @unique @db.VarChar(255)
+  password    String           @db.VarChar(200)
+  salt        String           @db.VarChar(200)
+  role        BrandsUsers_role
+  phone       String?          @db.VarChar(20)
+  isLocation  Boolean          @default(false)
+  isMarketing Boolean          @default(false)
+  createdAt   DateTime         @default(now()) @db.Timestamp(0)
+  Brand       Brand            @relation(fields: [brandId], references: [id])
+
+  @@index([brandId], map: "BrandsUsers_Brands_id_fk")
+}
+
+model Browser {
+  id           Int           @id @default(autoincrement())
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime
+  name         String?
+  version      String?
+  major        String?
+  RawUserAgent RawUserAgent?
+}
+
+model CPU {
+  id           Int           @id @default(autoincrement())
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime
+  architecture String?
+  RawUserAgent RawUserAgent?
+}
+
+model Calculation {
+  id             Int             @id @default(autoincrement())
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime
+  scheduledAt    DateTime        @default(now())
+  avgAmtPerClick Float           @default(0)
+  avgAmtPerPlay  Float           @default(0)
+  revenue        Float           @default(0)
+  pureRevenue    Float           @default(0)
+  dividend       Float           @default(0)
+  payment        Float           @default(0)
+  AdMonthlyStat  AdMonthlyStat[]
+}
+
+model Card {
+  id              Int               @id @default(autoincrement())
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime
+  cardCompany     String
+  cardName        String
+  cardToken       String
+  advertiserId    Int
+  deleteState     Card_deleteState  @default(N)
+  Advertiser      Advertiser        @relation(fields: [advertiserId], references: [id])
+  AdChangeHistory AdChangeHistory[]
+  Advertisement   Advertisement[]
+  TransactionList TransactionList[]
+
+  @@index([advertiserId], map: "advertiserId")
+}
+
+model CashAdvertisement {
+  id             Int                    @id @default(autoincrement())
+  type           CashAdvertisement_type
+  name           String                 @db.VarChar(100)
+  description    String                 @db.VarChar(200)
+  point          Int
+  image          String?                @db.VarChar(200)
+  status         Boolean?               @default(false)
+  createdAt      DateTime               @default(now()) @db.Timestamp(0)
+  adminId        Int?
+  Administrators Administrators?        @relation(fields: [adminId], references: [id])
+
+  @@index([adminId], map: "Advertisements_fk")
+}
+
+model CashCard {
+  id          Int       @id @default(autoincrement())
+  name        String    @db.VarChar(100)
+  company     String?   @db.VarChar(20)
+  cardNumber  String?   @db.VarChar(50)
+  birth       String    @db.VarChar(20)
+  brandId     Int?
+  operatorId  Int?
+  customerUid String    @db.VarChar(200)
+  status      Boolean   @default(false)
+  expiredAt   String?   @db.VarChar(10)
+  updatedAt   DateTime? @db.Timestamp(0)
+  createdAt   DateTime  @default(now()) @db.Timestamp(0)
+}
+
+model CashNotification {
+  id        Int                   @id @default(autoincrement())
+  userId    Int
+  type      CashNotification_type
+  title     String                @db.VarChar(50)
+  content   String                @db.VarChar(200)
+  info      Json?
+  read      Boolean               @default(false)
+  createdAt DateTime              @default(now()) @db.Timestamp(0)
+  CashUser  CashUser              @relation(fields: [userId], references: [id])
+
+  @@index([userId], map: "Notifications_Users_id_fk")
+}
+
+model CashUser {
+  id                 Int                  @id @default(autoincrement())
+  createdAt          DateTime             @default(now())
+  updatedAt          DateTime
+  nickname           String               @unique
+  email              String               @unique @db.VarChar(255)
+  accountInfo        Json
+  cityId             Int?
+  isMarried          Boolean?
+  referralCode       String               @unique
+  deviceId           String?              @db.VarChar(100)
+  point              Int                  @default(0)
+  referrerId         Int?
+  isMarketing        Boolean              @default(false)
+  type               CashUser_type?       @default(email)
+  accountId          String?              @db.VarChar(200)
+  status             CashUser_status      @default(general)
+  deletedAt          DateTime?            @db.Timestamp(0)
+  deleteType         CashUser_deleteType?
+  deleteDescription  String?              @db.VarChar(200)
+  uniqueKey          String?              @unique
+  password           String?
+  salt               String               @default("")
+  referral           CashUser_referral    @default(CASH_FI)
+  Cities             Cities?              @relation(fields: [cityId], references: [id])
+  CashUser           CashUser?            @relation("CashUserToCashUser_referrerId", fields: [referrerId], references: [id])
+  Identities         Identities?          @relation(fields: [uniqueKey], references: [uniqueKey])
+  CashNotification   CashNotification[]
+  other_CashUser     CashUser[]           @relation("CashUserToCashUser_referrerId")
+  Inquiries          Inquiries[]
+  Points             Points[]
+  UniqueRawUser      UniqueRawUser[]
+  UserMemos          UserMemos[]
+  Users_Events       Users_Events[]
+  Users_Gifticons    Users_Gifticons[]
+  Users_Notices      Users_Notices[]
+  Users_StoresSurvey Users_StoresSurvey[]
+  UsersRandomBoxes   UsersRandomBoxes[]
+  CashUserCategory   CashUserCategory[]
+
+  @@index([cityId], map: "Users_Cities_id_fk")
+  @@index([referrerId], map: "Users_Users_id_fk")
+}
+
+model CashUserCategory {
+  id             Int        @id
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime
+  name           String
+  selectedIcon   String
+  unselectedIcon String
+  CashUser       CashUser[]
+}
+
+model CashWithdraw {
+  id        Int       @id @default(autoincrement())
+  userId    Int
+  bank      String    @db.VarChar(20)
+  holder    String    @db.VarChar(20)
+  account   String?   @db.VarChar(30)
+  amount    Int
+  createdAt DateTime  @default(now()) @db.Timestamp(0)
+  status    Boolean   @default(false)
+  appliedAt DateTime? @db.Timestamp(0)
+  Points    Points[]
+}
+
+model CategoriesAds {
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar(20)
+}
+
+model CategoriesBrandMenus {
+  id         Int          @id @default(autoincrement())
+  name       String?      @db.VarChar(30)
+  brandId    Int?
+  order      Int?
+  status     Boolean?     @default(true)
+  Brand      Brand?       @relation(fields: [brandId], references: [id])
+  BrandMenus BrandMenus[]
+
+  @@index([brandId], map: "CategoriesBrandMenus_Brands_id_fk")
+}
+
+model CategoriesGifticons {
+  id   Int    @id @default(autoincrement())
+  name String @db.VarChar(20)
+}
+
+model CategoriesMenus {
+  id          Int           @id @default(autoincrement())
+  name        String?       @db.VarChar(30)
+  storeId     Int?
+  order       Int?
+  status      Boolean?      @default(true)
+  origin      Int?          @db.UnsignedInt
+  Store       Store?        @relation(fields: [storeId], references: [id])
+  StoresMenus StoresMenus[]
+
+  @@index([storeId], map: "CategoriesMenus_Stores_fk")
+}
+
+model CategoriesStores {
+  id                                                           Int                @id @default(autoincrement())
+  name                                                         String?            @db.VarChar(20)
+  parentId                                                     Int?
+  subCategoryId                                                Int?
+  CategoriesStores                                             CategoriesStores?  @relation("CategoriesStoresToCategoriesStores_parentId", fields: [parentId], references: [id])
+  SubCategory_CategoriesStores_subCategoryIdToSubCategory      SubCategory?       @relation("CategoriesStores_subCategoryIdToSubCategory", fields: [subCategoryId], references: [id])
+  Brand                                                        Brand[]
+  other_CategoriesStores                                       CategoriesStores[] @relation("CategoriesStoresToCategoriesStores_parentId")
+  SubCategory_CategoriesStoresToSubCategory_categoriesStoresId SubCategory[]      @relation("CategoriesStoresToSubCategory_categoriesStoresId")
+
+  @@index([parentId], map: "CategoriesStores_CategoriesStores_id_fk")
+  @@index([subCategoryId], map: "CategoriesStores_subCategoryId_fkey")
+}
+
+model Cities {
+  id           Int        @id @default(autoincrement())
+  name         String     @db.VarChar(20)
+  parentId     Int?
+  Cities       Cities?    @relation("CitiesToCities_parentId", fields: [parentId], references: [id])
+  CashUser     CashUser[]
+  other_Cities Cities[]   @relation("CitiesToCities_parentId")
+  Store        Store[]
+
+  @@index([parentId], map: "Cities_Cities_id_fk")
+}
+
+model Commission {
+  id                                                       Int                @id @default(autoincrement())
+  createdAt                                                DateTime           @default(now())
+  updatedAt                                                DateTime
+  subject                                                  Commission_subject
+  value                                                    Float              @default(0)
+  storeVSBrandId                                           Int?
+  brandVSStoreId                                           Int?
+  brandVSBrandGroupId                                      Int?
+  brandGroupVSBrandId                                      Int?
+  brandGroupVSDanbiId                                      Int?
+  danbiVSBrandGroupId                                      Int?
+  agencyByAgencyGroupId                                    Int?
+  agencyGroupByAgencyId                                    Int?
+  agencyBySalesmanId                                       Int?
+  salesmanByAgencyId                                       Int?
+  storeBySalesmanCommissionId                              Int?
+  salesmanByStoreCommissionId                              Int?
+  danbiByAgencyGroupId                                     Int?
+  agencyGroupByDanbiId                                     Int?
+  Agency_AgencyToCommission_agencyByAgencyGroupId          Agency?            @relation("AgencyToCommission_agencyByAgencyGroupId", fields: [agencyByAgencyGroupId], references: [id])
+  Salesman_Commission_agencyBySalesmanIdToSalesman         Salesman?          @relation("Commission_agencyBySalesmanIdToSalesman", fields: [agencyBySalesmanId], references: [id])
+  Agency_AgencyToCommission_agencyGroupByAgencyId          Agency?            @relation("AgencyToCommission_agencyGroupByAgencyId", fields: [agencyGroupByAgencyId], references: [id])
+  AgencyGroup_AgencyGroupToCommission_agencyGroupByDanbiId AgencyGroup?       @relation("AgencyGroupToCommission_agencyGroupByDanbiId", fields: [agencyGroupByDanbiId], references: [id])
+  Brand_BrandToCommission_brandGroupVSBrandId              Brand?             @relation("BrandToCommission_brandGroupVSBrandId", fields: [brandGroupVSBrandId], references: [id])
+  BrandGroup_BrandGroupToCommission_brandGroupVSDanbiId    BrandGroup?        @relation("BrandGroupToCommission_brandGroupVSDanbiId", fields: [brandGroupVSDanbiId], references: [id])
+  Brand_BrandToCommission_brandVSBrandGroupId              Brand?             @relation("BrandToCommission_brandVSBrandGroupId", fields: [brandVSBrandGroupId], references: [id])
+  Store_Commission_brandVSStoreIdToStore                   Store?             @relation("Commission_brandVSStoreIdToStore", fields: [brandVSStoreId], references: [id])
+  AgencyGroup_AgencyGroupToCommission_danbiByAgencyGroupId AgencyGroup?       @relation("AgencyGroupToCommission_danbiByAgencyGroupId", fields: [danbiByAgencyGroupId], references: [id])
+  BrandGroup_BrandGroupToCommission_danbiVSBrandGroupId    BrandGroup?        @relation("BrandGroupToCommission_danbiVSBrandGroupId", fields: [danbiVSBrandGroupId], references: [id])
+  Salesman_Commission_salesmanByAgencyIdToSalesman         Salesman?          @relation("Commission_salesmanByAgencyIdToSalesman", fields: [salesmanByAgencyId], references: [id])
+  Store_Commission_salesmanByStoreCommissionIdToStore      Store?             @relation("Commission_salesmanByStoreCommissionIdToStore", fields: [salesmanByStoreCommissionId], references: [id])
+  Store_Commission_storeBySalesmanCommissionIdToStore      Store?             @relation("Commission_storeBySalesmanCommissionIdToStore", fields: [storeBySalesmanCommissionId], references: [id])
+  Store_Commission_storeVSBrandIdToStore                   Store?             @relation("Commission_storeVSBrandIdToStore", fields: [storeVSBrandId], references: [id])
+
+  @@index([agencyByAgencyGroupId], map: "Commission_agencyByAgencyGroupId_fkey")
+  @@index([agencyBySalesmanId], map: "Commission_agencyBySalesmanId_fkey")
+  @@index([agencyGroupByAgencyId], map: "Commission_agencyGroupByAgencyId_fkey")
+  @@index([agencyGroupByDanbiId], map: "Commission_agencyGroupByDanbiId_fkey")
+  @@index([danbiByAgencyGroupId], map: "Commission_danbiByAgencyGroupId_fkey")
+  @@index([salesmanByAgencyId], map: "Commission_salesmanByAgencyId_fkey")
+  @@index([salesmanByStoreCommissionId], map: "Commission_salesmanByStoreCommissionId_fkey")
+  @@index([storeBySalesmanCommissionId], map: "Commission_storeBySalesmanCommissionId_fkey")
+  @@index([brandGroupVSBrandId], map: "brandGroupVSBrandId")
+  @@index([brandGroupVSDanbiId], map: "brandGroupVSDanbiId")
+  @@index([brandVSBrandGroupId], map: "brandVSBrandGroupId")
+  @@index([brandVSStoreId], map: "brandVSStoreId")
+  @@index([danbiVSBrandGroupId], map: "danbiVSBrandGroupId")
+  @@index([storeVSBrandId], map: "storeVSBrandId")
+}
+
+model ContentUrl {
+  id                                                             Int           @id @default(autoincrement())
+  createdAt                                                      DateTime      @default(now())
+  updatedAt                                                      DateTime
+  name                                                           String?
+  url                                                            String
+  adStoreImgById                                                 Int?          @unique
+  adContentId                                                    Int?          @unique
+  AdContent                                                      AdContent?    @relation(fields: [adContentId], references: [id])
+  AdStoreImg                                                     AdStoreImg?   @relation(fields: [adStoreImgById], references: [id])
+  Advertiser_Advertiser_accountNoImgIdToContentUrl               Advertiser[]  @relation("Advertiser_accountNoImgIdToContentUrl")
+  Advertiser_Advertiser_companyRegistrationNoImgIdToContentUrl   Advertiser[]  @relation("Advertiser_companyRegistrationNoImgIdToContentUrl")
+  Agency_Agency_accountNoImgIdToContentUrl                       Agency[]      @relation("Agency_accountNoImgIdToContentUrl")
+  Agency_Agency_companyRegistrationNoImgIdToContentUrl           Agency[]      @relation("Agency_companyRegistrationNoImgIdToContentUrl")
+  AgencyGroup_AgencyGroup_accountNoImgIdToContentUrl             AgencyGroup[] @relation("AgencyGroup_accountNoImgIdToContentUrl")
+  AgencyGroup_AgencyGroup_companyRegistrationNoImgIdToContentUrl AgencyGroup[] @relation("AgencyGroup_companyRegistrationNoImgIdToContentUrl")
+  Brand_Brand_accountNoImgIdToContentUrl                         Brand[]       @relation("Brand_accountNoImgIdToContentUrl")
+  Brand_Brand_companyRegistrationNoImgIdToContentUrl             Brand[]       @relation("Brand_companyRegistrationNoImgIdToContentUrl")
+  Popup                                                          Popup[]
+  Salesman                                                       Salesman[]
+  Store_ContentUrlToStore_accountNoImgId                         Store[]       @relation("ContentUrlToStore_accountNoImgId")
+  Store_ContentUrlToStore_companyRegistrationNoImgId             Store[]       @relation("ContentUrlToStore_companyRegistrationNoImgId")
+  Store_ContentUrlToStore_signatureId                            Store[]       @relation("ContentUrlToStore_signatureId")
+}
+
+model CoopMarketingCoupon {
+  id            Int      @id @default(autoincrement())
+  prizeCode     String
+  prizeName     String
+  consumerPrice Int
+  expiredAt     DateTime
+  offerPrice    Int
+}
+
+model CoopMarketingTransaction {
+  id           Int       @id @default(autoincrement())
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime
+  resultCode   String
+  resultMsg    String
+  couponNumber String?
+  pinNumber    String?
+  code         String
+  pass         String
+  couponCode   String
+  seqNumber    String
+  hp           String
+  callback     String
+  title        String?
+  addMsg       String?
+  data         String    @db.VarChar(300)
+  trId         String
+  luckyUserId  String
+  LuckyUser    LuckyUser @relation(fields: [luckyUserId], references: [id])
+
+  @@index([luckyUserId], map: "CoopMarketingTransaction_luckyUserId_fkey")
+}
+
+model CovidSignedStore {
+  id                                                  Int                            @id @default(autoincrement())
+  createdAt                                           DateTime                       @default(now())
+  updatedAt                                           DateTime
+  storeName                                           String
+  addressId                                           Int
+  detailAddress                                       String                         @default("")
+  deliveryAddressId                                   Int
+  deliveryDetailAddress                               String                         @default("")
+  companyRegistrationNo                               String
+  ceoName                                             String
+  email                                               String
+  phoneNumber                                         String
+  withADFi                                            Boolean
+  logFiPaymentId                                      Int?
+  imPortPaymentAnnotationId                           Int?
+  imPortPaymentCancelAnnotationId                     Int?
+  Address_AddressToCovidSignedStore_addressId         Address                        @relation("AddressToCovidSignedStore_addressId", fields: [addressId], references: [id])
+  Address_AddressToCovidSignedStore_deliveryAddressId Address                        @relation("AddressToCovidSignedStore_deliveryAddressId", fields: [deliveryAddressId], references: [id])
+  ImPortPaymentAnnotation                             ImPortPaymentAnnotation?       @relation(fields: [imPortPaymentAnnotationId], references: [id])
+  ImPortPaymentCancelAnnotation                       ImPortPaymentCancelAnnotation? @relation(fields: [imPortPaymentCancelAnnotationId], references: [id])
+  LogFiPayment                                        LogFiPayment?                  @relation(fields: [logFiPaymentId], references: [id])
+  Store                                               Store[]
+
+  @@index([imPortPaymentAnnotationId], map: "CovidSignedStore_imPortPaymentAnnotationId_fkey")
+  @@index([imPortPaymentCancelAnnotationId], map: "CovidSignedStore_imPortPaymentCancelAnnotationId_fkey")
+  @@index([logFiPaymentId], map: "CovidSignedStore_logFiPaymentId_fkey")
+  @@index([addressId], map: "addressId")
+  @@index([deliveryAddressId], map: "deliveryAddressId")
+}
+
+model CovidVisitUser {
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime
+  phone      String
+  mac        String
+  mask       Boolean
+  agreement  Boolean
+  storeId    Int?
+  router_mac String   @default("")
+  Store      Store?   @relation(fields: [storeId], references: [id])
+
+  @@index([storeId], map: "storeId")
+}
+
+model DailyStat {
+  id                     Int            @id @default(autoincrement())
+  createdAt              DateTime       @default(now())
+  updatedAt              DateTime
+  aggregatedAt           DateTime
+  exposureCount          Int            @default(0)
+  connectCount           Int            @default(0)
+  clickCount             Int            @default(0)
+  playCount              Int            @default(0)
+  skipCount              Int            @default(0)
+  visitCount             Int            @default(0)
+  revenue                Float          @default(0)
+  pureStoreRevenue       Float          @default(0)
+  pureBrandRevenue       Float          @default(0)
+  pureBrandGroupRevenue  Float          @default(0)
+  pureDanbiRevenue       Float          @default(0)
+  pureSalesmanRevenue    Float          @default(0)
+  pureAgencyRevenue      Float          @default(0)
+  pureAgencyGroupRevenue Float          @default(0)
+  brandId                Int?
+  storeId                Int?
+  brandGroupId           Int?
+  salesmanId             Int?
+  agencyGroupId          Int?
+  agencyId               Int?
+  advertisementId        Int?
+  Advertisement          Advertisement? @relation(fields: [advertisementId], references: [id])
+  AgencyGroup            AgencyGroup?   @relation(fields: [agencyGroupId], references: [id])
+  Agency                 Agency?        @relation(fields: [agencyId], references: [id])
+  BrandGroup             BrandGroup?    @relation(fields: [brandGroupId], references: [id])
+  Brand                  Brand?         @relation(fields: [brandId], references: [id])
+  Salesman               Salesman?      @relation(fields: [salesmanId], references: [id])
+  Store                  Store?         @relation(fields: [storeId], references: [id])
+
+  @@index([advertisementId], map: "DailyStat_advertisementId_fkey")
+  @@index([agencyGroupId], map: "DailyStat_agencyGroupId_fkey")
+  @@index([agencyId], map: "DailyStat_agencyId_fkey")
+  @@index([brandGroupId], map: "DailyStat_brandGroupId_fkey")
+  @@index([brandId], map: "DailyStat_brandId_fkey")
+  @@index([salesmanId], map: "DailyStat_salesmanId_fkey")
+  @@index([storeId], map: "DailyStat_storeId_fkey")
+}
+
+model Device {
+  id           Int           @id @default(autoincrement())
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime
+  model        String?
+  type         String?
+  vendor       String?
+  RawUserAgent RawUserAgent?
+}
+
+model DeviceType {
+  id                  Int                   @id @default(autoincrement())
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime
+  deviceType          DeviceType_deviceType
+  NormalAdvertisement NormalAdvertisement[]
+}
+
+model Draw {
+  id         Int        @id @default(autoincrement())
+  type       Draw_type
+  point      Int?
+  gifticonId Int?
+  percentage Float
+  productId  Int?
+  status     Boolean    @default(true)
+  createdAt  DateTime   @default(now()) @db.Timestamp(0)
+  Gifticons  Gifticons? @relation(fields: [gifticonId], references: [id])
+  Products   Products?  @relation(fields: [productId], references: [id])
+
+  @@index([gifticonId], map: "Draw_Gifticons_id_fk")
+  @@index([productId], map: "Draw_Products_id_fk")
+}
+
+model DrawSettings {
+  id    Int @id @default(autoincrement())
+  point Int
+}
+
+model Events {
+  id        Int      @id @default(autoincrement())
+  title     String   @db.VarChar(100)
+  image     String   @db.VarChar(200)
+  startAt   DateTime @db.Timestamp(0)
+  endAt     DateTime @default(now()) @db.Timestamp(0)
+  status    Boolean  @default(true)
+  adminId   Int
+  createdAt DateTime @default(now()) @db.Timestamp(0)
+  thumbnail String   @default("") @db.VarChar(200)
+}
+
+model Faqs {
+  id        Int       @id @default(autoincrement())
+  typeId    Int
+  title     String    @db.VarChar(200)
+  contents  String    @db.Text
+  status    Boolean   @default(true)
+  adminId   Int
+  createdAt DateTime  @default(now()) @db.Timestamp(0)
+  FaqsTypes FaqsTypes @relation(fields: [typeId], references: [id])
+
+  @@index([typeId], map: "Faq_FaqTypes_id_fk")
+}
+
+model FaqsTypes {
+  id             Int             @id @default(autoincrement())
+  name           String          @db.VarChar(50)
+  status         Boolean         @default(true)
+  adminId        Int?
+  createdAt      DateTime        @default(now()) @db.Timestamp(0)
+  Administrators Administrators? @relation(fields: [adminId], references: [id])
+  Faqs           Faqs[]
+
+  @@index([adminId], map: "FaqsTypes_fk")
+}
+
+model Gender {
+  id           Int                @id @default(autoincrement())
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime
+  gender       String
+  adUserById   String?            @unique
+  ageCountById Int?               @unique
+  genderType   Gender_genderType?
+  AdUser       AdUser?            @relation(fields: [adUserById], references: [id])
+  AgeCount     AgeCount?          @relation(fields: [ageCountById], references: [id])
+  LuckyUser    LuckyUser[]
+  AdTarget     AdTarget[]
+}
+
+model GenderCount {
+  id             Int        @id @default(autoincrement())
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime
+  male           Int
+  female         Int
+  other          Int
+  adStatDataById Int        @unique
+  AdStatData     AdStatData @relation(fields: [adStatDataById], references: [id])
+}
+
+model GeoLocation {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  longitude Float
+  storeById Int      @unique
+  latitude  Float
+  altitude  Float
+  x         Float
+  y         Float
+  Store     Store    @relation(fields: [storeById], references: [id])
+}
+
+model GiftiShowTransaction {
+  id          Int       @id @default(autoincrement())
+  trId        String
+  LuckyUserId String    @unique
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime
+  data        Json
+  code        String    @default("0000")
+  message     String?
+  orderNo     String?
+  LuckyUser   LuckyUser @relation(fields: [LuckyUserId], references: [id])
+}
+
+model Gifticons {
+  id              Int               @id @default(autoincrement())
+  point           Int
+  price           Int?
+  goodsName       String            @db.VarChar(200)
+  goodsCode       String            @unique @db.VarChar(20)
+  brandName       String?           @db.VarChar(200)
+  goodsComName    String?           @db.VarChar(30)
+  categoryId      Int
+  goodsImgS       String            @db.VarChar(300)
+  goodsImgB       String            @db.VarChar(300)
+  brandIconImg    String            @db.VarChar(300)
+  brandCode       String            @db.VarChar(20)
+  limitday        String?           @db.VarChar(8)
+  contents        String?           @db.Text
+  adminId         Int?
+  description     String?           @db.VarChar(1000)
+  status          Boolean?          @default(false)
+  createdAt       DateTime          @default(now()) @db.Timestamp(0)
+  updatedAt       DateTime          @default(now()) @db.Timestamp(0)
+  Administrators  Administrators?   @relation(fields: [adminId], references: [id])
+  Draw            Draw[]
+  RandomBoxes     RandomBoxes[]
+  Roulette        Roulette[]
+  Users_Gifticons Users_Gifticons[]
+
+  @@index([adminId], map: "Gifticons_Adminstrators_id_fk")
+}
+
+model Identities {
+  uniqueKey String            @unique
+  impUid    String            @db.VarChar(200)
+  name      String            @db.VarChar(20)
+  gender    Identities_gender
+  birth     DateTime          @db.Date
+  phone     String            @unique @db.VarChar(20)
+  createdAt DateTime          @default(now()) @db.Timestamp(0)
+  CashUser  CashUser?
+}
+
+model ImPortPaymentAnnotation {
+  id                                                                           Int                             @id @default(autoincrement())
+  imp_uid                                                                      String
+  merchant_uid                                                                 String
+  pay_method                                                                   String?
+  channel                                                                      String?
+  pg_provider                                                                  String?
+  pg_tid                                                                       String?
+  pg_id                                                                        String?
+  escrow                                                                       Boolean?
+  apply_num                                                                    String?
+  bank_code                                                                    String?
+  bank_name                                                                    String?
+  card_code                                                                    String?
+  card_name                                                                    String?
+  card_quota                                                                   Int?
+  card_number                                                                  String?
+  card_type                                                                    Int?
+  vbank_code                                                                   String?
+  vbank_name                                                                   String?
+  vbank_num                                                                    String?
+  vbank_holder                                                                 String?
+  vbank_date                                                                   Int?
+  vbank_issued_at                                                              Int?
+  name                                                                         String?
+  amount                                                                       Float
+  cancel_amount                                                                Float
+  currency                                                                     String
+  buyer_name                                                                   String?
+  buyer_email                                                                  String?
+  buyer_tel                                                                    String?
+  buyer_addr                                                                   String?
+  buyer_postcode                                                               String?
+  custom_data                                                                  String?
+  user_agent                                                                   String?
+  status                                                                       String
+  started_at                                                                   Int?
+  paid_at                                                                      Int?
+  failed_at                                                                    Int?
+  cancelled_at                                                                 Int?
+  fail_reason                                                                  String?
+  cancel_reason                                                                String?
+  receipt_url                                                                  String?
+  cash_receipt_issued                                                          Boolean?
+  customer_uid                                                                 String?
+  customer_uid_usage                                                           String?
+  transactionListById                                                          Int?                            @unique
+  transactionListId                                                            Int?
+  TransactionList_ImPortPaymentAnnotation_transactionListByIdToTransactionList TransactionList?                @relation("ImPortPaymentAnnotation_transactionListByIdToTransactionList", fields: [transactionListById], references: [id])
+  TransactionList_ImPortPaymentAnnotation_transactionListIdToTransactionList   TransactionList?                @relation("ImPortPaymentAnnotation_transactionListIdToTransactionList", fields: [transactionListId], references: [id])
+  CovidSignedStore                                                             CovidSignedStore[]
+  ImPortPaymentCancelAnnotation                                                ImPortPaymentCancelAnnotation[]
+
+  @@index([transactionListId], map: "ImPortPaymentAnnotation_transactionListId_fkey")
+}
+
+model ImPortPaymentCancelAnnotation {
+  id                         Int                      @id @default(autoincrement())
+  pg_tid                     String
+  amount                     Float
+  cancelled_at               Int
+  reason                     String
+  receipt_url                String
+  iAmPortPaymentAnnotationId Int?
+  ImPortPaymentAnnotation    ImPortPaymentAnnotation? @relation(fields: [iAmPortPaymentAnnotationId], references: [id])
+  CovidSignedStore           CovidSignedStore[]
+
+  @@index([iAmPortPaymentAnnotationId], map: "iAmPortPaymentAnnotationId")
+}
+
+model Inquiries {
+  id         Int       @id @default(autoincrement())
+  typeId     Int?
+  title      String?   @db.VarChar(200)
+  contents   String?   @db.Text
+  userId     Int
+  adminId    Int?
+  images     Json?
+  answered   String?   @db.Text
+  createdAt  DateTime  @default(now()) @db.Timestamp(0)
+  answeredAt DateTime? @db.Timestamp(0)
+  CashUser   CashUser  @relation(fields: [userId], references: [id])
+
+  @@index([typeId], map: "Inquiries_InquiriesTypes_id_fk")
+  @@index([userId], map: "Inquiries_Users_id_fk")
+}
+
+model InquiriesTypes {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(50)
+  status    Boolean  @default(true)
+  createdAt DateTime @default(now()) @db.Timestamp(0)
+}
+
+model LangCount {
+  id             Int        @id @default(autoincrement())
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime
+  kor            Int
+  eng            Int
+  jpn            Int
+  chn            Int
+  vtn            Int
+  etc            Int
+  adStatDataById Int        @unique
+  AdStatData     AdStatData @relation(fields: [adStatDataById], references: [id])
+}
+
+model Locale {
+  id                  Int                   @id @default(autoincrement())
+  createdAt           DateTime              @default(now())
+  updatedAt           DateTime
+  locale              Locale_locale         @default(KR)
+  AdContent           AdContent[]
+  AdStoreImg          AdStoreImg[]
+  Advertiser          Advertiser[]
+  Agency              Agency[]
+  AgencyGroup         AgencyGroup[]
+  Brand               Brand[]
+  Store               Store[]
+  AdChangeHistory     AdChangeHistory[]
+  Advertisement       Advertisement[]
+  NormalAdvertisement NormalAdvertisement[]
+}
+
+model LogFiPayment {
+  id               Int                @id @default(autoincrement())
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime
+  imp_uid          String
+  merchant_uid     String             @unique
+  imp_success      Boolean
+  error_code       String?
+  error_msg        String?
+  CovidSignedStore CovidSignedStore[]
+}
+
+model LuckyFiBlackList {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime
+  userMac   String
+  routerMac String?
+  endAt     DateTime @default(now())
+  startAt   DateTime @default(now())
+}
+
+model LuckyFiConfig {
+  id                     Int      @id @default(autoincrement())
+  createdAt              DateTime @default(now())
+  updatedAt              DateTime
+  minWinningTime         Int
+  minWinningTimeMilkCoin Int
+}
+
+model LuckyFiRoulettePrize {
+  id                                   Int                                     @id @default(autoincrement())
+  type                                 LuckyFiRoulettePrize_type
+  price                                Int                                     @default(0)
+  imgUrl                               String?
+  createdAt                            DateTime                                @default(now())
+  updatedAt                            DateTime
+  category                             LuckyFiRoulettePrize_category           @default(DEFAULT)
+  brandName                            String?
+  prizeName                            String
+  mobilePrizeCode                      String?
+  enable                               Boolean
+  winningPeriodType                    LuckyFiRoulettePrize_winningPeriodType?
+  winningPeriod                        Int?
+  welcomeGuaranteedCount               Int?
+  storeId                              Int?
+  storePrizeEnableSetTime              Int                                     @default(0)
+  storePrizeValidTimeLimit             Int                                     @default(3600)
+  listingOrder                         Int                                     @default(9999)
+  gifticonService                      LuckyFiRoulettePrize_gifticonService    @default(GIFTISHOW_BIZ)
+  Store                                Store?                                  @relation(fields: [storeId], references: [id])
+  LuckyFiRoulettePrizeLaunchPad        LuckyFiRoulettePrizeLaunchPad?
+  LuckyFiRouletteWelcomePrizeLaunchPad LuckyFiRouletteWelcomePrizeLaunchPad?
+  LuckyFiRouletteWinningTime           LuckyFiRouletteWinningTime[]
+  LuckyRawUser                         LuckyRawUser[]
+
+  @@index([storeId], map: "LuckyFiRoulettePrize_storeId_fkey")
+}
+
+model LuckyFiRoulettePrizeLaunchPad {
+  id                         Int                          @id @default(autoincrement())
+  amount                     Int
+  createdAt                  DateTime                     @default(now())
+  updatedAt                  DateTime
+  LuckyFiRoulettePrizeById   Int                          @unique
+  LuckyFiRoulettePrize       LuckyFiRoulettePrize         @relation(fields: [LuckyFiRoulettePrizeById], references: [id])
+  LuckyFiRouletteWinningTime LuckyFiRouletteWinningTime[]
+}
+
+model LuckyFiRoulettePrizeMonthTarget {
+  id                     Int                                                @id @default(autoincrement())
+  createdAt              DateTime                                           @default(now())
+  updatedAt              DateTime
+  targetMonth            DateTime
+  type                   LuckyFiRoulettePrizeMonthTarget_type
+  category               LuckyFiRoulettePrizeMonthTarget_category           @default(DEFAULT)
+  brandName              String?
+  prizeName              String
+  price                  Int                                                @default(0)
+  welcomeGuaranteedCount Int?
+  imgUrl                 String?
+  mobilePrizeCode        String?
+  listingOrder           Int                                                @default(9999)
+  gifticonService        LuckyFiRoulettePrizeMonthTarget_gifticonService    @default(GIFTISHOW_BIZ)
+  winningPeriodType      LuckyFiRoulettePrizeMonthTarget_winningPeriodType?
+  winningPeriod          Int?
+  amount                 Int                                                @default(0)
+  endDate                DateTime?
+  endTime                DateTime?
+  runReserved            Boolean                                            @default(false)
+  startDate              DateTime?
+  startTime              DateTime?
+}
+
+model LuckyFiRouletteWelcomePrizeLaunchPad {
+  id                       Int                  @id @default(autoincrement())
+  amount                   Int
+  createdAt                DateTime             @default(now())
+  updatedAt                DateTime
+  LuckyFiRoulettePrizeById Int                  @unique
+  LuckyFiRoulettePrize     LuckyFiRoulettePrize @relation(fields: [LuckyFiRoulettePrizeById], references: [id])
+}
+
+model LuckyFiRouletteWinningTime {
+  id                              Int                            @id @default(autoincrement())
+  start                           DateTime
+  end                             DateTime
+  createdAt                       DateTime                       @default(now())
+  updatedAt                       DateTime
+  luckyFiRoulettePrizeId          Int
+  stackTime                       DateTime?
+  luckyFiRoulettePrizeLaunchPadId Int?
+  amount                          Int                            @default(0)
+  LuckyFiRoulettePrize            LuckyFiRoulettePrize           @relation(fields: [luckyFiRoulettePrizeId], references: [id])
+  LuckyFiRoulettePrizeLaunchPad   LuckyFiRoulettePrizeLaunchPad? @relation(fields: [luckyFiRoulettePrizeLaunchPadId], references: [id])
+
+  @@index([luckyFiRoulettePrizeId], map: "LuckyFiRouletteWinningTime_luckyFiRoulettePrizeId_fkey")
+  @@index([luckyFiRoulettePrizeLaunchPadId], map: "LuckyFiRouletteWinningTime_luckyFiRoulettePrizeLaunchPadId_fkey")
+}
+
+model LuckyRawUser {
+  id                     String                @id
+  createdAt              DateTime              @default(now())
+  updatedAt              DateTime
+  token                  String
+  marked                 Boolean               @default(false)
+  rawUserById            Int                   @unique
+  storeId                Int?
+  luckyFiRoulettePrizeId Int?
+  drawn                  Boolean               @default(false)
+  gameType               LuckyRawUser_gameType
+  adWatched              Boolean               @default(false)
+  sentUrl                Boolean               @default(false)
+  giveUp                 Boolean               @default(false)
+  phone                  String                @default("")
+  storePrizeStart        DateTime?
+  storePrizeUsed         Boolean               @default(false)
+  storePrizeEnd          DateTime?
+  milkTokenId            String?
+  LuckyFiRoulettePrize   LuckyFiRoulettePrize? @relation(fields: [luckyFiRoulettePrizeId], references: [id])
+  MilkToken              MilkToken?            @relation(fields: [milkTokenId], references: [id])
+  RawUser                RawUser               @relation(fields: [rawUserById], references: [id])
+  Store                  Store?                @relation(fields: [storeId], references: [id])
+  LuckyUser              LuckyUser?
+
+  @@index([luckyFiRoulettePrizeId], map: "LuckyRawUser_luckyFiRoulettePrizeId_fkey")
+  @@index([milkTokenId], map: "LuckyRawUser_milkTokenId_fkey")
+  @@index([storeId], map: "LuckyRawUser_storeId_fkey")
+}
+
+model LuckyUser {
+  id                       String                     @id
+  createdAt                DateTime                   @default(now())
+  updatedAt                DateTime
+  name                     String
+  phone                    String
+  os                       String
+  birthDate                DateTime
+  lang                     String
+  storeById                Int
+  genderId                 Int?
+  luckyRawUserById         String                     @unique
+  giftiShowTransactionId   Int?
+  detailAddress            String?
+  addressId                Int?
+  privacyAgreement         Boolean                    @default(false)
+  thirdPartyAgreement      Boolean                    @default(false)
+  marketingAgreement       Boolean                    @default(false)
+  Address                  Address?                   @relation(fields: [addressId], references: [id])
+  Gender                   Gender?                    @relation(fields: [genderId], references: [id])
+  LuckyRawUser             LuckyRawUser               @relation(fields: [luckyRawUserById], references: [id], onDelete: Cascade, map: "LuckyUser_ibfk_5")
+  Store                    Store                      @relation(fields: [storeById], references: [id])
+  CoopMarketingTransaction CoopMarketingTransaction[]
+  GiftiShowTransaction     GiftiShowTransaction?
+
+  @@index([addressId], map: "LuckyUser_addressId_fkey")
+  @@index([genderId], map: "LuckyUser_genderId_fkey")
+  @@index([storeById], map: "LuckyUser_storeById_fkey")
+}
+
+model MainCategory {
+  id                  Int                @id @default(autoincrement())
+  createdAt           DateTime           @default(now())
+  updatedAt           DateTime
+  name                String
+  brandCategoryListId Int?
+  storeCategoryListId Int?
+  adCategoryListId    Int?
+  AdCategoryList      AdCategoryList?    @relation(fields: [adCategoryListId], references: [id])
+  BrandCategoryList   BrandCategoryList? @relation(fields: [brandCategoryListId], references: [id])
+  StoreCategoryList   StoreCategoryList? @relation(fields: [storeCategoryListId], references: [id])
+  AdTargetCategory    AdTargetCategory[]
+  SubCategory         SubCategory[]
+
+  @@index([adCategoryListId], map: "adCategoryListId")
+  @@index([brandCategoryListId], map: "brandCategoryListId")
+  @@index([storeCategoryListId], map: "storeCategoryListId")
+}
+
+model Memo {
+  id              Int           @id @default(autoincrement())
+  author          String
+  description     String
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime
+  advertisementId Int
+  Advertisement   Advertisement @relation(fields: [advertisementId], references: [id])
+
+  @@index([advertisementId], map: "Memo_advertisementId_fkey")
+}
+
+model MilkToken {
+  id           String         @id
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime
+  issuedAt     DateTime       @default(now())
+  expiredAt    DateTime
+  token        String
+  LuckyRawUser LuckyRawUser[]
+}
+
+model Missions {
+  id        Int           @id
+  type      Missions_type @unique
+  name      String        @db.VarChar(100)
+  point     Int?
+  status    Boolean       @default(false)
+  adminId   Int
+  updateId  Int?
+  updatedAt DateTime?     @default(now()) @db.Timestamp(0)
+  createdAt DateTime      @default(now()) @db.Timestamp(0)
+}
+
+model MissionsSettings {
+  id   Int                   @id @default(autoincrement())
+  hour Int                   @db.TinyInt
+  type MissionsSettings_type
+}
+
+model NormalAdvertisement {
+  id         Int          @id @default(autoincrement())
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime
+  storeId    Int?         @unique
+  brandId    Int?         @unique
+  Brand      Brand?       @relation(fields: [brandId], references: [id])
+  Store      Store?       @relation(fields: [storeId], references: [id])
+  AdContent  AdContent[]
+  DeviceType DeviceType[]
+  Locale     Locale[]
+}
+
+model Notices {
+  id        Int          @id @default(autoincrement())
+  type      Notices_type
+  title     String       @db.VarChar(100)
+  contents  String       @db.MediumText
+  status    Boolean      @default(true)
+  view      Int?         @default(0)
+  adminId   Int
+  createdAt DateTime     @default(now()) @db.Timestamp(0)
+}
+
+model Notification {
+  id         Int                     @id @default(autoincrement())
+  createdAt  DateTime                @default(now())
+  updatedAt  DateTime
+  title      String
+  contents   String
+  type       Notification_type       @default(EVERY)
+  noticeType Notification_noticeType @default(GENERAL)
+  status     Boolean                 @default(false)
+  view       Int                     @default(0)
+  Alarm      Alarm[]
+  Admin      Admin[]
+}
+
+model OS {
+  id           Int           @id @default(autoincrement())
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime
+  name         String?
+  version      String?
+  RawUserAgent RawUserAgent?
+}
+
+model Operators {
+  id                Int                          @id @default(autoincrement())
+  email             String                       @unique @db.VarChar(200)
+  enabled           Boolean                      @default(true)
+  name              String?                      @db.VarChar(20)
+  password          String?                      @db.VarChar(200)
+  salt              String?                      @db.VarChar(200)
+  role              Operators_role               @default(master)
+  phone             String?                      @db.VarChar(20)
+  isMarketing       Boolean                      @default(false)
+  isLocation        Boolean                      @default(false)
+  status            Operators_status             @default(general)
+  terminationReason Operators_terminationReason?
+  deleteReason      Operators_deleteReason?
+  updatedAt         DateTime                     @default(now()) @db.Timestamp(0)
+  createdAt         DateTime                     @default(now()) @db.Timestamp(0)
+  deletedAt         DateTime?                    @db.Timestamp(0)
+}
+
+model Orders {
+  id               Int                @id @default(autoincrement())
+  productId        Int
+  userId           Int?
+  receiver         String?            @db.VarChar(20)
+  receiverPhone    String?            @db.VarChar(20)
+  address          Json?
+  status           Orders_status      @default(readySend)
+  deliveryCompany  String?            @db.VarChar(20)
+  invoiceNumber    String?            @db.VarChar(50)
+  createdAt        DateTime           @default(now()) @db.Timestamp(0)
+  UsersDraw        UsersDraw[]
+  UsersRandomBoxes UsersRandomBoxes[]
+  UsersRoulette    UsersRoulette[]
+}
+
+model OsCount {
+  id             Int        @id @default(autoincrement())
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime
+  android        Int
+  ios            Int
+  windows        Int
+  macos          Int
+  etc            Int
+  adStatDataById Int        @unique
+  AdStatData     AdStatData @relation(fields: [adStatDataById], references: [id])
+}
+
+model Payments {
+  id           Int      @id @default(autoincrement())
+  brandId      Int?
+  operatorId   Int?
+  storeId      Int?
+  impUid       String   @db.VarChar(100)
+  merchantUid  String?  @db.VarChar(100)
+  amount       Int
+  missionCount Int      @default(0)
+  cardId       Int?
+  status       Boolean? @default(true)
+  createdAt    DateTime @default(now()) @db.Timestamp(0)
+  description  String?  @db.VarChar(128)
+}
+
+model PointActive {
+  id                 Int                  @id @default(autoincrement())
+  userId             Int
+  point              Int
+  remainPoint        Int
+  expireAt           DateTime             @db.Date
+  createdAt          DateTime             @default(now()) @db.Timestamp(0)
+  Points_PointActive Points_PointActive[]
+
+  @@index([userId], map: "PointActive_Users_id_fk")
+}
+
+model Points {
+  id                 Int                  @id @default(autoincrement())
+  userId             Int
+  type               Points_type
+  description        String               @default("") @db.VarChar(200)
+  memo               String?              @db.VarChar(200)
+  point              Int?
+  storeId            Int?
+  userGifticonId     Int?
+  storeMissionId     Int?
+  adminId            Int?
+  targetUserId       Int?
+  withdrawId         Int?
+  todayId            Int?
+  parentId           Int?
+  createdAt          DateTime             @default(now()) @db.Timestamp(0)
+  Administrators     Administrators?      @relation(fields: [adminId], references: [id])
+  Points             Points?              @relation("PointsToPoints_parentId", fields: [parentId], references: [id])
+  Store              Store?               @relation(fields: [storeId], references: [id])
+  CashUser           CashUser?            @relation(fields: [targetUserId], references: [id])
+  TodayPoints        TodayPoints?         @relation(fields: [todayId], references: [id])
+  CashWithdraw       CashWithdraw?        @relation(fields: [withdrawId], references: [id])
+  other_Points       Points[]             @relation("PointsToPoints_parentId")
+  Points_PointActive Points_PointActive[]
+
+  @@index([adminId], map: "Points_Administrators_id_fk")
+  @@index([parentId], map: "Points_Points_id_fk")
+  @@index([storeMissionId], map: "Points_StoresMissions_id_fk")
+  @@index([storeId], map: "Points_Stores_id_fk")
+  @@index([todayId], map: "Points_TodayPoints_fk")
+  @@index([userGifticonId], map: "Points_UsersGifticons_1")
+  @@index([userId], map: "Points_Users_id_fk")
+  @@index([targetUserId], map: "Points_Users_id_fk_2")
+  @@index([withdrawId], map: "Points_Withdraws_id_fk")
+}
+
+model Points_PointActive {
+  pointId     Int
+  activeId    Int
+  point       Int
+  info        Json?
+  PointActive PointActive @relation(fields: [activeId], references: [id])
+  Points      Points      @relation(fields: [pointId], references: [id])
+
+  @@id([pointId, activeId])
+  @@index([activeId], map: "Points-PointActive_PointActive_id_fk")
+  @@map("Points-PointActive")
+}
+
+model Popup {
+  id           Int        @id @default(autoincrement())
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime
+  title        String
+  url          String?
+  startDate    DateTime
+  endDate      DateTime
+  status       Boolean    @default(false)
+  mode         Boolean
+  contentUrlId Int
+  ContentUrl   ContentUrl @relation(fields: [contentUrlId], references: [id])
+  Admin        Admin[]
+
+  @@index([contentUrlId], map: "Popup_contentUrlId_fkey")
+}
+
+model PortForwarding {
+  id               Int             @id @default(autoincrement())
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime
+  name             String?
+  externalPort     String?
+  internalIp       String?
+  internalPort     String?
+  routerById       Int
+  routerTemplateId Int?
+  Router           Router          @relation(fields: [routerById], references: [id])
+  RouterTemplate   RouterTemplate? @relation(fields: [routerTemplateId], references: [id])
+
+  @@index([routerById], map: "routerById")
+  @@index([routerTemplateId], map: "routerTemplateId")
+}
+
+model Products {
+  id             Int             @id @default(autoincrement())
+  name           String          @db.VarChar(150)
+  images         Json
+  price          Int
+  amount         Int?
+  status         Boolean         @default(false)
+  adminId        Int?
+  createdAt      DateTime        @default(now()) @db.Timestamp(0)
+  updatedAt      DateTime        @default(now()) @db.Timestamp(0)
+  Administrators Administrators? @relation(fields: [adminId], references: [id])
+  Draw           Draw[]
+  RandomBoxes    RandomBoxes[]
+  Roulette       Roulette[]
+
+  @@index([adminId], map: "Products_Administrators_id_fk")
+}
+
+model Pushes {
+  id           Int            @id @default(autoincrement())
+  name         String?        @db.VarChar(100)
+  contents     String?        @db.LongText
+  image        String?        @db.VarChar(300)
+  link         String?        @db.VarChar(300)
+  status       Pushes_status? @default(wait)
+  createdAt    DateTime       @default(now()) @db.Timestamp(0)
+  sendAt       DateTime       @default(now()) @db.Timestamp(0)
+  Users_Pushes Users_Pushes[]
+}
+
+model PushesTypes {
+  id                Int                 @id @default(autoincrement())
+  type              PushesTypes_type?
+  createdAt         DateTime?           @default(now()) @db.Timestamp(0)
+  Users_PushesTypes Users_PushesTypes[]
+}
+
+model RandomBoxes {
+  id         Int              @id @default(autoincrement())
+  type       RandomBoxes_type
+  point      Int?
+  gifticonId Int?
+  productId  Int?
+  percentage Float            @db.Float
+  status     Boolean          @default(false)
+  createdAt  DateTime         @default(now()) @db.Timestamp(0)
+  Gifticons  Gifticons?       @relation(fields: [gifticonId], references: [id])
+  Products   Products?        @relation(fields: [productId], references: [id])
+
+  @@index([gifticonId], map: "RandomBoxes_Gifticons_id_fk")
+  @@index([productId], map: "RandomBoxes_Products_id_fk")
+}
+
+model RawQueryCalculation {
+  id                                                 Int          @id @default(autoincrement())
+  createdAt                                          DateTime     @default(now())
+  updatedAt                                          DateTime
+  calculationMonth                                   DateTime
+  exposureCount                                      Int          @default(0)
+  clickCount                                         Int          @default(0)
+  playCount                                          Int          @default(0)
+  visitCount                                         Int          @default(0)
+  skipCount                                          Int          @default(0)
+  connectCount                                       Int          @default(0)
+  revenue                                            Float        @default(0)
+  payment                                            Float        @default(0)
+  pureStoreRevenue                                   Float        @default(0)
+  pureBrandRevenue                                   Float        @default(0)
+  pureBrandGroupRevenue                              Float        @default(0)
+  pureDanbiRevenue                                   Float        @default(0)
+  isCalculation                                      Boolean      @default(false)
+  BrandId                                            Int?
+  StoreId                                            Int?
+  storeCount                                         Int?         @default(0)
+  StoreBySalesmanId                                  Int?
+  agencyId                                           Int?
+  salesmanId                                         Int?
+  pureAgencyRevenue                                  Float        @default(0)
+  pureAgencyGroupRevenue                             Float        @default(0)
+  pureSalesmanRevenue                                Float        @default(0)
+  agencyGroupId                                      Int?
+  agencyCount                                        Int?         @default(0)
+  salesmanCount                                      Int?         @default(0)
+  Brand                                              Brand?       @relation(fields: [BrandId], references: [id])
+  Store_RawQueryCalculation_StoreBySalesmanIdToStore Store?       @relation("RawQueryCalculation_StoreBySalesmanIdToStore", fields: [StoreBySalesmanId], references: [id])
+  Store_RawQueryCalculation_StoreIdToStore           Store?       @relation("RawQueryCalculation_StoreIdToStore", fields: [StoreId], references: [id])
+  AgencyGroup                                        AgencyGroup? @relation(fields: [agencyGroupId], references: [id])
+  Agency                                             Agency?      @relation(fields: [agencyId], references: [id])
+  Salesman                                           Salesman?    @relation(fields: [salesmanId], references: [id])
+
+  @@index([BrandId], map: "BrandId")
+  @@index([StoreBySalesmanId], map: "RawQueryCalculation_StoreBySalesmanId_fkey")
+  @@index([agencyGroupId], map: "RawQueryCalculation_agencyGroupId_fkey")
+  @@index([agencyId], map: "RawQueryCalculation_agencyId_fkey")
+  @@index([salesmanId], map: "RawQueryCalculation_salesmanId_fkey")
+  @@index([StoreId], map: "StoreId")
+}
+
+model RawUser {
+  id                   Int                @id @default(autoincrement())
+  createdAt            DateTime           @default(now())
+  updatedAt            DateTime
+  accessType           RawUser_accessType @default(CONNECT)
+  userAgentId          Int                @unique
+  userMac              String
+  routerMac            String
+  storeById            Int
+  brandGroupId         Int?
+  brandId              Int?
+  advertisementId      Int?
+  agencyGroupId        Int?
+  agencyId             Int?
+  salesmanId           Int?
+  uniqueRawUserUserMac String?
+  Advertisement        Advertisement?     @relation(fields: [advertisementId], references: [id])
+  AgencyGroup          AgencyGroup?       @relation(fields: [agencyGroupId], references: [id])
+  Agency               Agency?            @relation(fields: [agencyId], references: [id])
+  BrandGroup           BrandGroup?        @relation(fields: [brandGroupId], references: [id])
+  Brand                Brand?             @relation(fields: [brandId], references: [id])
+  Salesman             Salesman?          @relation(fields: [salesmanId], references: [id])
+  Store                Store              @relation(fields: [storeById], references: [id])
+  UniqueRawUser        UniqueRawUser?     @relation(fields: [uniqueRawUserUserMac], references: [userMac])
+  RawUserAgent         RawUserAgent       @relation(fields: [userAgentId], references: [id])
+  AcceptLanguage       AcceptLanguage[]
+  AdRawUser            AdRawUser?
+  LuckyRawUser         LuckyRawUser?
+
+  @@index([accessType])
+  @@index([agencyGroupId], map: "RawUser_agencyGroupId_fkey")
+  @@index([agencyId], map: "RawUser_agencyId_fkey")
+  @@index([salesmanId], map: "RawUser_salesmanId_fkey")
+  @@index([uniqueRawUserUserMac], map: "RawUser_uniqueRawUserUserMac_fkey")
+  @@index([userMac])
+  @@index([advertisementId], map: "advertisementId")
+  @@index([brandGroupId], map: "brandGroupId")
+  @@index([brandId], map: "brandId")
+  @@index([storeById], map: "storeById")
+}
+
+model RawUserAgent {
+  id          Int        @id @default(autoincrement())
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime
+  ua          String
+  osById      Int        @unique
+  deviceById  Int        @unique
+  browserById Int        @unique
+  engineById  Int        @unique
+  cpuById     Int        @unique
+  Browser     Browser    @relation(fields: [browserById], references: [id])
+  CPU         CPU        @relation(fields: [cpuById], references: [id])
+  Device      Device     @relation(fields: [deviceById], references: [id])
+  UserEngine  UserEngine @relation(fields: [engineById], references: [id])
+  OS          OS         @relation(fields: [osById], references: [id])
+  RawUser     RawUser?
+}
+
+model Reports {
+  id        Int            @id @default(autoincrement())
+  target    Reports_target
+  type      Reports_type
+  userId    Int
+  contents  String         @db.VarChar(600)
+  info      Json
+  createdAt DateTime       @default(now()) @db.Timestamp(0)
+}
+
+model Roulette {
+  id         Int           @id @default(autoincrement())
+  type       Roulette_type
+  point      Int?
+  gifticonId Int?
+  productId  Int?
+  percentage Float
+  status     Boolean       @default(false)
+  createdAt  DateTime      @default(now()) @db.Timestamp(0)
+  order      Int?
+  Gifticons  Gifticons?    @relation(fields: [gifticonId], references: [id])
+  Products   Products?     @relation(fields: [productId], references: [id])
+
+  @@index([gifticonId], map: "Roulette_Gifticons_id_fk")
+  @@index([productId], map: "Roulette_Products_id_fk")
+}
+
+model Router {
+  id                       Int                             @id @default(autoincrement())
+  createdAt                DateTime                        @default(now())
+  updatedAt                DateTime
+  mac                      String                          @unique
+  hostChange               String?
+  hostTopic                String                          @default("ad.fi.1.6")
+  storeId                  Int?
+  isOnline                 Boolean                         @default(false)
+  routerState              Router_routerState              @default(BEFOREINSTALL)
+  routerTransmissionMethod Router_routerTransmissionMethod @default(WIFI)
+  name                     String                          @default("")
+  wiredIPAddress           String?
+  wirelessIPAddress        String?
+  ssid2G                   String                          @default("danbi2G")
+  ssid5G                   String                          @default("danbi5G")
+  emplacement              String?
+  speedLimit               Router_speedLimit               @default(N)
+  customerUploadSpeed      Int?
+  customerDownloadSpeed    Int?
+  staffSetting             Router_staffSetting             @default(N)
+  staffSsid                String?
+  staffSsidPw              String?
+  staffUploadSpeed         Int?
+  staffDownloadSpeed       Int?
+  firmwareVersion          String                          @default("0.0.0")
+  serverFirmwareVersion    String                          @default("0.0.0")
+  refreshTime              Int                             @default(0)
+  advertisementUrlId       Int                             @default(1)
+  trackerUrl               String?
+  routerDomainId           Int
+  etc1                     String                          @default("200")
+  etc2                     String?
+  etc3                     String?
+  etc4                     String?
+  etc5                     String?
+  ipState                  Router_ipState                  @default(DYNAMIC)
+  ip                       String?
+  subnetMask               String?
+  gateway                  String?
+  dnsState                 Router_dnsState                 @default(AUTO)
+  mainDns                  String?
+  subDns                   String?
+  dayNum                   Int?
+  timeNum                  String?
+  downloadUrl              String?
+  routerModelId            Int                             @default(1)
+  withdrawId               Int?
+  packageNumber            String                          @default("")
+  orderFiSsid              String                          @default("")
+  orderFiIp                String                          @default("192.168.201.1")
+  cashFiSsid               String                          @default("")
+  cashFiIp                 String                          @default("192.168.202.1")
+  logFiIp                  String                          @default("192.168.203.1")
+  waitFiSsid               String                          @default("")
+  waitFiIp                 String                          @default("192.168.204.1")
+  luckyFiSsid              String                          @default("")
+  luckyFiIp                String                          @default("192.168.205.1")
+  prototypeSsid            String                          @default("")
+  prototypeIp              String                          @default("192.168.206.1")
+  cashRefreshTime          Int                             @default(3)
+  cashScanTime             Int                             @default(60)
+  RouterUrl                RouterUrl                       @relation(fields: [advertisementUrlId], references: [id])
+  RouterDomain             RouterDomain                    @relation(fields: [routerDomainId], references: [id])
+  RouterModel              RouterModel                     @relation(fields: [routerModelId], references: [id])
+  Store                    Store?                          @relation(fields: [storeId], references: [id])
+  Withdraw                 Withdraw?                       @relation(fields: [withdrawId], references: [id])
+  PortForwarding           PortForwarding[]
+  RouterLog                RouterLog[]
+  RouterMatchingHistory    RouterMatchingHistory[]
+
+  @@index([advertisementUrlId], map: "advertisementUrlId")
+  @@index([routerDomainId], map: "routerDomainId")
+  @@index([routerModelId], map: "routerModelId")
+  @@index([storeId], map: "storeId")
+  @@index([withdrawId], map: "withdrawId")
+}
+
+model RouterDomain {
+  id             Int              @id @default(autoincrement())
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime
+  name           String
+  Router         Router[]
+  RouterTemplate RouterTemplate[]
+}
+
+model RouterLog {
+  id           Int                    @id @default(autoincrement())
+  createdAt    DateTime               @default(now())
+  updatedAt    DateTime
+  connectState RouterLog_connectState
+  routerId     Int?
+  timestamp    Int?
+  Router       Router?                @relation(fields: [routerId], references: [id])
+
+  @@index([routerId], map: "routerId")
+}
+
+model RouterMatchingHistory {
+  id           Int                                @id @default(autoincrement())
+  createdAt    DateTime                           @default(now())
+  updatedAt    DateTime
+  routerId     Int
+  beforeState  RouterMatchingHistory_beforeState
+  currentState RouterMatchingHistory_currentState
+  storeId      Int?
+  withdrawId   Int?
+  Router       Router                             @relation(fields: [routerId], references: [id])
+  Store        Store?                             @relation(fields: [storeId], references: [id])
+  Withdraw     Withdraw?                          @relation(fields: [withdrawId], references: [id])
+
+  @@index([routerId], map: "RouterMatchingHistory_routerId_fkey")
+  @@index([storeId], map: "RouterMatchingHistory_storeId_fkey")
+  @@index([withdrawId], map: "RouterMatchingHistory_withdrawId_fkey")
+}
+
+model RouterModel {
+  id             Int              @id @default(autoincrement())
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime
+  name           String
+  Router         Router[]
+  RouterTemplate RouterTemplate[]
+}
+
+model RouterTemplate {
+  id                       Int                                     @id @default(autoincrement())
+  createdAt                DateTime                                @default(now())
+  updatedAt                DateTime
+  hostChange               String?
+  hostTopic                String?
+  storeId                  Int?
+  isOnline                 Boolean                                 @default(false)
+  routerState              RouterTemplate_routerState              @default(BEFOREINSTALL)
+  routerTransmissionMethod RouterTemplate_routerTransmissionMethod @default(WIFI)
+  name                     String?
+  wiredIPAddress           String?
+  wirelessIPAddress        String?
+  ssid2G                   String                                  @default("danbi2G")
+  ssid5G                   String                                  @default("danbi5G")
+  emplacement              String?
+  speedLimit               RouterTemplate_speedLimit               @default(N)
+  customerUploadSpeed      Int?
+  customerDownloadSpeed    Int?
+  staffSetting             RouterTemplate_staffSetting             @default(N)
+  staffSsid                String?
+  staffSsidPw              String?
+  staffUploadSpeed         Int?
+  staffDownloadSpeed       Int?
+  firmwareVersion          String                                  @default("0.0.0")
+  serverFirmwareVersion    String                                  @default("0.0.0")
+  refreshTime              Int                                     @default(0)
+  advertisementUrlId       Int                                     @default(1)
+  trackerUrl               String?
+  routerDomainId           Int
+  etc1                     String                                  @default("200")
+  etc2                     String?
+  etc3                     String?
+  etc4                     String?
+  etc5                     String?
+  ipState                  RouterTemplate_ipState                  @default(DYNAMIC)
+  ip                       String?
+  subnetMask               String?
+  gateway                  String?
+  dnsState                 RouterTemplate_dnsState                 @default(AUTO)
+  mainDns                  String?
+  subDns                   String?
+  dayNum                   Int?
+  timeNum                  String?
+  downloadUrl              String?
+  routerModelId            Int?
+  orderFiSsid              String                                  @default("")
+  orderFiIp                String                                  @default("")
+  cashFiSsid               String                                  @default("")
+  cashFiIp                 String                                  @default("")
+  logFiIp                  String                                  @default("")
+  waitFiSsid               String                                  @default("")
+  waitFiIp                 String                                  @default("")
+  luckyFiSsid              String                                  @default("")
+  luckyFiIp                String                                  @default("")
+  prototypeSsid            String                                  @default("")
+  prototypeIp              String                                  @default("")
+  cashRefreshTime          Int                                     @default(3)
+  cashScanTime             Int                                     @default(60)
+  RouterUrl                RouterUrl                               @relation(fields: [advertisementUrlId], references: [id])
+  RouterDomain             RouterDomain                            @relation(fields: [routerDomainId], references: [id])
+  RouterModel              RouterModel?                            @relation(fields: [routerModelId], references: [id])
+  Store                    Store?                                  @relation(fields: [storeId], references: [id])
+  PortForwarding           PortForwarding[]
+
+  @@index([advertisementUrlId], map: "advertisementUrlId")
+  @@index([routerDomainId], map: "routerDomainId")
+  @@index([routerModelId], map: "routerModelId")
+  @@index([storeId], map: "storeId")
+}
+
+model RouterUrl {
+  id             Int              @id @default(autoincrement())
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime
+  url            String
+  Router         Router[]
+  RouterTemplate RouterTemplate[]
+}
+
+model Salesman {
+  id                                                 Int                   @id @default(autoincrement())
+  createdAt                                          DateTime              @default(now())
+  updatedAt                                          DateTime
+  userId                                             Int
+  accountNo                                          String
+  accountNoImgId                                     Int
+  bankId                                             Int?
+  agencyId                                           Int?
+  state                                              Salesman_state        @default(SERVICEON)
+  commissionUpdatedAt                                DateTime              @default(now())
+  ContentUrl                                         ContentUrl            @relation(fields: [accountNoImgId], references: [id])
+  Agency                                             Agency?               @relation(fields: [agencyId], references: [id])
+  Bank                                               Bank?                 @relation(fields: [bankId], references: [id])
+  User                                               User                  @relation(fields: [userId], references: [id])
+  AccessHistory                                      AccessHistory[]
+  AdRawUser                                          AdRawUser[]
+  Commission_Commission_agencyBySalesmanIdToSalesman Commission[]          @relation("Commission_agencyBySalesmanIdToSalesman")
+  Commission_Commission_salesmanByAgencyIdToSalesman Commission[]          @relation("Commission_salesmanByAgencyIdToSalesman")
+  DailyStat                                          DailyStat[]
+  RawQueryCalculation                                RawQueryCalculation[]
+  RawUser                                            RawUser[]
+  Store                                              Store[]
+  TodayStat                                          TodayStat?
+
+  @@index([accountNoImgId], map: "Salesman_accountNoImgId_fkey")
+  @@index([agencyId], map: "Salesman_agencyId_fkey")
+  @@index([bankId], map: "Salesman_bankId_fkey")
+  @@index([userId], map: "Salesman_userId_fkey")
+}
+
+model Service {
+  id        Int             @id @default(autoincrement())
+  createdAt DateTime        @default(now())
+  updatedAt DateTime
+  service   Service_service @default(AD_FI)
+  Store     Store[]
+}
+
+model Sido {
+  id             Int              @id @default(autoincrement())
+  sidoName       String
+  sidoCode       Int              @unique
+  AdTargetRegion AdTargetRegion[]
+  Brand          Brand[]
+  Sigungu        Sigungu[]
+  Store          Store[]
+}
+
+model Sigungu {
+  id             Int              @id @default(autoincrement())
+  sggName        String
+  sggCode        Int              @unique
+  sidoId         Int
+  Sido           Sido             @relation(fields: [sidoId], references: [id])
+  Brand          Brand[]
+  Store          Store[]
+  AdTargetRegion AdTargetRegion[]
+
+  @@index([sidoId], map: "sidoId")
+}
+
+model Store {
+  id                                                                      Int                      @id @default(autoincrement())
+  createdAt                                                               DateTime                 @default(now())
+  updatedAt                                                               DateTime
+  franchiseType                                                           Store_franchiseType
+  categoryById                                                            Int
+  name                                                                    String
+  phoneNo                                                                 String
+  bankId                                                                  Int?
+  accountNo                                                               String
+  accountNoImgId                                                          Int
+  companyRegistrationNo                                                   String
+  companyRegistrationNoImgId                                              Int
+  addressId                                                               Int                      @unique
+  detailAddress                                                           String                   @default("")
+  state                                                                   Store_state
+  brandId                                                                 Int?
+  mostClickedRankedById                                                   Int?                     @unique
+  mostVideoPlayedRankedById                                               Int?                     @unique
+  leastClickedRankedById                                                  Int?                     @unique
+  leastVideoPlayedRankedById                                              Int?                     @unique
+  adTargetAgent                                                           Store_adTargetAgent      @default(AGENT_MOBILE)
+  sigunguById                                                             Int
+  sidoId                                                                  Int?
+  adState                                                                 Store_adState            @default(AD_STATE_ACTIVE)
+  storeAdState                                                            Store_storeAdState       @default(BRAND_AD)
+  localeId                                                                Int                      @default(1)
+  logFiStoreId                                                            Int?
+  externalKey                                                             String?                  @unique
+  signatureId                                                             Int?
+  terms                                                                   Boolean                  @default(false)
+  agreement                                                               Boolean                  @default(false)
+  privacy                                                                 Boolean                  @default(false)
+  salesmanId                                                              Int?
+  cashFiRouterRefMac                                                      String?
+  division                                                                Store_division?
+  commissionUpdatedAt                                                     DateTime                 @default(now())
+  acceptedAt                                                              DateTime?                @db.Timestamp(0)
+  addressCashFi                                                           Json
+  adminId                                                                 Int?
+  brandType                                                               Store_brandType?
+  businessFile                                                            String                   @default("") @db.VarChar(200)
+  businessNumber                                                          String                   @default("") @db.VarChar(50)
+  businessRegistration                                                    String?                  @db.VarChar(255)
+  categoryId                                                              Int                      @default(1)
+  cityId                                                                  Int?
+  deletedAt                                                               DateTime?                @db.Timestamp(0)
+  description                                                             String?                  @db.VarChar(1000)
+  fullAddress                                                             Json?
+  holiday                                                                 Json?
+  images                                                                  Json?
+  isCard                                                                  Boolean?
+  location                                                                Unsupported("geometry")?
+  obtainablePoint                                                         Int                      @default(0)
+  operationTime                                                           Json?
+  operatorId                                                              Int?
+  owner                                                                   String                   @default("") @db.VarChar(20)
+  phone                                                                   String                   @default("") @db.VarChar(20)
+  readyTime                                                               Json?
+  rejectedAt                                                              DateTime?                @db.Timestamp(0)
+  rssi                                                                    Int?                     @default(60)
+  ssid                                                                    String?                  @db.VarChar(200)
+  ssidCreatedAt                                                           DateTime?                @db.Timestamp(0)
+  status                                                                  Store_status             @default(waiting)
+  tel                                                                     String                   @default("") @db.VarChar(20)
+  type                                                                    Store_type               @default(operator)
+  uniqueKey                                                               String?
+  sync                                                                    Boolean?                 @default(true)
+  rejectReason                                                            String?                  @db.VarChar(300)
+  enableCashPoint                                                         Store_enableCashPoint    @default(Y)
+  marketing                                                               Boolean                  @default(false)
+  ContentUrl_ContentUrlToStore_accountNoImgId                             ContentUrl               @relation("ContentUrlToStore_accountNoImgId", fields: [accountNoImgId], references: [id])
+  Address                                                                 Address                  @relation(fields: [addressId], references: [id])
+  Administrators                                                          Administrators?          @relation(fields: [adminId], references: [id])
+  Bank                                                                    Bank?                    @relation(fields: [bankId], references: [id])
+  Brand                                                                   Brand?                   @relation(fields: [brandId], references: [id])
+  SubCategory                                                             SubCategory              @relation(fields: [categoryById], references: [id])
+  Cities                                                                  Cities?                  @relation(fields: [cityId], references: [id])
+  ContentUrl_ContentUrlToStore_companyRegistrationNoImgId                 ContentUrl               @relation("ContentUrlToStore_companyRegistrationNoImgId", fields: [companyRegistrationNoImgId], references: [id])
+  BestBrandStatBoard_BestBrandStatBoardToStore_leastClickedRankedById     BestBrandStatBoard?      @relation("BestBrandStatBoardToStore_leastClickedRankedById", fields: [leastClickedRankedById], references: [id])
+  BestBrandStatBoard_BestBrandStatBoardToStore_leastVideoPlayedRankedById BestBrandStatBoard?      @relation("BestBrandStatBoardToStore_leastVideoPlayedRankedById", fields: [leastVideoPlayedRankedById], references: [id])
+  Locale                                                                  Locale                   @relation(fields: [localeId], references: [id])
+  CovidSignedStore                                                        CovidSignedStore?        @relation(fields: [logFiStoreId], references: [id])
+  BestBrandStatBoard_BestBrandStatBoardToStore_mostClickedRankedById      BestBrandStatBoard?      @relation("BestBrandStatBoardToStore_mostClickedRankedById", fields: [mostClickedRankedById], references: [id])
+  BestBrandStatBoard_BestBrandStatBoardToStore_mostVideoPlayedRankedById  BestBrandStatBoard?      @relation("BestBrandStatBoardToStore_mostVideoPlayedRankedById", fields: [mostVideoPlayedRankedById], references: [id])
+  Salesman                                                                Salesman?                @relation(fields: [salesmanId], references: [id])
+  Sido                                                                    Sido?                    @relation(fields: [sidoId], references: [id])
+  ContentUrl_ContentUrlToStore_signatureId                                ContentUrl?              @relation("ContentUrlToStore_signatureId", fields: [signatureId], references: [id])
+  Sigungu                                                                 Sigungu                  @relation(fields: [sigunguById], references: [id])
+  AccessHistory                                                           AccessHistory[]
+  AdRawUser                                                               AdRawUser[]
+  AdStatistic                                                             AdStatistic[]
+  AdStoreImg                                                              AdStoreImg[]
+  AdUser                                                                  AdUser[]
+  CategoriesMenus                                                         CategoriesMenus[]
+  Commission_Commission_brandVSStoreIdToStore                             Commission[]             @relation("Commission_brandVSStoreIdToStore")
+  Commission_Commission_salesmanByStoreCommissionIdToStore                Commission[]             @relation("Commission_salesmanByStoreCommissionIdToStore")
+  Commission_Commission_storeBySalesmanCommissionIdToStore                Commission[]             @relation("Commission_storeBySalesmanCommissionIdToStore")
+  Commission_Commission_storeVSBrandIdToStore                             Commission[]             @relation("Commission_storeVSBrandIdToStore")
+  CovidVisitUser                                                          CovidVisitUser[]
+  DailyStat                                                               DailyStat[]
+  GeoLocation                                                             GeoLocation?
+  LuckyFiRoulettePrize                                                    LuckyFiRoulettePrize[]
+  LuckyRawUser                                                            LuckyRawUser[]
+  LuckyUser                                                               LuckyUser[]
+  NormalAdvertisement                                                     NormalAdvertisement?
+  Points                                                                  Points[]
+  RawQueryCalculation_RawQueryCalculation_StoreBySalesmanIdToStore        RawQueryCalculation[]    @relation("RawQueryCalculation_StoreBySalesmanIdToStore")
+  RawQueryCalculation_RawQueryCalculation_StoreIdToStore                  RawQueryCalculation[]    @relation("RawQueryCalculation_StoreIdToStore")
+  RawUser                                                                 RawUser[]
+  Router                                                                  Router[]
+  RouterMatchingHistory                                                   RouterMatchingHistory[]
+  RouterTemplate                                                          RouterTemplate[]
+  StoresMenus                                                             StoresMenus[]
+  StoresMissionsSettings                                                  StoresMissionsSettings[]
+  StoresUsers                                                             StoresUsers[]
+  TodayStat                                                               TodayStat?
+  UsersRandomBoxes                                                        UsersRandomBoxes[]
+  Advertisement                                                           Advertisement[]
+  Service                                                                 Service[]
+  User                                                                    User[]
+
+  @@index([salesmanId], map: "Store_salesmanId_fkey")
+  @@index([signatureId], map: "Store_signatureId_fkey")
+  @@index([adminId], map: "Stores_Administrators_id_fk")
+  @@index([categoryId], map: "Stores_CategoriesStores_id_fk")
+  @@index([cityId], map: "Stores_Cities_id_fk")
+  @@index([accountNoImgId], map: "accountNoImgId")
+  @@index([bankId], map: "bankId")
+  @@index([brandId], map: "brandId")
+  @@index([categoryById], map: "categoryById")
+  @@index([companyRegistrationNoImgId], map: "companyRegistrationNoImgId")
+  @@index([localeId], map: "localeId")
+  @@index([logFiStoreId], map: "logFiStoreId")
+  @@index([sidoId], map: "sidoId")
+  @@index([sigunguById], map: "sigunguById")
+}
+
+model StoreCategoryList {
+  id           Int            @id @default(autoincrement())
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime
+  MainCategory MainCategory[]
+}
+
+model StorePayment {
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime
+  user_id    Int
+  pay        Int
+  bank       String
+  bank_num   String
+  bank_name  String
+  mgt_key    String
+  pay_rst    Int?
+  status     Int      @default(0)
+  indate     Int
+  indatetime String
+  User       User     @relation(fields: [user_id], references: [id])
+
+  @@index([user_id], map: "StorePayment_user_id_fkey")
+}
+
+model StoresAccessLogs {
+  id        Int       @id @default(autoincrement())
+  storeId   Int?
+  createdAt DateTime? @default(now()) @db.Timestamp(0)
+
+  @@index([storeId], map: "StoresAccessLogs_Stores_fk")
+}
+
+model StoresLogs {
+  id             Int               @id @default(autoincrement())
+  storeId        Int
+  status         StoresLogs_status
+  description    String?           @db.VarChar(255)
+  adminId        Int?
+  createdAt      DateTime          @default(now()) @db.Timestamp(0)
+  Administrators Administrators?   @relation(fields: [adminId], references: [id])
+
+  @@index([adminId], map: "StoresLogs_Administrators_id_fk")
+  @@index([storeId], map: "StoresLogs_Stores_id_fk")
+}
+
+model StoresMenus {
+  id              Int              @id @default(autoincrement())
+  name            String           @db.VarChar(100)
+  categoryId      Int?
+  price           Int
+  images          Json?
+  storeId         Int
+  status          Boolean          @default(true)
+  description     String?          @db.VarChar(200)
+  order           Int?
+  updatedAt       DateTime?        @db.Timestamp(0)
+  createdAt       DateTime?        @default(now()) @db.Timestamp(0)
+  origin          Int?             @db.UnsignedInt
+  CategoriesMenus CategoriesMenus? @relation(fields: [categoryId], references: [id])
+  Store           Store            @relation(fields: [storeId], references: [id])
+
+  @@index([categoryId], map: "StoresMenus_Categories_id_fk")
+  @@index([storeId], map: "StoresMenus_Stores_id_fk")
+}
+
+model StoresMissions {
+  id                   Int                 @id @default(autoincrement())
+  name                 String              @db.VarChar(50)
+  type                 StoresMissions_type
+  storeId              Int
+  point                Int
+  status               Boolean             @default(false)
+  parentId             Int?
+  limit                Int?                @default(0)
+  createdAt            DateTime            @default(now()) @db.Timestamp(0)
+  updatedAt            DateTime?           @default(now()) @db.Timestamp(0)
+  StoresMissions       StoresMissions?     @relation("StoresMissionsToStoresMissions_parentId", fields: [parentId], references: [id])
+  other_StoresMissions StoresMissions[]    @relation("StoresMissionsToStoresMissions_parentId")
+
+  @@unique([storeId, type])
+  @@index([parentId], map: "StoresMissions_StoresMissions_id_fk")
+}
+
+model StoresMissionsSettings {
+  id      Int                         @id @default(autoincrement())
+  storeId Int
+  hour    Int                         @db.TinyInt
+  type    StoresMissionsSettings_type
+  Store   Store                       @relation(fields: [storeId], references: [id])
+
+  @@index([storeId], map: "StoresMissionsSettings_Stores_id_fk")
+}
+
+model StoresReviews {
+  id        Int      @id @default(autoincrement())
+  contents  String   @db.VarChar(1200)
+  files     Json?
+  userId    Int?
+  storeId   Int
+  star      Int?     @db.UnsignedTinyInt
+  parentId  Int?
+  adminId   Int?
+  status    Boolean? @default(true)
+  createdAt DateTime @default(now()) @db.Timestamp(0)
+
+  @@unique([userId, storeId])
+  @@index([storeId], map: "Reviews_Stores_id_fk")
+}
+
+model StoresSurvey {
+  id                 Int                  @id @default(autoincrement())
+  storeId            Int
+  survey             Json?
+  status             Boolean              @default(true)
+  createdAt          DateTime             @default(now()) @db.Timestamp(0)
+  Users_StoresSurvey Users_StoresSurvey[]
+}
+
+model StoresUsers {
+  storeId         Int
+  userId          Int
+  isMission       Boolean @default(true)
+  obtainablePoint Int
+  id              Int     @id @default(autoincrement())
+  Store           Store   @relation(fields: [storeId], references: [id])
+
+  @@index([storeId], map: "StoresUsers_Stores_id_fk")
+  @@index([userId], map: "StoresUsers_Users_id_fk")
+}
+
+model SubCategory {
+  id                                                                Int                @id @default(autoincrement())
+  createdAt                                                         DateTime           @default(now())
+  updatedAt                                                         DateTime
+  name                                                              String
+  mainCategoryId                                                    Int
+  categoriesStoresId                                                Int?
+  CategoriesStores_CategoriesStoresToSubCategory_categoriesStoresId CategoriesStores?  @relation("CategoriesStoresToSubCategory_categoriesStoresId", fields: [categoriesStoresId], references: [id])
+  MainCategory                                                      MainCategory       @relation(fields: [mainCategoryId], references: [id])
+  AdCategory                                                        AdCategory[]
+  Brand                                                             Brand[]
+  CategoriesStores_CategoriesStores_subCategoryIdToSubCategory      CategoriesStores[] @relation("CategoriesStores_subCategoryIdToSubCategory")
+  Store                                                             Store[]
+  AdTargetCategory                                                  AdTargetCategory[]
+
+  @@index([categoriesStoresId], map: "SubCategory_categoriesStoresId_fkey")
+  @@index([mainCategoryId], map: "mainCategoryId")
+}
+
+model SyncSetting {
+  id   Int      @id @default(autoincrement())
+  sync Boolean? @default(true)
+}
+
+model TargetTime {
+  id             Int           @id @default(autoincrement())
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime
+  sTime          Int
+  eTime          Int
+  adTargetTimeId Int?
+  AdTargetTime   AdTargetTime? @relation(fields: [adTargetTimeId], references: [id])
+
+  @@index([adTargetTimeId], map: "adTargetTimeId")
+}
+
+model TempUser {
+  id                Int                  @id @default(autoincrement())
+  email             String?              @db.VarChar(50)
+  phone             String?              @db.VarChar(30)
+  deleteType        TempUser_deleteType?
+  deleteDescription String?              @db.VarChar(300)
+  createdAt         DateTime?            @default(now()) @db.Timestamp(0)
+}
+
+model TempUsers {
+  id                Int                   @id @default(autoincrement())
+  email             String?               @db.VarChar(50)
+  phone             String?               @db.VarChar(30)
+  deleteType        TempUsers_deleteType?
+  deleteDescription String?               @db.VarChar(300)
+  createdAt         DateTime?             @default(now()) @db.Timestamp(0)
+}
+
+model Terms {
+  id        Int       @id @default(autoincrement())
+  title     String?   @db.VarChar(30)
+  contents  String?   @db.MediumText
+  type      String?   @db.VarChar(30)
+  adminId   Int?
+  updatedAt DateTime? @db.Timestamp(0)
+  createdAt DateTime? @default(now()) @db.Timestamp(0)
+}
+
+model ThumbnailContent {
+  id          Int                        @id @default(autoincrement())
+  createdAt   DateTime                   @default(now())
+  updatedAt   DateTime
+  userAgent   ThumbnailContent_userAgent @default(AGENT_PC)
+  url         String                     @default("")
+  name        String                     @default("")
+  adContentId Int?                       @unique
+  fileSize    Float                      @default(0)
+  AdContent   AdContent?                 @relation(fields: [adContentId], references: [id])
+}
+
+model TodayPoints {
+  id            Int       @id @default(autoincrement())
+  userId        Int?
+  transactionId String?   @unique @db.VarChar(40)
+  point         Int?      @default(0)
+  title         String?   @db.VarChar(260)
+  type          String?   @db.VarChar(20)
+  createdAt     DateTime? @default(now()) @db.Timestamp(0)
+  Points        Points[]
+
+  @@index([userId], map: "TodayPoints_Users_fk")
+}
+
+model TodayStat {
+  id              Int            @id @default(autoincrement())
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime
+  exposureCount   Int            @default(0)
+  connectCount    Int            @default(0)
+  clickCount      Int            @default(0)
+  playCount       Int            @default(0)
+  skipCount       Int            @default(0)
+  visitCount      Int            @default(0)
+  revenue         Float          @default(0)
+  storeId         Int?           @unique
+  brandId         Int?           @unique
+  brandGroupId    Int?           @unique
+  salesmanId      Int?           @unique
+  agencyId        Int?           @unique
+  agencyGroupId   Int?           @unique
+  advertisementId Int?           @unique
+  Advertisement   Advertisement? @relation(fields: [advertisementId], references: [id])
+  AgencyGroup     AgencyGroup?   @relation(fields: [agencyGroupId], references: [id])
+  Agency          Agency?        @relation(fields: [agencyId], references: [id])
+  BrandGroup      BrandGroup?    @relation(fields: [brandGroupId], references: [id])
+  Brand           Brand?         @relation(fields: [brandId], references: [id])
+  Salesman        Salesman?      @relation(fields: [salesmanId], references: [id])
+  Store           Store?         @relation(fields: [storeId], references: [id])
+}
+
+model TransactionList {
+  id                                                                                   Int                       @id @default(autoincrement())
+  createdAt                                                                            DateTime                  @default(now())
+  updatedAt                                                                            DateTime
+  cardId                                                                               Int
+  code                                                                                 Int?
+  message                                                                              String?
+  amount                                                                               Int
+  advertiserById                                                                       Int?
+  advertisementById                                                                    Int?
+  connectCount                                                                         Int                       @default(0)
+  clickCount                                                                           Int                       @default(0)
+  pureClickCount                                                                       Int                       @default(0)
+  videoPlayCount                                                                       Int                       @default(0)
+  pureVideoPlayCount                                                                   Int                       @default(0)
+  skipCount                                                                            Int                       @default(0)
+  exposureCount                                                                        Int                       @default(0)
+  visitCount                                                                           Int                       @default(0)
+  pureExposureCount                                                                    Int                       @default(0)
+  reVisitCount                                                                         Int                       @default(0)
+  pureVisitCount                                                                       Int                       @default(0)
+  executionDate                                                                        DateTime                  @default(now())
+  isPaid                                                                               Boolean                   @default(false)
+  vat                                                                                  Int                       @default(0)
+  executionAmount                                                                      Int                       @default(0)
+  isSkip                                                                               Boolean                   @default(false)
+  Advertisement                                                                        Advertisement?            @relation(fields: [advertisementById], references: [id])
+  Advertiser                                                                           Advertiser?               @relation(fields: [advertiserById], references: [id])
+  Card                                                                                 Card                      @relation(fields: [cardId], references: [id])
+  ImPortPaymentAnnotation_ImPortPaymentAnnotation_transactionListByIdToTransactionList ImPortPaymentAnnotation?  @relation("ImPortPaymentAnnotation_transactionListByIdToTransactionList")
+  ImPortPaymentAnnotation_ImPortPaymentAnnotation_transactionListIdToTransactionList   ImPortPaymentAnnotation[] @relation("ImPortPaymentAnnotation_transactionListIdToTransactionList")
+
+  @@index([advertisementById], map: "advertisementById")
+  @@index([advertiserById], map: "advertiserById")
+  @@index([cardId], map: "cardId")
+}
+
+model UniqueRawUser {
+  userMac                                                         String          @id @unique
+  createdAt                                                       DateTime        @default(now())
+  updatedAt                                                       DateTime
+  agreement                                                       Boolean         @default(false)
+  cashUserId                                                      Int?
+  point                                                           Int             @default(0)
+  CashUser                                                        CashUser?       @relation(fields: [cashUserId], references: [id])
+  AccessHistory_AccessHistory_cashConnectUserMacToUniqueRawUser   AccessHistory[] @relation("AccessHistory_cashConnectUserMacToUniqueRawUser")
+  AccessHistory_AccessHistory_clickUserMacToUniqueRawUser         AccessHistory[] @relation("AccessHistory_clickUserMacToUniqueRawUser")
+  AccessHistory_AccessHistory_connectUserMacToUniqueRawUser       AccessHistory[] @relation("AccessHistory_connectUserMacToUniqueRawUser")
+  AccessHistory_AccessHistory_exposureUserMacToUniqueRawUser      AccessHistory[] @relation("AccessHistory_exposureUserMacToUniqueRawUser")
+  AccessHistory_AccessHistory_luckyConnectUserMacToUniqueRawUser  AccessHistory[] @relation("AccessHistory_luckyConnectUserMacToUniqueRawUser")
+  AccessHistory_AccessHistory_luckyDrawUserMacToUniqueRawUser     AccessHistory[] @relation("AccessHistory_luckyDrawUserMacToUniqueRawUser")
+  AccessHistory_AccessHistory_luckyRouletteUserMacToUniqueRawUser AccessHistory[] @relation("AccessHistory_luckyRouletteUserMacToUniqueRawUser")
+  AccessHistory_AccessHistory_playUserMacToUniqueRawUser          AccessHistory[] @relation("AccessHistory_playUserMacToUniqueRawUser")
+  AccessHistory_AccessHistory_skipUserMacToUniqueRawUser          AccessHistory[] @relation("AccessHistory_skipUserMacToUniqueRawUser")
+  AccessHistory_AccessHistory_visitUserMacToUniqueRawUser         AccessHistory[] @relation("AccessHistory_visitUserMacToUniqueRawUser")
+  RawUser                                                         RawUser[]
+
+  @@index([cashUserId], map: "UniqueRawUser_cashUserId_fkey")
+}
+
+model User {
+  id                 Int            @id @default(autoincrement())
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime
+  email              String         @unique
+  password           String         @default("")
+  confirmed          User_confirmed @default(N)
+  resetPasswordToken String
+  validateEmailToken String
+  name               String?
+  role               User_role      @default(GUEST)
+  phone              String?
+  advertiserId       Int?
+  agencyGroupId      Int?
+  agencyId           Int?
+  Advertiser         Advertiser?    @relation(fields: [advertiserId], references: [id])
+  AgencyGroup        AgencyGroup?   @relation(fields: [agencyGroupId], references: [id])
+  Agency             Agency?        @relation(fields: [agencyId], references: [id])
+  ADFiConfig         ADFiConfig?
+  Alarm              Alarm[]
+  Salesman           Salesman[]
+  StorePayment       StorePayment[]
+  BrandGroup         BrandGroup[]
+  Brand              Brand[]
+  Store              Store[]
+
+  @@index([agencyGroupId], map: "User_agencyGroupId_fkey")
+  @@index([agencyId], map: "User_agencyId_fkey")
+  @@index([advertiserId], map: "advertiserId")
+}
+
+model UserEngine {
+  id           Int           @id @default(autoincrement())
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime
+  name         String?
+  version      String?
+  RawUserAgent RawUserAgent?
+}
+
+model UserMemos {
+  id        Int       @id @default(autoincrement())
+  userId    Int?
+  memo      String?   @db.VarChar(300)
+  writer    String?   @db.VarChar(30)
+  createdAt DateTime? @default(now()) @db.Timestamp(0)
+  CashUser  CashUser? @relation(fields: [userId], references: [id])
+
+  @@index([userId], map: "UserMemos_Users_fk")
+}
+
+model Users_Categories {
+  userId     Int
+  categoryId Int
+
+  @@unique([userId, categoryId])
+  @@map("Users-Categories")
+}
+
+model Users_Events {
+  userId    Int
+  eventId   Int
+  createdAt DateTime? @default(now()) @db.Timestamp(0)
+  CashUser  CashUser  @relation(fields: [userId], references: [id])
+
+  @@unique([userId, eventId])
+  @@index([eventId], map: "Users-Events_Events_fk")
+  @@index([userId], map: "Users-Events_Users_fk")
+  @@map("Users-Events")
+}
+
+model Users_Gifticons {
+  id            Int                  @id @default(autoincrement())
+  userId        Int
+  gifticonId    Int
+  couponImgUrl  String               @db.VarChar(200)
+  transactionId String               @db.VarChar(20)
+  type          Users_Gifticons_type @default(purchase)
+  createdAt     DateTime             @default(now()) @db.Timestamp(0)
+  Gifticons     Gifticons            @relation(fields: [gifticonId], references: [id])
+  CashUser      CashUser             @relation(fields: [userId], references: [id])
+
+  @@index([gifticonId], map: "Users-Gifticons_Gifticons_id_fk")
+  @@index([userId], map: "Users-Gifticons_Users_id_fk")
+  @@map("Users-Gifticons")
+}
+
+model Users_Notices {
+  userId    Int
+  noticeId  Int
+  createdAt DateTime @default(now()) @db.Timestamp(0)
+  id        Int      @id @default(autoincrement())
+  CashUser  CashUser @relation(fields: [userId], references: [id])
+
+  @@index([noticeId], map: "Users-Notices_Notices_fk")
+  @@index([userId], map: "Users-Notices_Users_fk")
+  @@map("Users-Notices")
+}
+
+model Users_Pushes {
+  userId Int
+  pushId Int
+  dummy  Int?
+  id     Int    @id @default(autoincrement())
+  Pushes Pushes @relation(fields: [pushId], references: [id])
+
+  @@unique([userId, pushId], map: "Users-Pushes.userId_pushId_unique")
+  @@index([userId], map: "Users-Pushes_fk")
+  @@index([pushId], map: "Users-Pushes_fk2")
+  @@map("Users-Pushes")
+}
+
+model Users_PushesTypes {
+  id          Int          @id @default(autoincrement())
+  userId      Int?
+  typeId      Int?
+  status      Boolean?     @default(true)
+  createdAt   DateTime?    @default(now()) @db.Timestamp(0)
+  PushesTypes PushesTypes? @relation(fields: [typeId], references: [id])
+
+  @@index([typeId], map: "Users-PushesTypes_PushesTypes_fk")
+  @@index([userId], map: "Users-PushesTypes_Users_fk")
+  @@map("Users-PushesTypes")
+}
+
+model Users_Stores {
+  userId  Int
+  storeId Int
+  dummy   Int?
+  id      Int  @id @default(autoincrement())
+
+  @@unique([userId, storeId], map: "Users-Stores.userId_storeId_unique")
+  @@index([storeId], map: "Users-Stores_Stores_id_fk")
+  @@index([userId], map: "Users-Stores_Users_id_fk")
+  @@map("Users-Stores")
+}
+
+model Users_StoresMissions {
+  id             Int       @id @default(autoincrement())
+  userId         Int?
+  storeMissionId Int?
+  tempStatus     Boolean?  @default(true)
+  status         Boolean?  @default(false)
+  createdAt      DateTime? @default(now()) @db.Timestamp(0)
+
+  @@index([storeMissionId], map: "Users-StoresMissions_StoresMissions_fk")
+  @@index([userId], map: "Users-StoresMissions_Users_fk")
+  @@map("Users-StoresMissions")
+}
+
+model Users_StoresSurvey {
+  id            Int          @id @default(autoincrement())
+  storeSurveyId Int
+  answers       Json
+  userId        Int
+  createdAt     DateTime     @default(now()) @db.Timestamp(0)
+  StoresSurvey  StoresSurvey @relation(fields: [storeSurveyId], references: [id])
+  CashUser      CashUser     @relation(fields: [userId], references: [id])
+
+  @@index([storeSurveyId], map: "Users-StoresSurvey_StoresSurvey_id_fk")
+  @@index([userId], map: "Users-StoresSurvey_Users_id_fk")
+  @@map("Users-StoresSurvey")
+}
+
+model UsersDraw {
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  orderId    Int?
+  pointId    Int?
+  gifticonId Int?
+  createdAt  DateTime @default(now()) @db.Timestamp(0)
+  Orders     Orders?  @relation(fields: [orderId], references: [id])
+
+  @@index([orderId], map: "UsersDraw_Orders_id_fk")
+  @@index([userId], map: "UsersDraw_Users_id_fk")
+}
+
+model UsersLocations {
+  id         Int       @id @default(autoincrement())
+  target     Int?
+  obtainPath String?   @db.VarChar(20)
+  service    String?   @db.VarChar(30)
+  receiver   Int?
+  createdAt  DateTime? @default(now()) @db.Timestamp(0)
+
+  @@index([receiver], map: "UsersLocations_Stores_fk")
+  @@index([target], map: "UsersLocations_Users_fk")
+}
+
+model UsersLogs {
+  userId    Int      @unique
+  updatedAt DateTime @db.Timestamp(0)
+}
+
+model UsersRandomBoxes {
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  storeId    Int
+  orderId    Int?
+  gifticonId Int?
+  pointId    Int?
+  visitCount Int
+  createdAt  DateTime @default(now()) @db.Timestamp(0)
+  Orders     Orders?  @relation(fields: [orderId], references: [id])
+  Store      Store    @relation(fields: [storeId], references: [id])
+  CashUser   CashUser @relation(fields: [userId], references: [id])
+
+  @@index([orderId], map: "UsersRandomBoxes_Orders_id_fk")
+  @@index([storeId], map: "UsersRandomBoxes_Stores_id_fk")
+  @@index([userId], map: "UsersRandomBoxes_Users_id_fk")
+}
+
+model UsersRoulette {
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  orderId    Int?
+  pointId    Int?
+  gifticonId Int?
+  createdAt  DateTime @default(now()) @db.Timestamp(0)
+  Orders     Orders?  @relation(fields: [orderId], references: [id])
+
+  @@index([orderId], map: "UsersRoulette_Orders_id_fk")
+  @@index([userId], map: "UsersRoulette_Users_id_fk")
+}
+
+model Verifications {
+  id        Int                @id @default(autoincrement())
+  phone     String             @db.VarChar(20)
+  type      Verifications_type
+  code      String             @db.VarChar(6)
+  confirmed Boolean            @default(false)
+  used      Boolean            @default(false)
+  createdAt DateTime           @default(now()) @db.Timestamp(0)
+
+  @@unique([phone, code])
+}
+
+model VerifyEmail {
+  id    Int    @id @default(autoincrement())
+  email String @unique
+  token String @unique
+}
+
+model WeekDay {
+  id           Int            @id @default(autoincrement())
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime
+  weekday      String
+  AdTargetTime AdTargetTime[]
+}
+
+model Withdraw {
+  id                    Int                     @id @default(autoincrement())
+  createdAt             DateTime                @default(now())
+  updatedAt             DateTime
+  name                  String
+  Router                Router[]
+  RouterMatchingHistory RouterMatchingHistory[]
+}
+
+enum AccessHistory_accessType {
+  CONNECT
+  EXPOSURE
+  CLICK
+  PLAY
+  VISIT
+  SKIP
+  LUCKYFI_CONNECT
+  LUCKYFI_ROULETTE
+  LUCKYFI_DRAW
+  CASH_FI_CONNECT
+}
+
+enum AdCategory_type {
+  AD_GENERAL
+  AD_STORE
+  AD_CATEGORIZED
+}
+
+enum AdChangeHistory_type {
+  AD_IMAGE
+  AD_VIDEO
+}
+
+enum AdChangeHistory_state {
+  AD_STATE_PENDING
+  AD_STATE_ACTIVE
+  AD_STATE_STOPPED
+  AD_STATE_PAUSED
+  AD_STATE_EXPIRED
+  AD_STATE_FORCED_STOPPED
+}
+
+enum AdChangeHistory_approvedState {
+  AD_PROGRESS
+  AD_UNAPPROVED
+  AD_APPROVED
+  AD_REJECTED
+  AD_CLOSED
+  AD_REOFFERED
+  AD_STOPPED
+  AD_DELETE
+}
+
+enum AdChangeHistory_danbiAdState {
+  DANBI_AD
+  GENERAL_AD
+}
+
+enum AdChangeHistory_isContinuous {
+  Y
+  N
+}
+
+enum AdChangeHistory_purpose {
+  AD_CONNECTING_WEBSITE
+  AD_COLLECTING_USERS
+}
+
+enum AdChangeHistory_aspectRatioType {
+  PORTRAIT
+  LANDSCAPE
+}
+
+enum AdContent_userAgent {
+  AGENT_PC
+  AGENT_MOBILE
+  AGENT_MOBILE_ANDROID
+  AGENT_MOBILE_IOS
+  AGENT_BOTH
+  AGENT_NONE
+}
+
+enum AdRegistrationData_userAgent {
+  AGENT_PC
+  AGENT_MOBILE
+  AGENT_MOBILE_ANDROID
+  AGENT_MOBILE_IOS
+  AGENT_BOTH
+  AGENT_NONE
+}
+
+enum AdRejectedStatement_adUpdatedState {
+  Y
+  N
+}
+
+enum AdRejectedStatement_state {
+  Y
+  N
+}
+
+enum AdStoreImg_userAgent {
+  AGENT_PC
+  AGENT_MOBILE
+  AGENT_MOBILE_ANDROID
+  AGENT_MOBILE_IOS
+  AGENT_BOTH
+  AGENT_NONE
+}
+
+enum AdTarget_everytime {
+  Y
+  N
+}
+
+enum AdTarget_everywhere {
+  Y
+  N
+}
+
+enum AdTarget_everyCategory {
+  Y
+  N
+}
+
+enum AdTarget_franchiseState {
+  Y
+  N
+}
+
+enum AdTarget_everyFranchise {
+  Y
+  N
+}
+
+enum AdTargetCategory_every {
+  Y
+  N
+}
+
+enum AdTargetRegion_every {
+  Y
+  N
+}
+
+enum AdTargetTime_every {
+  Y
+  N
+}
+
+enum Admin_type {
+  STORE
+  BRAND
+  BRAND_GROUP
+  ADVERTISER
+  AGENCY_GROUP
+  AGENCY
+  SALESMAN
+}
+
+enum AdminNotifications_type {
+  unpaid_accept @map("unpaid/accept")
+  accept
+  withdraw
+  inquiries
+  termination
+}
+
+enum Administrators_role {
+  master
+}
+
+enum Advertisement_type {
+  AD_IMAGE
+  AD_VIDEO
+}
+
+enum Advertisement_state {
+  AD_STATE_PENDING
+  AD_STATE_ACTIVE
+  AD_STATE_STOPPED
+  AD_STATE_PAUSED
+  AD_STATE_EXPIRED
+  AD_STATE_FORCED_STOPPED
+}
+
+enum Advertisement_approvedState {
+  AD_PROGRESS
+  AD_UNAPPROVED
+  AD_APPROVED
+  AD_REJECTED
+  AD_CLOSED
+  AD_REOFFERED
+  AD_STOPPED
+  AD_DELETE
+}
+
+enum Advertisement_danbiAdState {
+  DANBI_AD
+  GENERAL_AD
+}
+
+enum Advertisement_isContinuous {
+  Y
+  N
+}
+
+enum Advertisement_purpose {
+  AD_CONNECTING_WEBSITE
+  AD_COLLECTING_USERS
+}
+
+enum Advertisement_aspectRatioType {
+  PORTRAIT
+  LANDSCAPE
+}
+
+enum Agency_state {
+  SERVICEON
+  SERVICESTOP
+  TERMINATION
+}
+
+enum Alarm_alarmType {
+  ADVERTISEMENT
+  ADVERTISEMENT_REJECT
+  NOTIFICATION
+  CALCULATION
+  MQTT
+}
+
+enum Brand_useBrandAd {
+  Y
+  N
+}
+
+enum Brand_status {
+  general
+  sanction
+  termination
+  delete
+}
+
+enum Brand_enableCashPoint {
+  Y
+  N
+}
+
+enum BrandsMissions_missionType {
+  default
+  event
+}
+
+enum BrandsMissions_type {
+  checkIn
+  review
+  set
+  survey
+  stay
+  share
+  like
+}
+
+enum BrandsMissionsSettings_type {
+  hour
+  perHour
+}
+
+enum BrandsUsers_role {
+  master
+}
+
+enum Card_deleteState {
+  Y
+  N
+}
+
+enum CashAdvertisement_type {
+  today
+  mainBanner
+  banner
+  afterMission
+}
+
+enum CashNotification_type {
+  notice
+  point
+  order
+  expired
+  termsService
+  termsPersonal
+  inquiry
+  dormancy
+  checkIn
+  missionActive
+  transfer
+  invite
+  custom
+}
+
+enum CashUser_type {
+  email
+  naver
+  facebook
+  apple
+}
+
+enum CashUser_status {
+  general
+  dormancy
+  delete
+  sanction
+}
+
+enum CashUser_deleteType {
+  point
+  use
+  service
+  error
+  etc
+  force
+}
+
+enum CashUser_referral {
+  AD_FI
+  LOG_FI
+  CASH_FI
+  OFFICE_FI
+  ORDER_FI
+  WAIT_FI
+  LUCKY_FI
+  PROTOTYPE
+  UNSET
+}
+
+enum Commission_subject {
+  BRAND_GROUP
+  BRAND
+  STORE
+  DANBI
+  SALESMAN
+  AGENCY
+  AGENCY_GROUP
+}
+
+enum DeviceType_deviceType {
+  AGENT_PC
+  AGENT_MOBILE
+  AGENT_MOBILE_ANDROID
+  AGENT_MOBILE_IOS
+  AGENT_BOTH
+  AGENT_NONE
+}
+
+enum Draw_type {
+  point
+  gifticon
+  product
+}
+
+enum Gender_genderType {
+  MALE
+  FEMALE
+  OTHERS
+}
+
+enum Identities_gender {
+  male
+  female
+}
+
+enum Locale_locale {
+  KR
+  US
+  VN
+  ID
+  SG
+  JP
+  CN
+}
+
+enum LuckyFiRoulettePrize_type {
+  DELIVERY_PRIZE
+  STORE_PRIZE
+  STORE_PRIZE_DISCOUNT
+  STORE_PRIZE_PRESENT
+  POINT_PRIZE
+  MOBILE_PRIZE
+}
+
+enum LuckyFiRoulettePrize_category {
+  DEFAULT
+  EVENT_MILK_COIN
+}
+
+enum LuckyFiRoulettePrize_winningPeriodType {
+  WELCOME
+  GENERAL
+}
+
+enum LuckyFiRoulettePrize_gifticonService {
+  GIFTISHOW_BIZ
+  COOP_MARKETING
+}
+
+enum LuckyFiRoulettePrizeMonthTarget_type {
+  DELIVERY_PRIZE
+  STORE_PRIZE
+  STORE_PRIZE_DISCOUNT
+  STORE_PRIZE_PRESENT
+  POINT_PRIZE
+  MOBILE_PRIZE
+}
+
+enum LuckyFiRoulettePrizeMonthTarget_category {
+  DEFAULT
+  EVENT_MILK_COIN
+}
+
+enum LuckyFiRoulettePrizeMonthTarget_gifticonService {
+  GIFTISHOW_BIZ
+  COOP_MARKETING
+}
+
+enum LuckyFiRoulettePrizeMonthTarget_winningPeriodType {
+  WELCOME
+  GENERAL
+}
+
+enum LuckyRawUser_gameType {
+  ROULETTE
+  DRAW
+  NOTYET
+}
+
+enum Missions_type {
+  checkIn
+  review
+  set
+  survey
+  stay
+  share
+  star
+  like
+}
+
+enum MissionsSettings_type {
+  hour
+  perHour
+}
+
+enum Notices_type {
+  app
+  brand
+  operator
+  all
+}
+
+enum Notification_type {
+  EVERY
+  STORE
+  BRAND
+  BRAND_GROUP
+  ADVERTISER
+  AGENCY_GROUP
+  AGENCY
+  SALESMAN
+}
+
+enum Notification_noticeType {
+  REQUIRE
+  GENERAL
+}
+
+enum Operators_role {
+  master
+}
+
+enum Operators_status {
+  general
+  sanction
+  termination
+  delete
+}
+
+enum Operators_terminationReason {
+  Inconvenience
+  price
+  unuseful
+  function
+  termination
+  closed
+  etc
+}
+
+enum Operators_deleteReason {
+  Inconvenience
+  price
+  unuseful
+  function
+  termination
+  closed
+  etc
+}
+
+enum Orders_status {
+  readySend
+  sent
+  return
+  complete
+}
+
+enum Points_type {
+  register
+  gifticon
+  mission
+  draw
+  roulette
+  etc
+  today
+  withdraw
+  transfer
+  expired
+  accumulate
+  deduction
+  cancel
+  transferCancel
+  random
+  adfi
+}
+
+enum Pushes_status {
+  wait
+  send
+  sendCancel
+}
+
+enum PushesTypes_type {
+  point
+  mission
+  account
+  custom
+}
+
+enum RandomBoxes_type {
+  point
+  gifticon
+  product
+}
+
+enum RawUser_accessType {
+  CONNECT
+  EXPOSURE
+  CLICK
+  PLAY
+  VISIT
+  SKIP
+  LUCKYFI_CONNECT
+  LUCKYFI_ROULETTE
+  LUCKYFI_DRAW
+  CASH_FI_CONNECT
+}
+
+enum Reports_target {
+  store
+  userId
+}
+
+enum Reports_type {
+  inappropriate
+  pornography
+  violence
+}
+
+enum Roulette_type {
+  point
+  gifticon
+  product
+}
+
+enum Router_routerState {
+  INSTALLED
+  WITHDRAWN
+  BEFOREINSTALL
+}
+
+enum Router_routerTransmissionMethod {
+  CABLE
+  WIFI
+  INTEGRATED
+}
+
+enum Router_speedLimit {
+  Y
+  N
+}
+
+enum Router_staffSetting {
+  Y
+  N
+}
+
+enum Router_ipState {
+  DYNAMIC
+  STATIC
+}
+
+enum Router_dnsState {
+  AUTO
+  MANUAL
+}
+
+enum RouterLog_connectState {
+  DISCONNECTED
+  CONNECTION_RECOVERED
+  CONNECTION_STARTED
+}
+
+enum RouterMatchingHistory_beforeState {
+  INSTALLED
+  WITHDRAWN
+  BEFOREINSTALL
+}
+
+enum RouterMatchingHistory_currentState {
+  INSTALLED
+  WITHDRAWN
+  BEFOREINSTALL
+}
+
+enum RouterTemplate_routerState {
+  INSTALLED
+  WITHDRAWN
+  BEFOREINSTALL
+}
+
+enum RouterTemplate_routerTransmissionMethod {
+  CABLE
+  WIFI
+  INTEGRATED
+}
+
+enum RouterTemplate_speedLimit {
+  Y
+  N
+}
+
+enum RouterTemplate_staffSetting {
+  Y
+  N
+}
+
+enum RouterTemplate_ipState {
+  DYNAMIC
+  STATIC
+}
+
+enum RouterTemplate_dnsState {
+  AUTO
+  MANUAL
+}
+
+enum Salesman_state {
+  SERVICEON
+  SERVICESTOP
+  TERMINATION
+}
+
+enum Service_service {
+  AD_FI
+  LOG_FI
+  CASH_FI
+  OFFICE_FI
+  ORDER_FI
+  WAIT_FI
+  LUCKY_FI
+  PROTOTYPE
+  UNSET
+}
+
+enum Store_franchiseType {
+  DIRECT
+  FRANCHISE
+}
+
+enum Store_state {
+  SERVICEON
+  SERVICEOFF
+  EOB
+  BEFOREINSTALL
+}
+
+enum Store_adTargetAgent {
+  AGENT_PC
+  AGENT_MOBILE
+  AGENT_MOBILE_ANDROID
+  AGENT_MOBILE_IOS
+  AGENT_BOTH
+  AGENT_NONE
+}
+
+enum Store_adState {
+  AD_STATE_PENDING
+  AD_STATE_ACTIVE
+  AD_STATE_STOPPED
+  AD_STATE_PAUSED
+  AD_STATE_EXPIRED
+  AD_STATE_FORCED_STOPPED
+}
+
+enum Store_storeAdState {
+  BRAND_AD
+  STORE_AD
+  NOT_SET
+}
+
+enum Store_division {
+  SOLE_PROPRIETORSHIP
+  CORPORATION
+}
+
+enum Store_brandType {
+  direct
+  franchise
+}
+
+enum Store_status {
+  opened
+  closed
+  termination
+  paused
+  waiting
+  rejected
+  sanction
+}
+
+enum Store_type {
+  brand
+  operator
+}
+
+enum Store_enableCashPoint {
+  Y
+  N
+}
+
+enum StoresLogs_status {
+  opened
+  closed
+  termination
+  paused
+  waiting
+  rejected
+}
+
+enum StoresMissions_type {
+  checkIn
+  review
+  set
+  survey
+  like
+  share
+  stay
+}
+
+enum StoresMissionsSettings_type {
+  hour
+  perHour
+}
+
+enum TempUser_deleteType {
+  point
+  use
+  service
+  error
+  etc
+  force
+}
+
+enum TempUsers_deleteType {
+  point
+  use
+  service
+  error
+  etc
+  force
+}
+
+enum ThumbnailContent_userAgent {
+  AGENT_PC
+  AGENT_MOBILE
+  AGENT_MOBILE_ANDROID
+  AGENT_MOBILE_IOS
+  AGENT_BOTH
+  AGENT_NONE
+}
+
+enum User_confirmed {
+  Y
+  N
+}
+
+enum User_role {
+  ROOT
+  DANBI_ADMIN
+  BRANDGROUP_ADMIN
+  BRANDGROUP_MANAGER
+  BRANDGROUP_OWNER
+  BRAND_OWNER
+  BRAND_ADMIN
+  BRAND_MANAGER
+  STORE_ADMIN
+  STORE_OWNER
+  STORE_MANAGER
+  ADVERTISER_ADMIN
+  ADVERTISER_OWNER
+  ADVERTISER_MANAGER
+  GUEST
+  CAPTIVE_PORTAL_USER
+  AGENCY_GROUP
+  AGENCY
+  SALESMAN
+}
+
+enum Users_Gifticons_type {
+  purchase
+  draw
+  roulette
+
+  @@map("Users-Gifticons_type")
+}
+
+enum Verifications_type {
+  findId
+  resetPassword
+  changePhone
+  dormancy
+  register
+}
