@@ -1,0 +1,7 @@
+{
+  "extends": ["@danbi-fi/eslint-config-danbi-base"],
+  "rules": {
+    "prettier/prettier": ["error"],
+    "no-console": ["off"]
+  }
+}
