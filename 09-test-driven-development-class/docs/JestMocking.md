@@ -242,6 +242,11 @@ export function process() {
 import { process } from "../process";
 import * as module from "libs/module";
 
+jest.mock("libs/module", () => ({
+  __esModule: true,
+  ...jest.requireActual("libs/module"),
+}));
+
 describe("custom module mock", () => {
   it("should return normal value", () => {
     const spy = jest.spyOn(module, "module1").mockReturnValue({
