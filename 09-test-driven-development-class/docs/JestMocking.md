@@ -20,7 +20,8 @@ src
 
 모듈 `mock` 함수를 만드는 작업은 아래와 같이 같은 레벨에서 `import`하는 함수 파일과 동일한 파일을 `__mocks__` 하위에 같은 이름으로 만든다.
 
-아래 mock함수는 사용하는 MQTT Client의 클래스를 만들어 구현체를 만들어 사용함(Class)
+아래 mock함수는 사용하는 MQTT Client를 커스터마이징 하여 함수 구현 모듈을 만들어 사용하였다.
+
 ```ts
 // src/libs/mqtt/__mocks__/mqttClient.ts
 const MQTTClientMock = jest.fn().mockImplementation(() => ({
@@ -236,6 +237,8 @@ export function process() {
 ```
 
 `jest.spyOn` 함수는 테스트하려는 함수 내부의 Mocking 하고자 하는 함수를 명시하고 Mocking한 리턴값을 적는다. (TypeScript 작동하여, 실제 맞는 타입의 가상의 값을 주어야 함)
+
+또한 `spyOn`을 하려는 함수는 Mocking을 해야하며 Mocking후 실제 함수 결과를 리턴하도록 `jest.requireActual`을 사용하여 Mocking 한다.
 
 ```ts
 // src/process/__tests__/process.spec.ts
