@@ -1,6 +1,9 @@
-const AxiosMock = jest.fn().mockImplementation(() => ({
+export const axiosInstance = {
   get: jest.fn(),
-  post: jest.fn(),
-}));
+  post: jest.fn().mockResolvedValue({
+    error: false,
+    message: "hello I'm mock function",
+  }),
+};
 
-export default AxiosMock;
+export default axiosInstance;
