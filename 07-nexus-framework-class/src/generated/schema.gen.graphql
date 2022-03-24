@@ -10,13 +10,27 @@ type Mutation {
   ): Post
 }
 
-"""Poasdasdasdasasst"""
+"""Post 타입"""
 type Post {
+  author: User
+  authorId: Int
   content: String
-  id: Int
+  id: Int!
   title: String
 }
 
 type Query {
-  postQuery: Post @deprecated(reason: "안쓰임... 이유는 블라블라")
+  """여러 Posts 쿼리"""
+  post(id: Int!): Post
+  posts: [Post]
+
+  """사용자 쿼리"""
+  user(id: Int!): User
+}
+
+"""사용자"""
+type User {
+  id: Int!
+  name: String
+  posts: [Post]
 }

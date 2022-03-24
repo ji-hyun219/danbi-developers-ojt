@@ -1,4 +1,6 @@
-import axiosInstance from "../axios";
+import axiosInstance from "../axiosInstance";
+
+jest.mock("../axiosInstance");
 
 describe("axios instance test", () => {
   it("should return normal result", async () => {

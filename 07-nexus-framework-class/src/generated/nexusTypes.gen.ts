@@ -30,11 +30,16 @@ export interface NexusGenScalars {
 export interface NexusGenObjects {
   Mutation: {};
   Post: { // root type
+    authorId?: number | null; // Int
     content?: string | null; // String
-    id?: number | null; // Int
+    id: number; // Int!
     title?: string | null; // String
   }
   Query: {};
+  User: { // root type
+    id: number; // Int!
+    name?: string | null; // String
+  }
 }
 
 export interface NexusGenInterfaces {
@@ -52,12 +57,21 @@ export interface NexusGenFieldTypes {
     updatePost: NexusGenRootTypes['Post'] | null; // Post
   }
   Post: { // field return type
+    author: NexusGenRootTypes['User'] | null; // User
+    authorId: number | null; // Int
     content: string | null; // String
-    id: number | null; // Int
+    id: number; // Int!
     title: string | null; // String
   }
   Query: { // field return type
-    postQuery: NexusGenRootTypes['Post'] | null; // Post
+    post: NexusGenRootTypes['Post'] | null; // Post
+    posts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
+    user: NexusGenRootTypes['User'] | null; // User
+  }
+  User: { // field return type
+    id: number; // Int!
+    name: string | null; // String
+    posts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
   }
 }
 
@@ -66,12 +80,21 @@ export interface NexusGenFieldTypeNames {
     updatePost: 'Post'
   }
   Post: { // field return type name
+    author: 'User'
+    authorId: 'Int'
     content: 'String'
     id: 'Int'
     title: 'String'
   }
   Query: { // field return type name
-    postQuery: 'Post'
+    post: 'Post'
+    posts: 'Post'
+    user: 'User'
+  }
+  User: { // field return type name
+    id: 'Int'
+    name: 'String'
+    posts: 'Post'
   }
 }
 
@@ -79,6 +102,14 @@ export interface NexusGenArgTypes {
   Mutation: {
     updatePost: { // args
       title: string; // String!
+    }
+  }
+  Query: {
+    post: { // args
+      id: number; // Int!
+    }
+    user: { // args
+      id: number; // Int!
     }
   }
 }

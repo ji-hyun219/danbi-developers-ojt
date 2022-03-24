@@ -12,34 +12,6 @@ const app = express();
 app.use(express.json());
 
 const typeDefs = buildSchema(schemaString.toString());
-// const typeDefs = buildSchema(`
-// type Query {
-//   posts: [Post]
-//   post(id: Int): Post
-//   user(id: Int): User
-// }
-
-// type User {
-//   id: Int!
-//   name: String
-//   posts: [Post]
-// }
-// type Post {
-//   id: Int!
-//   title: String
-//   content: String
-//   comments: [Comment]
-//   authorId: Int
-//   author: User
-// }
-// type Comment {
-//   id: Int!
-//   content: String
-//   userId: Int
-//   postId: Int
-//   user: User
-// }
-// `);
 
 // fake data
 const posts = [

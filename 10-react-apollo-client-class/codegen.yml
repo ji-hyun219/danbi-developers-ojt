@@ -1,0 +1,23 @@
+overwrite: true
+schema: ${SCHEMA_PATH}
+documents:
+  - src/**/*.graphql
+  - "!src/apolloTest/__tests__/schema@dev.graphql"
+  - "!src/apolloTest/__tests__/schema@prod.graphql"
+generates:
+  ./src/Types/index.tsx:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-react-apollo"
+    config:
+      reactApolloVersion: 3
+      withHooks: true
+      apolloReactComponentsImportFrom: "@apollo/client/react/components"
+      apolloReactHocImportFrom: "@apollo/client/react/hoc"
+      apolloReactHooksImportFrom: "@apollo/client"
+      declarationKind:
+        type: "interface"
+        input: "interface"
+        # avoidOptionals: true
+        maybeValue: T
