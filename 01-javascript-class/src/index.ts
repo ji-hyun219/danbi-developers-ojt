@@ -6,4 +6,6 @@
 // import "./callbackEvent"; // 6
 // import "./promisify"; // 7
 // import "./promise.ts"; // 8
-import "./async";
+// import "./async";
+// import "./iterator";
+import "./generator";
