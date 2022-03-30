@@ -1,0 +1,46 @@
+name: Deploy Production from ECR
+on:
+  push:
+    branches: [deploy/ecr/prod]
+  workflow_run:
+    workflows: ["Build and Push Production Image"]
+    tags:
+      - "*"
+    types:
+      - completed
+jobs:
+  build:
+    runs-on: ["self-hosted", "fi-server-1"]
+    steps:
+      - name: Make Environment file
+        run: |
+          echo "AWS_ACCESS_KEY=${{ secrets.AWS_ACCESS_KEY }}" > .env
+          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> .env
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-2
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+      - name: Server Deploy / Docker stack deploy
+        env:
+          APP_PATH: /home/danbi/gn-cp-api
+          DOCKER_COMPOSE: docker-compose.yml
+          ECR_REGISTRY: 759927213627.dkr.ecr.ap-northeast-2.amazonaws.com
+          STACK_NAME: gn-cp-api
+          IMAGE_NAME: gn-cp-api
+          RADIUS_IMAGE_NAME: danbi-radius
+          SERVICE: backend
+        run: |
+          echo ${{ env.ECR_REGISTRY }}
+          echo ${{ env.IMAGE_NAME }}
+          cp -d ./${{ env.DOCKER_COMPOSE }} ${{ env.APP_PATH }}
+          aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin ${{ env.ECR_REGISTRY }} \
+            && docker pull ${{ env.ECR_REGISTRY }}/${{ env.IMAGE_NAME }}:latest \
+            && docker pull ${{ env.ECR_REGISTRY }}/${{ env.RADIUS_IMAGE_NAME }}:latest \
+            && docker stack deploy -c ${{ env.APP_PATH }}/${{ env.DOCKER_COMPOSE }} ${{ env.STACK_NAME }} --prune --with-registry-auth \
+            && docker service update --force ${{ env.STACK_NAME }}_${{ env.SERVICE }} --with-registry-auth -q
+          docker system prune -f

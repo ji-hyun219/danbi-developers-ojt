@@ -1,0 +1,44 @@
+name: Deploy-Default
+on:
+  push:
+    branches:
+      - default
+jobs:
+  build:
+    # 강릉시 OP 서버에 배포
+    runs-on: ["self-hosted", "fi-server-1"]
+
+    strategy:
+      matrix:
+        node-version: [16.6.2]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install yarn
+        run: |
+          npm install -g yarn
+      - name: NPM cache
+        id: npm-cache
+        run: |
+          echo "::set-output name=dir::$(npm config get cache)"
+      - uses: actions/cache@v2
+        with:
+          path: ${{ steps.npm-cache.outputs.dir }}
+          key: ${{ runner.OS }}-build-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
+      - name: Package Install
+        run: |
+          yarn
+      - name: Production Build
+        run: |
+          yarn build
+      - name: Deployment to Dev-Server
+        run: |
+          sudo rm -rf /home/danbi/gn-cp-testing-server
+          cp -r . /home/danbi/gn-cp-testing-server

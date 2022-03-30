@@ -1,0 +1,114 @@
+name: Deployment-Production
+on:
+  push:
+    branches: [deploy/build/prod]
+jobs:
+  build:
+    runs-on: ["self-hosted", "fi-server-1"]
+    strategy:
+      matrix:
+        node-version: [16.6.2]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: NPM cache
+        id: npm-cache
+        run: |
+          echo "::set-output name=dir::$(npm config get cache)"
+      - uses: actions/cache@v2
+        with:
+          path: ${{ steps.npm-cache.outputs.dir }}
+          key: ${{ runner.OS }}-build-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
+      - name: Package Install
+        run: |
+          yarn
+      - name: Generate schema
+        run: |
+          yarn generate
+      - name: Generate Types
+        run: |
+          yarn generate:type
+      - name: Production Build
+        run: |
+          yarn build
+      - name: Make Environment file
+        run: |
+          echo "AWS_ACCESS_KEY=${{ secrets.AWS_ACCESS_KEY }}" > .env
+          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> .env
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-2
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+      # - name: Cache Docker layers
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: /tmp/.buildx-cache
+      #     key: ${{ runner.os }}-buildx-${{ github.sha }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-buildx-
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: gn-cp-api
+          IMAGE_TAG: latest
+        with:
+          context: ./
+          file: ./Dockerfile
+          builder: ${{ steps.buildx.outputs.name }}
+          push: true
+          tags: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
+          # cache-from: type=local,src=/tmp/.buildx-cache
+          # cache-to: type=local,dest=/tmp/.buildx-cache
+      - name: Radius Build and push
+        id: radiis_docker_build
+        uses: docker/build-push-action@v2
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: danbi-radius
+          IMAGE_TAG: latest
+        with:
+          context: ./radius
+          file: ./radius/Dockerfile
+          builder: ${{ steps.buildx.outputs.name }}
+          push: true
+          tags: ${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
+          # cache-from: type=local,src=/tmp/.buildx-cache-radius
+          # cache-to: type=local,dest=/tmp/.buildx-cache-radius
+      - name: Image digest
+        run: |
+          echo ${{ steps.docker_build.outputs.digest }}
+          echo ${{ steps.radius_docker_build.outputs.digest }}
+      - name: EC2 Deploy / Docker stack deploy
+        env:
+          APP_PATH: /home/danbi/gn-cp-api
+          DOCKER_COMPOSE: docker-compose.yml
+          STACK_NAME: gn-cp-api
+          IMAGE_NAME: gn-cp-api
+          RADIUS_IMAGE_NAME: danbi-radius
+          SERVICE: backend
+        run: |
+          echo ${{ steps.login-ecr.outputs.registry }}
+          echo ${{ env.IMAGE_NAME }}
+          cp -d ./${{ env.DOCKER_COMPOSE }} ${{ env.APP_PATH }}
+          aws ecr get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin ${{ steps.login-ecr.outputs.registry }} \
+            && docker pull ${{ steps.login-ecr.outputs.registry }}/${{ env.IMAGE_NAME }}:latest \
+            && docker pull ${{ steps.login-ecr.outputs.registry }}/${{ env.RADIUS_IMAGE_NAME }}:latest \
+            && docker stack deploy -c ${{ env.APP_PATH }}/${{ env.DOCKER_COMPOSE }} ${{ env.STACK_NAME }} --prune --with-registry-auth \
+            && docker service update --force ${{ env.STACK_NAME }}_${{ env.SERVICE }} --with-registry-auth -q
+          docker system prune -f
