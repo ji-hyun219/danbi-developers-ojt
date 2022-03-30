@@ -28,3 +28,5 @@ docker stack rm mystack
 
 - Javascript: <https://docs.min.io/docs/javascript-client-quickstart-guide.html>
 
+## 배포하기
+
