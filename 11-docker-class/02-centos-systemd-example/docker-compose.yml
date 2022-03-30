@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  server:
+    build: .
+    image: danbi-schedulers-server:latest
+    container_name: danbi-schedulers-server
+    privileged: true
+    tty: true
+    entrypoint: ["/usr/sbin/init"]
+    volumes:
+      - ./.docker/server/journald.conf:/etc/systemd/journald.conf
+      - .:/home/ec2-user/danbi-schedulers

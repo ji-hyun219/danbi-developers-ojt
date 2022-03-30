@@ -1,0 +1,11 @@
+[Unit]
+Description=Scheduler Tester (every 10 sec)
+Documentation=https://github.com/danbi-fi/danbi-schedulers
+
+[Timer]
+OnCalendar=*-*-* *:*:0/10
+AccuracySec=1ms
+Persistent=false
+
+[Install]
+WantedBy=timers.target

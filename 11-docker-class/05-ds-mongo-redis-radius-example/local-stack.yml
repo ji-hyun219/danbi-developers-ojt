@@ -1,0 +1,213 @@
+version: "3.7"
+x-mongo-common: &mongo-common
+  image: mongo:latest
+  networks:
+    - mongoshard
+  entrypoint:
+    [
+      "/usr/bin/mongod",
+      "--bind_ip_all",
+      "--replSet",
+      "rs0",
+      "--journal",
+      "--dbpath",
+      "/data/db",
+    ]
+  env_file:
+    - ${PWD}/.env
+  environment:
+    MONGO_REPLICA_SET_NAME: rs0
+  deploy:
+    mode: replicated
+    replicas: 1
+    update_config:
+      parallelism: 3
+services:
+  mongo1:
+    <<: *mongo-common
+    hostname: mongo1
+    volumes:
+      - mongodb1:/data/db
+    ports:
+      - 27020:27017
+    configs:
+      - source: mongo_init
+        target: /docker-entrypoint-initdb.d/init-mongo.js
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh mongo1:27017/test --quiet
+      interval: 10s
+      start_period: 30s
+  mongo2:
+    <<: *mongo-common
+    hostname: mongo2
+    volumes:
+      - mongodb2:/data/db
+    ports:
+      - 27021:27017
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh mongo2:27017/test --quiet
+      interval: 10s
+      start_period: 30s
+  mongo3:
+    <<: *mongo-common
+    hostname: mongo3
+    volumes:
+      - mongodb3:/data/db
+    ports:
+      - 27022:27017
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh mongo3:27017/test --quiet
+      interval: 10s
+      start_period: 30s
+  minio:
+    image: minio/minio:latest
+    env_file: ${PWD}/.env
+    hostname: minio
+    volumes:
+      - minio1:/data1
+      - minio2:/data2
+    networks:
+      - backend
+      - inbound
+    ports:
+      - 9002:9000
+      - 9003:9001
+    environment:
+      -MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY_LOCAL}
+      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY_LOCAL}
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER_LOCAL}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD_LOCAL}
+      MINIO_REGION_NAME: ap-northeast-2
+      MINIO_BROWSER_REDIRECT_URL: http://stash.localhost
+    command: server /data --console-address ":9001"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+    labels:
+      # Minio Console
+      - "traefik.http.routers.minio.rule=Host(`minio.local`)"
+      # - "traefik.http.routers.minio.tls=true"
+      # - "traefik.http.routers.minio.tls.certresolver=resolver"
+      # - traefik.enable=true
+      # - traefik.docker.network=backend
+      # - traefik.constraint-label=backend
+      - traefik.http.routers.minio.service=minio-dash
+      - traefik.http.routers.minio.entrypoint=web
+      - traefik.http.services.minio-dash.loadbalancer.server.port=9001
+      - traefik.http.services.minio-dash.loadbalancer.passhostheader=true
+      # Minio itself
+      - "traefik.http.routers.cdn.rule=Host(`cdn.local`)"
+      # - "traefik.http.routers.cdn.tls=true"
+      # - "traefik.http.routers.cdn.tls.certresolver=resolver"
+      - traefik.http.routers.cdn.service=minio-endpoint
+      - traefik.http.routers.cdn.entrypoint=web
+      - traefik.http.services.minio-endpoint.loadbalancer.server.port=9000
+      - traefik.http.services.minio-endpoint.loadbalancer.passhostheader=true
+  radius:
+    image: danbi-radius:local
+    build: ./.docker/radius
+    command: -X
+    networks:
+      - inbound
+    restart: always
+    volumes:
+      - ./.docker/radius/raddb/clients.conf:/etc/raddb/clients.conf
+      - ./.docker/radius/raddb/mods-config/files/authorize:/etc/raddb/mods-config/files/authorize
+    deploy:
+      mode: replicated
+      replicas: 1
+      labels:
+        - traefik.enable=true
+        - traefik.docker.lbswarm=true
+        - traefik.docker.network=inbound
+        - traefik.udp.routers.danbi-radius-auth.entrypoints=auth
+        - traefik.udp.routers.danbi-radius-acct.entrypoints=acct
+        - traefik.udp.routers.danbi-radius-auth.service=danbi-radius-auth-service
+        - traefik.udp.routers.danbi-radius-acct.service=danbi-radius-acct-service
+        - traefik.udp.services.danbi-radius-auth-service.loadbalancer.server.port=1812
+        - traefik.udp.services.danbi-radius-acct-service.loadbalancer.server.port=1813
+    logging:
+      driver: json-file
+      options:
+        max-file: "10"
+        max-size: "100m"
+  traefik:
+    image: traefik:2.2
+    command:
+      #- --log.level=DEBUG
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --providers.docker.swarmMode=true
+      - --entrypoints.web.address=:80
+      - --entrypoints.websecure.address=:443
+      - --entrypoints.auth.address=:1812/udp
+      - --entrypoints.acct.address=:1813/udp
+      # - --entrypoints.minio-endpoint.address=:9000
+      # - --entrypoints.minio-dash.address=:9001
+      - --certificatesResolvers.gn-cp.acme.httpchallenge=true
+      - --certificatesResolvers.gn-cp.acme.httpchallenge.entrypoint=web
+      - --certificatesresolvers.gn-cp.acme.storage=/letsencrypt/acme.json
+    ports:
+      - target: 80
+        published: 80
+        protocol: tcp
+        mode: host
+      - target: 443
+        published: 443
+        protocol: tcp
+        mode: host
+      - target: 1812
+        published: 1812
+        protocol: udp
+        mode: host
+      - target: 1813
+        published: 1813
+        protocol: udp
+        mode: host
+      - target: 9000
+        published: 9000
+        protocol: tcp
+      - target: 9001
+        published: 9001
+        protocol: tcp
+    volumes:
+      - letsencrypt:/letsencrypt
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - inbound
+    logging:
+      driver: json-file
+      options:
+        max-file: "5"
+        max-size: "20m"
+    deploy:
+      mode: global
+      placement:
+        constraints:
+          - node.role == manager
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+configs:
+  mongo_init:
+    file: mongo/init.js
+volumes:
+  letsencrypt:
+  mongodb1:
+  mongodb2:
+  mongodb3:
+  minio1:
+  minio2:
+
+networks:
+  inbound:
+    name: inbound
+  backend:
+    name: backend
+  mongoshard:
+    name: mongoshard
+    driver: overlay

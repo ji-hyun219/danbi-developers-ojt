@@ -1,0 +1,11 @@
+[Unit]
+Description=Scheduler Tester (every 10 sec)
+Documentation=https://github.com/danbi-fi/danbi-schedulers
+After=network.target
+
+[Service]
+Type=oneshot
+EnvironmentFile=/home/ec2-user/danbi-schedulers/.local.dev.env
+Environment=NODE_ENV=production
+WorkingDirectory=/home/ec2-user/danbi-schedulers
+ExecStart=/usr/local/nvm/versions/node/v16.13.2/bin/node /home/ec2-user/danbi-schedulers/dist/jobs/tester.js

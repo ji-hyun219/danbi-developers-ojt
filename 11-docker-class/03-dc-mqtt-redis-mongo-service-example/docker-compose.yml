@@ -1,0 +1,44 @@
+version: "3.1"
+services:
+  redis:
+    container_name: mqtt-service-redis
+    image: redis
+    ports:
+      - ${REDIS_SERVER_PORT}:${REDIS_SERVER_PORT}
+    volumes:
+      - cacheData:${REDIS_DATA_DIR}
+      - .docker/redis/redis.conf:/usr/local/etc/redis/redis.conf
+    entrypoint: redis-server /usr/local/etc/redis/redis.conf --appendonly yes
+    restart: always
+    networks:
+      - inbound
+  redis-cli:
+    container_name: redis-cli
+    image: redis
+    command: redis-cli -h ${REDIS_SERVER_HOST}
+    networks:
+      - inbound
+  mongodb:
+    container_name: mqtt-service-mongodb
+    image: mongo
+    restart: always
+    ports:
+      - 27000:27017
+    networks:
+      - inbound
+    volumes:
+      - mongodata:/data/db
+  mosquitto:
+    container_name: mqtt-service-mqtt
+    restart: always
+    image: eclipse-mosquitto:openssl
+    ports:
+      - 8883:8883
+      - 1883:1883
+    volumes:
+      - .docker/mosquitto:/mosquitto/:rw
+volumes:
+  cacheData:
+  mongodata:
+networks:
+  inbound:

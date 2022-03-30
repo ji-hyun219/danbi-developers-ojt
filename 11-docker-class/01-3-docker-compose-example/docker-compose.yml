@@ -1,0 +1,9 @@
+version: "3.8"
+services:
+  server:
+    build: .
+    container_name: docker-compose-example
+    ports:
+      - 3001:3001
+    volumes:
+      - .:/app

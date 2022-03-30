@@ -1,0 +1,637 @@
+1648378113: mosquitto version 2.0.14 starting
+1648378113: Config loaded from /mosquitto/config/mosquitto.conf.
+1648378113: Opening ipv4 listen socket on port 1883.
+1648378113: Opening ipv6 listen socket on port 1883.
+1648378113: Opening ipv4 listen socket on port 8883.
+1648378113: Opening ipv6 listen socket on port 8883.
+1648378113: Error: Unable to load CA certificates. Check cafile "/mosquitto/config/ca_certificates/danbi.crt".
+1648378113: mosquitto version 2.0.14 running
+1648378165: New connection from 127.0.0.1:38546 on port 1883.
+1648378165: Client auto-426C76B0-9599-5D72-23F5-5B005903A7A9 disconnected, not authorised.
+1648378346: New connection from 172.26.0.1:59686 on port 8883.
+1648378346: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378346: Client <unknown> disconnected: Protocol error.
+1648378349: New connection from 172.26.0.1:59692 on port 8883.
+1648378349: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378349: Client <unknown> disconnected: Protocol error.
+1648378352: New connection from 172.26.0.1:59694 on port 8883.
+1648378352: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378352: Client <unknown> disconnected: Protocol error.
+1648378355: New connection from 172.26.0.1:59696 on port 8883.
+1648378355: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378355: Client <unknown> disconnected: Protocol error.
+1648378358: New connection from 172.26.0.1:59698 on port 8883.
+1648378358: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378358: Client <unknown> disconnected: Protocol error.
+1648378361: New connection from 172.26.0.1:59700 on port 8883.
+1648378361: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378361: Client <unknown> disconnected: Protocol error.
+1648378364: New connection from 172.26.0.1:59702 on port 8883.
+1648378364: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378364: Client <unknown> disconnected: Protocol error.
+1648378367: New connection from 172.26.0.1:59704 on port 8883.
+1648378367: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378367: Client <unknown> disconnected: Protocol error.
+1648378370: New connection from 172.26.0.1:59706 on port 8883.
+1648378370: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378370: Client <unknown> disconnected: Protocol error.
+1648378373: New connection from 172.26.0.1:59708 on port 8883.
+1648378373: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378373: Client <unknown> disconnected: Protocol error.
+1648378376: New connection from 172.26.0.1:59710 on port 8883.
+1648378376: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378376: Client <unknown> disconnected: Protocol error.
+1648378379: New connection from 172.26.0.1:59712 on port 8883.
+1648378379: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378379: Client <unknown> disconnected: Protocol error.
+1648378382: New connection from 172.26.0.1:59714 on port 8883.
+1648378382: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378382: Client <unknown> disconnected: Protocol error.
+1648378385: New connection from 172.26.0.1:59716 on port 8883.
+1648378385: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378385: Client <unknown> disconnected: Protocol error.
+1648378388: New connection from 172.26.0.1:59718 on port 8883.
+1648378388: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378388: Client <unknown> disconnected: Protocol error.
+1648378393: New connection from 172.26.0.1:59720 on port 8883.
+1648378393: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378393: Client <unknown> disconnected: Protocol error.
+1648378396: New connection from 172.26.0.1:59726 on port 8883.
+1648378396: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378396: Client <unknown> disconnected: Protocol error.
+1648378399: New connection from 172.26.0.1:59728 on port 8883.
+1648378399: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378399: Client <unknown> disconnected: Protocol error.
+1648378402: New connection from 172.26.0.1:59730 on port 8883.
+1648378402: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378402: Client <unknown> disconnected: Protocol error.
+1648378405: New connection from 172.26.0.1:59732 on port 8883.
+1648378405: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378405: Client <unknown> disconnected: Protocol error.
+1648378408: New connection from 172.26.0.1:59734 on port 8883.
+1648378408: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378408: Client <unknown> disconnected: Protocol error.
+1648378411: New connection from 172.26.0.1:59736 on port 8883.
+1648378411: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378411: Client <unknown> disconnected: Protocol error.
+1648378412: New connection from 172.26.0.1:59738 on port 8883.
+1648378412: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378412: Client <unknown> disconnected: Protocol error.
+1648378414: New connection from 172.26.0.1:59740 on port 8883.
+1648378414: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378414: Client <unknown> disconnected: Protocol error.
+1648378415: New connection from 172.26.0.1:59742 on port 8883.
+1648378415: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378415: Client <unknown> disconnected: Protocol error.
+1648378417: New connection from 172.26.0.1:59744 on port 8883.
+1648378417: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378417: Client <unknown> disconnected: Protocol error.
+1648378418: New connection from 172.26.0.1:59746 on port 8883.
+1648378418: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378418: Client <unknown> disconnected: Protocol error.
+1648378420: New connection from 172.26.0.1:59748 on port 8883.
+1648378420: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378420: Client <unknown> disconnected: Protocol error.
+1648378421: New connection from 172.26.0.1:59750 on port 8883.
+1648378421: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378421: Client <unknown> disconnected: Protocol error.
+1648378423: New connection from 172.26.0.1:59752 on port 8883.
+1648378423: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378423: Client <unknown> disconnected: Protocol error.
+1648378424: New connection from 172.26.0.1:59754 on port 8883.
+1648378424: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378424: Client <unknown> disconnected: Protocol error.
+1648378426: New connection from 172.26.0.1:59756 on port 8883.
+1648378426: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378426: Client <unknown> disconnected: Protocol error.
+1648378427: New connection from 172.26.0.1:59758 on port 8883.
+1648378427: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378427: Client <unknown> disconnected: Protocol error.
+1648378429: New connection from 172.26.0.1:59760 on port 8883.
+1648378429: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378429: Client <unknown> disconnected: Protocol error.
+1648378430: New connection from 172.26.0.1:59762 on port 8883.
+1648378430: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378430: Client <unknown> disconnected: Protocol error.
+1648378432: New connection from 172.26.0.1:59764 on port 8883.
+1648378432: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378432: Client <unknown> disconnected: Protocol error.
+1648378433: New connection from 172.26.0.1:59766 on port 8883.
+1648378433: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378433: Client <unknown> disconnected: Protocol error.
+1648378435: New connection from 172.26.0.1:59768 on port 8883.
+1648378436: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378436: Client <unknown> disconnected: Protocol error.
+1648378436: New connection from 172.26.0.1:59770 on port 8883.
+1648378436: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378436: Client <unknown> disconnected: Protocol error.
+1648378439: New connection from 172.26.0.1:59772 on port 8883.
+1648378439: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378439: Client <unknown> disconnected: Protocol error.
+1648378439: New connection from 172.26.0.1:59774 on port 8883.
+1648378439: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378439: Client <unknown> disconnected: Protocol error.
+1648378442: New connection from 172.26.0.1:59776 on port 8883.
+1648378442: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378442: Client <unknown> disconnected: Protocol error.
+1648378442: New connection from 172.26.0.1:59778 on port 8883.
+1648378442: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378442: Client <unknown> disconnected: Protocol error.
+1648378445: New connection from 172.26.0.1:59780 on port 8883.
+1648378445: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378445: Client <unknown> disconnected: Protocol error.
+1648378445: New connection from 172.26.0.1:59782 on port 8883.
+1648378445: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378445: Client <unknown> disconnected: Protocol error.
+1648378448: New connection from 172.26.0.1:59784 on port 8883.
+1648378448: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378448: Client <unknown> disconnected: Protocol error.
+1648378448: New connection from 172.26.0.1:59786 on port 8883.
+1648378449: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378449: Client <unknown> disconnected: Protocol error.
+1648378451: New connection from 172.26.0.1:59788 on port 8883.
+1648378451: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378451: Client <unknown> disconnected: Protocol error.
+1648378452: New connection from 172.26.0.1:59790 on port 8883.
+1648378452: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378452: Client <unknown> disconnected: Protocol error.
+1648378454: New connection from 172.26.0.1:59792 on port 8883.
+1648378454: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378454: Client <unknown> disconnected: Protocol error.
+1648378455: New connection from 172.26.0.1:59794 on port 8883.
+1648378455: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378455: Client <unknown> disconnected: Protocol error.
+1648378457: New connection from 172.26.0.1:59796 on port 8883.
+1648378457: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378457: Client <unknown> disconnected: Protocol error.
+1648378458: New connection from 172.26.0.1:59798 on port 8883.
+1648378458: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378458: Client <unknown> disconnected: Protocol error.
+1648378460: New connection from 172.26.0.1:59800 on port 8883.
+1648378460: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378460: Client <unknown> disconnected: Protocol error.
+1648378461: New connection from 172.26.0.1:59802 on port 8883.
+1648378461: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378461: Client <unknown> disconnected: Protocol error.
+1648378463: New connection from 172.26.0.1:59804 on port 8883.
+1648378463: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378463: Client <unknown> disconnected: Protocol error.
+1648378464: New connection from 172.26.0.1:59806 on port 8883.
+1648378464: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378464: Client <unknown> disconnected: Protocol error.
+1648378466: New connection from 172.26.0.1:59808 on port 8883.
+1648378466: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378466: Client <unknown> disconnected: Protocol error.
+1648378467: New connection from 172.26.0.1:59810 on port 8883.
+1648378467: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378467: Client <unknown> disconnected: Protocol error.
+1648378469: New connection from 172.26.0.1:59812 on port 8883.
+1648378469: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378469: Client <unknown> disconnected: Protocol error.
+1648378470: New connection from 172.26.0.1:59814 on port 8883.
+1648378470: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378470: Client <unknown> disconnected: Protocol error.
+1648378472: New connection from 172.26.0.1:59816 on port 8883.
+1648378472: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378472: Client <unknown> disconnected: Protocol error.
+1648378472: New connection from 172.26.0.1:59818 on port 8883.
+1648378472: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378472: Client <unknown> disconnected: Protocol error.
+1648378475: New connection from 172.26.0.1:59820 on port 8883.
+1648378475: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378475: Client <unknown> disconnected: Protocol error.
+1648378478: New connection from 172.26.0.1:59822 on port 8883.
+1648378478: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378478: Client <unknown> disconnected: Protocol error.
+1648378481: New connection from 172.26.0.1:59824 on port 8883.
+1648378481: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378481: Client <unknown> disconnected: Protocol error.
+1648378484: New connection from 172.26.0.1:59826 on port 8883.
+1648378484: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378484: Client <unknown> disconnected: Protocol error.
+1648378487: New connection from 172.26.0.1:59828 on port 8883.
+1648378487: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378487: Client <unknown> disconnected: Protocol error.
+1648378490: New connection from 172.26.0.1:59830 on port 8883.
+1648378490: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378490: Client <unknown> disconnected: Protocol error.
+1648378493: New connection from 172.26.0.1:59832 on port 8883.
+1648378493: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378493: Client <unknown> disconnected: Protocol error.
+1648378496: New connection from 172.26.0.1:59834 on port 8883.
+1648378496: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378496: Client <unknown> disconnected: Protocol error.
+1648378499: New connection from 172.26.0.1:59836 on port 8883.
+1648378499: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378499: Client <unknown> disconnected: Protocol error.
+1648378502: New connection from 172.26.0.1:59838 on port 8883.
+1648378502: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378502: Client <unknown> disconnected: Protocol error.
+1648378505: New connection from 172.26.0.1:59840 on port 8883.
+1648378505: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378505: Client <unknown> disconnected: Protocol error.
+1648378508: New connection from 172.26.0.1:59842 on port 8883.
+1648378508: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378508: Client <unknown> disconnected: Protocol error.
+1648378511: New connection from 172.26.0.1:59844 on port 8883.
+1648378511: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378511: Client <unknown> disconnected: Protocol error.
+1648378511: New connection from 172.26.0.1:59846 on port 8883.
+1648378511: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378511: Client <unknown> disconnected: Protocol error.
+1648378514: New connection from 172.26.0.1:59848 on port 8883.
+1648378514: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378514: Client <unknown> disconnected: Protocol error.
+1648378517: New connection from 172.26.0.1:59850 on port 8883.
+1648378517: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378517: Client <unknown> disconnected: Protocol error.
+1648378519: New connection from 172.26.0.1:59852 on port 8883.
+1648378519: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378519: Client <unknown> disconnected: Protocol error.
+1648378520: New connection from 172.26.0.1:59854 on port 8883.
+1648378520: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378520: Client <unknown> disconnected: Protocol error.
+1648378523: New connection from 172.26.0.1:59856 on port 8883.
+1648378523: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378523: Client <unknown> disconnected: Protocol error.
+1648378526: New connection from 172.26.0.1:59858 on port 8883.
+1648378526: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378526: Client <unknown> disconnected: Protocol error.
+1648378529: New connection from 172.26.0.1:59860 on port 8883.
+1648378529: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378529: Client <unknown> disconnected: Protocol error.
+1648378533: New connection from 172.26.0.1:59862 on port 8883.
+1648378533: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378533: Client <unknown> disconnected: Protocol error.
+1648378533: New connection from 172.26.0.1:59864 on port 8883.
+1648378533: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378533: Client <unknown> disconnected: Protocol error.
+1648378536: New connection from 172.26.0.1:59866 on port 8883.
+1648378536: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378536: Client <unknown> disconnected: Protocol error.
+1648378539: New connection from 172.26.0.1:59868 on port 8883.
+1648378539: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378539: Client <unknown> disconnected: Protocol error.
+1648378542: New connection from 172.26.0.1:59870 on port 8883.
+1648378542: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378542: Client <unknown> disconnected: Protocol error.
+1648378545: New connection from 172.26.0.1:59872 on port 8883.
+1648378545: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378545: Client <unknown> disconnected: Protocol error.
+1648378548: New connection from 172.26.0.1:59874 on port 8883.
+1648378548: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378548: Client <unknown> disconnected: Protocol error.
+1648378551: New connection from 172.26.0.1:59876 on port 8883.
+1648378551: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378551: Client <unknown> disconnected: Protocol error.
+1648378554: New connection from 172.26.0.1:59878 on port 8883.
+1648378554: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378554: Client <unknown> disconnected: Protocol error.
+1648378557: New connection from 172.26.0.1:59882 on port 8883.
+1648378557: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378557: Client <unknown> disconnected: Protocol error.
+1648378560: New connection from 172.26.0.1:59884 on port 8883.
+1648378560: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378560: Client <unknown> disconnected: Protocol error.
+1648378563: New connection from 172.26.0.1:59886 on port 8883.
+1648378563: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378563: Client <unknown> disconnected: Protocol error.
+1648378566: New connection from 172.26.0.1:59888 on port 8883.
+1648378566: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378566: Client <unknown> disconnected: Protocol error.
+1648378569: New connection from 172.26.0.1:59890 on port 8883.
+1648378569: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378569: Client <unknown> disconnected: Protocol error.
+1648378571: New connection from 172.26.0.1:59892 on port 8883.
+1648378571: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378571: Client <unknown> disconnected: Protocol error.
+1648378572: New connection from 172.26.0.1:59894 on port 8883.
+1648378572: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378572: Client <unknown> disconnected: Protocol error.
+1648378575: New connection from 172.26.0.1:59896 on port 8883.
+1648378575: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378575: Client <unknown> disconnected: Protocol error.
+1648378578: New connection from 172.26.0.1:59898 on port 8883.
+1648378578: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378578: Client <unknown> disconnected: Protocol error.
+1648378581: New connection from 172.26.0.1:59900 on port 8883.
+1648378581: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378581: Client <unknown> disconnected: Protocol error.
+1648378584: New connection from 172.26.0.1:59902 on port 8883.
+1648378584: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378584: Client <unknown> disconnected: Protocol error.
+1648378587: New connection from 172.26.0.1:59904 on port 8883.
+1648378587: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378587: Client <unknown> disconnected: Protocol error.
+1648378590: New connection from 172.26.0.1:59906 on port 8883.
+1648378590: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378590: Client <unknown> disconnected: Protocol error.
+1648378593: New connection from 172.26.0.1:59908 on port 8883.
+1648378593: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378593: Client <unknown> disconnected: Protocol error.
+1648378596: New connection from 172.26.0.1:59910 on port 8883.
+1648378596: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378596: Client <unknown> disconnected: Protocol error.
+1648378599: New connection from 172.26.0.1:59912 on port 8883.
+1648378599: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378599: Client <unknown> disconnected: Protocol error.
+1648378602: New connection from 172.26.0.1:59914 on port 8883.
+1648378602: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378602: Client <unknown> disconnected: Protocol error.
+1648378605: New connection from 172.26.0.1:59916 on port 8883.
+1648378605: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378605: Client <unknown> disconnected: Protocol error.
+1648378608: New connection from 172.26.0.1:59918 on port 8883.
+1648378608: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378608: Client <unknown> disconnected: Protocol error.
+1648378611: New connection from 172.26.0.1:59920 on port 8883.
+1648378611: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378611: Client <unknown> disconnected: Protocol error.
+1648378614: New connection from 172.26.0.1:59922 on port 8883.
+1648378614: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378614: Client <unknown> disconnected: Protocol error.
+1648378617: New connection from 172.26.0.1:59924 on port 8883.
+1648378617: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378617: Client <unknown> disconnected: Protocol error.
+1648378621: New connection from 172.26.0.1:59926 on port 8883.
+1648378621: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378621: Client <unknown> disconnected: Protocol error.
+1648378624: New connection from 172.26.0.1:59928 on port 8883.
+1648378624: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378624: Client <unknown> disconnected: Protocol error.
+1648378627: New connection from 172.26.0.1:59930 on port 8883.
+1648378627: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378627: Client <unknown> disconnected: Protocol error.
+1648378630: New connection from 172.26.0.1:59932 on port 8883.
+1648378630: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378630: Client <unknown> disconnected: Protocol error.
+1648378633: New connection from 172.26.0.1:59934 on port 8883.
+1648378633: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378633: Client <unknown> disconnected: Protocol error.
+1648378636: New connection from 172.26.0.1:59936 on port 8883.
+1648378636: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378636: Client <unknown> disconnected: Protocol error.
+1648378639: New connection from 172.26.0.1:59938 on port 8883.
+1648378639: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378639: Client <unknown> disconnected: Protocol error.
+1648378642: New connection from 172.26.0.1:59940 on port 8883.
+1648378642: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378642: Client <unknown> disconnected: Protocol error.
+1648378645: New connection from 172.26.0.1:59942 on port 8883.
+1648378645: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378645: Client <unknown> disconnected: Protocol error.
+1648378645: New connection from 172.26.0.1:59944 on port 8883.
+1648378645: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378645: Client <unknown> disconnected: Protocol error.
+1648378648: New connection from 172.26.0.1:59946 on port 8883.
+1648378648: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378648: Client <unknown> disconnected: Protocol error.
+1648378651: New connection from 172.26.0.1:59948 on port 8883.
+1648378651: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378651: Client <unknown> disconnected: Protocol error.
+1648378654: New connection from 172.26.0.1:59950 on port 8883.
+1648378654: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378654: Client <unknown> disconnected: Protocol error.
+1648378657: New connection from 172.26.0.1:59952 on port 8883.
+1648378657: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378657: Client <unknown> disconnected: Protocol error.
+1648378660: New connection from 172.26.0.1:59954 on port 8883.
+1648378660: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378660: Client <unknown> disconnected: Protocol error.
+1648378663: New connection from 172.26.0.1:59956 on port 8883.
+1648378663: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378663: Client <unknown> disconnected: Protocol error.
+1648378666: New connection from 172.26.0.1:59958 on port 8883.
+1648378666: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378666: Client <unknown> disconnected: Protocol error.
+1648378669: New connection from 172.26.0.1:59960 on port 8883.
+1648378669: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378669: Client <unknown> disconnected: Protocol error.
+1648378672: New connection from 172.26.0.1:59962 on port 8883.
+1648378672: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378672: Client <unknown> disconnected: Protocol error.
+1648378675: New connection from 172.26.0.1:59964 on port 8883.
+1648378675: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378675: Client <unknown> disconnected: Protocol error.
+1648378678: New connection from 172.26.0.1:59966 on port 8883.
+1648378678: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378678: Client <unknown> disconnected: Protocol error.
+1648378680: New connection from 172.26.0.1:59968 on port 8883.
+1648378680: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378680: Client <unknown> disconnected: Protocol error.
+1648378681: New connection from 172.26.0.1:59970 on port 8883.
+1648378681: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378681: Client <unknown> disconnected: Protocol error.
+1648378684: New connection from 172.26.0.1:59972 on port 8883.
+1648378684: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378684: Client <unknown> disconnected: Protocol error.
+1648378687: New connection from 172.26.0.1:59974 on port 8883.
+1648378687: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378687: Client <unknown> disconnected: Protocol error.
+1648378690: New connection from 172.26.0.1:59976 on port 8883.
+1648378690: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378690: Client <unknown> disconnected: Protocol error.
+1648378693: New connection from 172.26.0.1:59978 on port 8883.
+1648378693: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378693: Client <unknown> disconnected: Protocol error.
+1648378696: New connection from 172.26.0.1:59980 on port 8883.
+1648378696: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378696: Client <unknown> disconnected: Protocol error.
+1648378699: New connection from 172.26.0.1:59982 on port 8883.
+1648378699: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378699: Client <unknown> disconnected: Protocol error.
+1648378702: New connection from 172.26.0.1:59984 on port 8883.
+1648378702: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378702: Client <unknown> disconnected: Protocol error.
+1648378705: New connection from 172.26.0.1:59986 on port 8883.
+1648378705: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378705: Client <unknown> disconnected: Protocol error.
+1648378708: New connection from 172.26.0.1:59988 on port 8883.
+1648378708: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378708: Client <unknown> disconnected: Protocol error.
+1648378711: New connection from 172.26.0.1:59990 on port 8883.
+1648378712: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378712: Client <unknown> disconnected: Protocol error.
+1648378715: New connection from 172.26.0.1:59992 on port 8883.
+1648378715: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378715: Client <unknown> disconnected: Protocol error.
+1648378718: New connection from 172.26.0.1:59994 on port 8883.
+1648378718: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378718: Client <unknown> disconnected: Protocol error.
+1648378721: New connection from 172.26.0.1:59996 on port 8883.
+1648378721: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378721: Client <unknown> disconnected: Protocol error.
+1648378724: New connection from 172.26.0.1:59998 on port 8883.
+1648378724: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378724: Client <unknown> disconnected: Protocol error.
+1648378727: New connection from 172.26.0.1:60000 on port 8883.
+1648378727: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378727: Client <unknown> disconnected: Protocol error.
+1648378730: New connection from 172.26.0.1:60002 on port 8883.
+1648378730: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378730: Client <unknown> disconnected: Protocol error.
+1648378731: New connection from 172.26.0.1:60004 on port 8883.
+1648378731: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378731: Client <unknown> disconnected: Protocol error.
+1648378733: New connection from 172.26.0.1:60006 on port 8883.
+1648378733: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378733: Client <unknown> disconnected: Protocol error.
+1648378736: New connection from 172.26.0.1:60008 on port 8883.
+1648378736: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378736: Client <unknown> disconnected: Protocol error.
+1648378739: New connection from 172.26.0.1:60010 on port 8883.
+1648378739: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378739: Client <unknown> disconnected: Protocol error.
+1648378742: New connection from 172.26.0.1:60012 on port 8883.
+1648378742: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378742: Client <unknown> disconnected: Protocol error.
+1648378745: New connection from 172.26.0.1:60014 on port 8883.
+1648378745: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378745: Client <unknown> disconnected: Protocol error.
+1648378748: New connection from 172.26.0.1:60016 on port 8883.
+1648378748: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378748: Client <unknown> disconnected: Protocol error.
+1648378751: New connection from 172.26.0.1:60018 on port 8883.
+1648378751: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378751: Client <unknown> disconnected: Protocol error.
+1648378754: New connection from 172.26.0.1:60020 on port 8883.
+1648378754: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378754: Client <unknown> disconnected: Protocol error.
+1648378757: New connection from 172.26.0.1:60022 on port 8883.
+1648378757: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378757: Client <unknown> disconnected: Protocol error.
+1648378760: New connection from 172.26.0.1:60024 on port 8883.
+1648378760: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378760: Client <unknown> disconnected: Protocol error.
+1648378763: New connection from 172.26.0.1:60026 on port 8883.
+1648378763: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378763: Client <unknown> disconnected: Protocol error.
+1648378766: New connection from 172.26.0.1:60028 on port 8883.
+1648378766: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378766: Client <unknown> disconnected: Protocol error.
+1648378769: New connection from 172.26.0.1:60030 on port 8883.
+1648378769: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378769: Client <unknown> disconnected: Protocol error.
+1648378772: New connection from 172.26.0.1:60032 on port 8883.
+1648378772: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378772: Client <unknown> disconnected: Protocol error.
+1648378775: New connection from 172.26.0.1:60034 on port 8883.
+1648378775: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378775: Client <unknown> disconnected: Protocol error.
+1648378775: New connection from 172.26.0.1:60036 on port 8883.
+1648378775: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378775: Client <unknown> disconnected: Protocol error.
+1648378778: New connection from 172.26.0.1:60038 on port 8883.
+1648378778: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378778: Client <unknown> disconnected: Protocol error.
+1648378781: New connection from 172.26.0.1:60040 on port 8883.
+1648378781: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378781: Client <unknown> disconnected: Protocol error.
+1648378783: New connection from 172.26.0.1:57170 on port 1883.
+1648378783: Client <unknown> disconnected due to malformed packet.
+1648378784: New connection from 172.26.0.1:60044 on port 8883.
+1648378784: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378784: Client <unknown> disconnected: Protocol error.
+1648378787: New connection from 172.26.0.1:60046 on port 8883.
+1648378787: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378787: Client <unknown> disconnected: Protocol error.
+1648378788: New connection from 172.26.0.1:60048 on port 8883.
+1648378788: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378788: Client <unknown> disconnected: Protocol error.
+1648378790: New connection from 172.26.0.1:60050 on port 8883.
+1648378790: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378790: Client <unknown> disconnected: Protocol error.
+1648378793: New connection from 172.26.0.1:60052 on port 8883.
+1648378793: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378793: Client <unknown> disconnected: Protocol error.
+1648378796: New connection from 172.26.0.1:60054 on port 8883.
+1648378796: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378796: Client <unknown> disconnected: Protocol error.
+1648378799: New connection from 172.26.0.1:60056 on port 8883.
+1648378799: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378799: Client <unknown> disconnected: Protocol error.
+1648378802: New connection from 172.26.0.1:60058 on port 8883.
+1648378802: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378802: Client <unknown> disconnected: Protocol error.
+1648378805: New connection from 172.26.0.1:60060 on port 8883.
+1648378806: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378806: Client <unknown> disconnected: Protocol error.
+1648378809: New connection from 172.26.0.1:60062 on port 8883.
+1648378809: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378809: Client <unknown> disconnected: Protocol error.
+1648378812: New connection from 172.26.0.1:60064 on port 8883.
+1648378812: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378812: Client <unknown> disconnected: Protocol error.
+1648378815: New connection from 172.26.0.1:60066 on port 8883.
+1648378815: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378815: Client <unknown> disconnected: Protocol error.
+1648378818: New connection from 172.26.0.1:60068 on port 8883.
+1648378818: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378818: Client <unknown> disconnected: Protocol error.
+1648378821: New connection from 172.26.0.1:60070 on port 8883.
+1648378821: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378821: Client <unknown> disconnected: Protocol error.
+1648378824: New connection from 172.26.0.1:60072 on port 8883.
+1648378824: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378824: Client <unknown> disconnected: Protocol error.
+1648378827: New connection from 172.26.0.1:60074 on port 8883.
+1648378827: OpenSSL Error[0]: error:14FFF086:SSL routines:(UNKNOWN)SSL_internal:certificate verify failed
+1648378827: Client <unknown> disconnected: Protocol error.
+1648378829: mosquitto version 2.0.14 terminating
+1648378829: Saving in-memory database to /mosquitto/data/mosquitto.db.
+1648379049: mosquitto version 2.0.14 starting
+1648379049: Config loaded from /mosquitto/config/mosquitto.conf.
+1648379049: Error: Unable to open pwfile "/mosquitto/config/passwd".
+1648379049: Error opening password file "/mosquitto/config/passwd".
+1648379049: mosquitto version 2.0.14 starting
+1648379049: Config loaded from /mosquitto/config/mosquitto.conf.
+1648379049: Error: Unable to open pwfile "/mosquitto/config/passwd".
+1648379049: Error opening password file "/mosquitto/config/passwd".
+1648379050: mosquitto version 2.0.14 starting
+1648379050: Config loaded from /mosquitto/config/mosquitto.conf.
+1648379050: Error: Unable to open pwfile "/mosquitto/config/passwd".
+1648379050: Error opening password file "/mosquitto/config/passwd".
+1648379051: mosquitto version 2.0.14 starting
+1648379051: Config loaded from /mosquitto/config/mosquitto.conf.
+1648379051: Error: Unable to open pwfile "/mosquitto/config/passwd".
+1648379051: Error opening password file "/mosquitto/config/passwd".
+1648379052: mosquitto version 2.0.14 starting
+1648379052: Config loaded from /mosquitto/config/mosquitto.conf.
+1648379052: Error: Unable to open pwfile "/mosquitto/config/passwd".
+1648379052: Error opening password file "/mosquitto/config/passwd".
+1648379054: mosquitto version 2.0.14 starting
+1648379054: Config loaded from /mosquitto/config/mosquitto.conf.
+1648379054: Error: Unable to open pwfile "/mosquitto/config/passwd".
+1648379054: Error opening password file "/mosquitto/config/passwd".
+1648379070: mosquitto version 2.0.14 starting
+1648379070: Config loaded from /mosquitto/config/mosquitto.conf.
+1648379070: Error: Unable to open pwfile "/mosquitto/config/passwd".
+1648379070: Error opening password file "/mosquitto/config/passwd".
+1648379070: mosquitto version 2.0.14 starting
+1648379070: Config loaded from /mosquitto/config/mosquitto.conf.
+1648379070: Error: Unable to open pwfile "/mosquitto/config/passwd".
+1648379070: Error opening password file "/mosquitto/config/passwd".
+1648379071: mosquitto version 2.0.14 starting
+1648379071: Config loaded from /mosquitto/config/mosquitto.conf.
+1648379071: Error: Unable to open pwfile "/mosquitto/config/passwd".
+1648379071: Error opening password file "/mosquitto/config/passwd".
+1648379071: mosquitto version 2.0.14 starting
+1648379071: Config loaded from /mosquitto/config/mosquitto.conf.
+1648379071: Error: Unable to open pwfile "/mosquitto/config/passwd".
+1648379071: Error opening password file "/mosquitto/config/passwd".
+1648379073: mosquitto version 2.0.14 starting
+1648379073: Config loaded from /mosquitto/config/mosquitto.conf.
+1648379073: Error: Unable to open pwfile "/mosquitto/config/passwd".
+1648379073: Error opening password file "/mosquitto/config/passwd".
+1648379075: mosquitto version 2.0.14 starting
+1648379075: Config loaded from /mosquitto/config/mosquitto.conf.
+1648379075: Error: Unable to open pwfile "/mosquitto/config/passwd".
+1648379075: Error opening password file "/mosquitto/config/passwd".
+1648379078: mosquitto version 2.0.14 starting
+1648379078: Config loaded from /mosquitto/config/mosquitto.conf.
+1648379078: Error: Unable to open pwfile "/mosquitto/config/passwd".
+1648379078: Error opening password file "/mosquitto/config/passwd".
+1648379085: mosquitto version 2.0.14 starting
+1648379085: Config loaded from /mosquitto/config/mosquitto.conf.
+1648379085: Error: Unable to open pwfile "/mosquitto/config/passwd".
+1648379085: Error opening password file "/mosquitto/config/passwd".
