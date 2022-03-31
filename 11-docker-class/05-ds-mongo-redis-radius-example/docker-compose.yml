@@ -47,7 +47,7 @@ services:
     networks:
       - backend
     volumes:
-      - redis_data:/data
+      - redisData:/data
     logging:
       driver: json-file
       options:
@@ -134,7 +134,7 @@ services:
 
 volumes:
   letsencrypt:
-  redis_data:
+  redisData:
   mongodb:
 
 networks:
