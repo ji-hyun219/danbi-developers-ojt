@@ -63,9 +63,10 @@ Docker의 구현 방식은 리눅스의 `cgroup`과 `namespace` 및 Docker에서
 - Registry(ship): 이미지를 공개 및 비공개 저장소에 올려서 공유하거나 배포하는 공간 => Docker hub, Github registry(ghr), AWS ECR(elastic container registry)
 
 ---
-
+layout: center
+---
 ## Docker architecture
-![docker-architecture](https://docs.docker.com/engine/architecture.svg)
+<img src="/architecture.svg" class="w-220" alt="docker architecture" />
 
 ---
 
