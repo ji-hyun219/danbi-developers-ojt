@@ -12,5 +12,8 @@
     "@slidev/theme-seriph": "*",
     "vite-plugin-remote-assets": "^0.2.2"
   },
-  "name": "danbi-dev-seminar"
+  "name": "danbi-dev-seminar",
+  "devDependencies": {
+    "playwright-chromium": "^1.20.2"
+  }
 }
