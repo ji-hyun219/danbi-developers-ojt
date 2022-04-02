@@ -3,7 +3,7 @@
 theme: seriph
 # random image from a curated Unsplash collection by Anthony
 # like them? see https://unsplash.com/collections/94734566/slidev
-background: /images/wp8114615.jpeg
+background: /wp8114615.jpeg
 # apply any windi css classes to the current slide
 class: 'text-center'
 # https://sli.dev/custom/highlighters.html
@@ -65,7 +65,7 @@ Docker의 구현 방식은 리눅스의 `cgroup`과 `namespace` 및 Docker에서
 ---
 
 ## Docker architecture
-![docker-architecture](https://docs.docker.com/engine/images/architecture.svg)
+![docker-architecture](https://docs.docker.com/engine/architecture.svg)
 
 ---
 
@@ -85,7 +85,7 @@ Docker의 구현 방식은 리눅스의 `cgroup`과 `namespace` 및 Docker에서
 
 ---
 layout: image
-image: ./images/wp8114730.png
+image: ./wp8114730.png
 ---
 
 ---
@@ -98,7 +98,7 @@ image: ./images/wp8114730.png
   - 호스트 하이퍼바이저: KVM(Kernel Virtual Machine)
 - 컨테이너: 호스트OS 상에서 논리적으로 구역을 나눠 애플리케이션을 동작 Docker
 
-<img src="/images/vs-docker.png" class="w-120 rounded shadow" />
+<img src="/vs-docker.png" class="w-120 rounded shadow" />
 
 ---
 
@@ -335,7 +335,7 @@ graph TB
 
 ---
 layout: image
-image: ./images/wp8114849.jpeg
+image: /wp8114849.jpeg
 class: text-center
 ---
 
