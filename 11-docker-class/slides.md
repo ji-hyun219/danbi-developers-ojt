@@ -3,7 +3,7 @@
 theme: seriph
 # random image from a curated Unsplash collection by Anthony
 # like them? see https://unsplash.com/collections/94734566/slidev
-background: ./images/wp8114615.jpeg
+background: /images/wp8114615.jpeg
 # apply any windi css classes to the current slide
 class: 'text-center'
 # https://sli.dev/custom/highlighters.html
@@ -98,7 +98,7 @@ image: ./images/wp8114730.png
   - 호스트 하이퍼바이저: KVM(Kernel Virtual Machine)
 - 컨테이너: 호스트OS 상에서 논리적으로 구역을 나눠 애플리케이션을 동작 Docker
 
-<img src="images/vs-docker.png" class="w-120 rounded shadow" />
+<img src="/images/vs-docker.png" class="w-120 rounded shadow" />
 
 ---
 
@@ -332,3 +332,11 @@ graph TB
   style D''' stroke:#0ff,stroke-width:4px
 
 ```
+
+---
+layout: image
+image: ./images/wp8114849.jpeg
+class: text-center
+---
+
+Thank you
