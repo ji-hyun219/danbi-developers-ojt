@@ -60,7 +60,7 @@ Docker의 구현 방식은 리눅스의 `cgroup`과 `namespace` 및 Docker에서
 - 컨테이너(container): 이미지가 실행된 격리된 가상공간
 - C Group(cgroup): CPU, 메모리 , Network Bandwith, HW I/O 등 프로세스 그룹의 시스템 리소스 사용량을 관리 => 리소스 관리 구조
 - namespace: 하나의 시스템에서 프로세스를 격리시킬 수 있는 가상화 기술 => 격리된 환경을 제공하는 경량 프로세스 가상화 => 컨테이너를 구분하는 구조(PID NS, Network NS, UID NS, IPC NS)
-- Registry(ship): 이미지를 공개 및 비공개 저장소에 올려서 공유하거나 배포하는 공간 => Docker hub, Github registry(ghr), AWS ECR(elastic container registry)
+- Registry(ship): 이미지를 공개 및 비공개 저장소에 올려서 공유하거나 배포하는 공간 => Docker hub, Github container registry(https://ghcr.io), AWS ECR(elastic container registry)
 
 ---
 layout: center
